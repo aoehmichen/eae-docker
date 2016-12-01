@@ -1,4 +1,4 @@
-[![Build Status](https://app.codeship.com/projects/186684/status?branch=master)](https://app.codeship.com/projects/186684/status?branch=master)
+[![Build Status](https://codeship.com/projects/051ba680-9490-0134-f20c-62256f914131/status?branch=master)](https://codeship.com/projects/051ba680-9490-0134-f20c-62256f914131/status?branch=master)
 
 # eae-docker
 The purpose of this repository is to provide a Docker-based installation of the different components of the eAE.
