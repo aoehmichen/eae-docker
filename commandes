@@ -1,0 +1,11 @@
+docker network create --subnet=172.17.0.0/16 eae
+
+docker run -h eae-jupyter --net eae --ip 172.17.0.2  -it -p 7180:7180  aoehmich/eae-cdh
+
+sudo service ssh restart &&
+sudo service postgresql restart &&
+sudo service cloudera-scm-server-db restart &&
+sudo service cloudera-scm-server restart &&
+sudo service apache2 restart
+
+sudo service cloudera-scm-agent restart
