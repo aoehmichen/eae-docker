@@ -12,6 +12,6 @@ RUN apt-get update -q
     && sleep 30 \
     && service cloudera-scm-agent restart
 
-RUN python CLoudera_Management.py
+RUN python Cloudera_Management.py
 
 
