@@ -7,7 +7,7 @@ RUN apt-get update -q \
     && apt-get -y install libcurl4-gnutls-dev \
     && pip install scimath \
     && pip install pymongo \
-    && pip install cm-api \
+    && pip install cm-api
 
 WORKDIR /home/eae
 
