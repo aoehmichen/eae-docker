@@ -11,10 +11,10 @@ RUN apt-get update -q \
 
 WORKDIR /home/eae
 
-ADD Cloudera_Management.py
-ADD irkernel-install.r
-ADD install_notebook.sh
-ADD start_eae.sh
+ADD Cloudera_Management.py /home/eae
+ADD irkernel_install.r /home/eae
+ADD install_notebook.sh /home/eae
+ADD start_eae.sh /home/eae
 
 RUN chmod 777 start_eae.sh
 
@@ -24,4 +24,4 @@ EXPOSE 7180 7777 8888 18088
 
 VOLUME ["/home/eae/"]
 
-CMD ["bash", "-c", "/home/eae/start_eae.sh"]
+CMD ["bash", "-c", "/home/eae/d.sh"]

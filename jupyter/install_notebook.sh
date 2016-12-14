@@ -16,7 +16,7 @@ tar xzf microsoft-r-open-3.3.1.tar.gz
 cd microsoft-r-open
 sudo ./install.sh
 cd ../notebook-install
-sudo Rscript irkernel-install.r
+sudo Rscript irkernel_install.r
 
 ## Setting up the Spark Kernel (Toree)
 sudo ipython profile create spark
