@@ -18,7 +18,7 @@ restart_cluster = cluster.restart()
 restart_cluster = restart_cluster.wait()
 print "Cluster %s. Status - restart success: %s." % (cluster.name, restart_cluster.success)
 
-print "Cluster %s. Status - Configuration Stale -- Redeploying configurations"
+print "Cluster %s. Status - Configuration Stale -- Redeploying configurations" % cluster.name
 redeploy_config = cluster.deploy_client_config().wait()
 redeploy_config = redeploy_config.wait()
 print "New configuration success: %s." % redeploy_config.success
