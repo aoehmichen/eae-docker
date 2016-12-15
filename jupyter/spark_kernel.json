@@ -1,0 +1,22 @@
+{
+  "display_name": "Spark",
+  "language_info": { "name": "scala" },
+  "argv": [
+    "/home/ubuntu/.ipython/kernels/spark/toree/bin/run.sh",
+    "--master",
+    "local[4]",
+    "--profile",
+    "{connection_file}"
+  ],
+  "codemirror_mode": "scala",
+  "env": {
+    "SPARK_OPTS": "--driver-java-options=-Xms1024M --driver-java-options=-Xmx4096M --driver-java-options=-Dlog4j.logLevel=trace",
+    "MAX_INTERPRETER_THREADS": "16",
+    "SPARK_CONFIGURATION": "spark.cores.max=4",
+    "CAPTURE_STANDARD_OUT": "true",
+    "CAPTURE_STANDARD_ERR": "true",
+    "SEND_EMPTY_OUTPUT": "false",
+    "SPARK_HOME": "/opt/cloudera/parcels/CDH/lib/spark",
+    "PYTHONPATH": "/opt/cloudera/parcels/CDH/lib/spark/python:/opt/cloudera/parcels/CDH/lib/spark/python/lib/py4j-0.9-src.zip"
+  }
+}

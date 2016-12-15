@@ -18,12 +18,25 @@ sudo ./install.sh
 cd ../notebook-install
 sudo Rscript irkernel_install.r
 
-## Setting up the Spark Kernel (Toree)
+## Setting up the Spark Kernels (Toree)
 sudo ipython profile create spark
 git clone https://github.com/CGnal/incubator-toree/
 cd incubator-toree
 git checkout cdh5.7.x
 sudo make dist
-mkdir -p ~/.ipython/kernels/spark
-cp -r dist/toree ~/.ipython/kernels/spark/
-cd ~/.ipython/kernels/spark/
+mkdir -p /root/.ipython/kernels/spark
+mkdir -p /root/.ipython/kernels/pyspark
+cp -r dist/toree /root/.ipython/kernels/spark/
+jupyter notebook --generate-config
+mv /root/jupyter_notebook_config.py /root/.jupyter/
+mv spark_kernel.json /root/.ipython/kernels/spark/kernel.json
+mv pyspark_kernel.json /root/.ipython/kernels/pyspark/kernel.json
+cd /root/.ipython/kernels/spark/toree/bin
+sed -i "/eval exec/d" run.sh
+echo 'exec "$SPARK_HOME"/bin/spark-submit \
+  ${SPARK_OPTS} \
+  --driver-class-path $PROG_HOME/lib/${KERNEL_ASSEMBLY} \
+  --class org.apache.toree.Main $PROG_HOME/lib/${KERNEL_ASSEMBLY} "$@"' >> run.sh
+
+## We create the folder where the jupyter notebooks will run
+mkdir /root/jupyter
