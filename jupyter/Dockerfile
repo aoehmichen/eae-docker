@@ -15,6 +15,7 @@ WORKDIR /root
 
 ADD Cloudera_Management.py /root
 ADD irkernel_install.r /root
+ADD jupyter_notebook_config.py /root
 ADD pyspark_kernel.json /root
 ADD spark_kernel.json /root
 ADD install_notebook.sh /root

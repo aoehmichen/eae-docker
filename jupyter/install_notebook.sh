@@ -29,8 +29,8 @@ mkdir -p /root/.ipython/kernels/pyspark
 cp -r dist/toree /root/.ipython/kernels/spark/
 jupyter notebook --generate-config
 mv /root/jupyter_notebook_config.py /root/.jupyter/
-mv spark_kernel.json /root/.ipython/kernels/spark/kernel.json
-mv pyspark_kernel.json /root/.ipython/kernels/pyspark/kernel.json
+mv /root/spark_kernel.json /root/.ipython/kernels/spark/kernel.json
+mv /root/pyspark_kernel.json /root/.ipython/kernels/pyspark/kernel.json
 cd /root/.ipython/kernels/spark/toree/bin
 sed -i "/eval exec/d" run.sh
 echo 'exec "$SPARK_HOME"/bin/spark-submit \
