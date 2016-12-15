@@ -7,9 +7,9 @@ service cloudera-scm-server-db restart
 
 sleep 60
 service cloudera-scm-agent restart
-sleep 20
+sleep 60
 service cloudera-scm-server restart
 
 python /home/eae/Cloudera_Management.py
 
-screen -d -m -S jupyter "jupyter-notebook --allow-root --kernel=ir"
+jupyter-notebook --allow-root --kernel=ir
