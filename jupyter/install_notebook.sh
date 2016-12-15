@@ -15,7 +15,7 @@ wget https://mran.revolutionanalytics.com/install/mro/3.3.1/microsoft-r-open-3.3
 tar xzf microsoft-r-open-3.3.1.tar.gz
 cd microsoft-r-open
 sudo ./install.sh
-cd ../notebook-install
+cd /root
 sudo Rscript irkernel_install.r
 
 ## Setting up the Spark Kernels (Toree)
