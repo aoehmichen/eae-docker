@@ -8,7 +8,6 @@ cd notebook
 pip install -e . --user
 cd ..
 sudo jupyter-nbextension enable --py widgetsnbextension
-openssl req -x509 -nodes -days 365 -newkey rsa:1024 -keyout notebook.key -out notebook.pem
 
 ## Setting up R and R Kernel
 wget https://mran.revolutionanalytics.com/install/mro/3.3.1/microsoft-r-open-3.3.1.tar.gz
@@ -39,4 +38,4 @@ echo 'exec "$SPARK_HOME"/bin/spark-submit \
   --class org.apache.toree.Main $PROG_HOME/lib/${KERNEL_ASSEMBLY} "$@"' >> run.sh
 
 ## We create the folder where the jupyter notebooks will run
-mkdir /root/jupyter
+mkdir -p /root/jupyter

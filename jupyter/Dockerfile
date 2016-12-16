@@ -21,7 +21,7 @@ ADD spark_kernel.json /root
 ADD install_notebook.sh /root
 ADD start_eae.sh /root
 
-RUN chmod 777 start_eae.sh && mkdir -p /root/jupyter
+RUN chmod 777 start_eae.sh
 
 RUN bash install_notebook.sh
 
@@ -29,4 +29,7 @@ EXPOSE 7180 7777 8888 18088
 
 VOLUME ["/root/jupyter/"]
 
-CMD ["bash", "-c", "/home/eae/start_eae.sh"]
+ENTRYPOINT ["bash", "-c", "/root/start_eae.sh"]
+
+# Default parameters in case the user does not provide them wih the RUN commande
+CMD ["localhost", "8081"]
