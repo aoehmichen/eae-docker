@@ -5,6 +5,17 @@ ADDRESS=${args[0]}
 PORT=${args[1]}
 PASSWORD="${args[2]}"
 
+## Safe guard against empty parameters
+if [[ ! -z $PORT ]] || [[ ! -z $ADDRESS ]]; then
+    echo "Interface eAE ADDRESS or PORT is not set!"
+    echo "Interface eAE ADDRESS: $ADDRESS"
+    echo "Interface eAE PORT: $PORT"
+    exit 1
+fi
+echo "Interface eAE ADDRESS: $ADDRESS"
+echo "Interface eAE PORT: $PORT"
+echo "Notebook password HasH: $PASSWORD"
+
 ## We restart all the necessary services
 service ssh restart
 sed "/eae-jupyter/d" /etc/hosts |  sed '/127.0.0.1/c  127.0.0.1 eae-jupyter' > /tmp/sed.txt
@@ -29,12 +40,9 @@ if [[ ! -z $PASSWORD ]]; then
     sed -i "s/sha1:854cd6632c4a:532c127d43cb1ff05745850979f4c863e3351da8/$PASSWORD/g" /root/.jupyter/jupyter_notebook_config.py
 fi
 
-echo "## Address of the interfaceEAE.
-#  The address should either be the IP of the machine or the FQDN.
-c.NotebookApp.eAEAddress = $ADDRESS" | tee -a /root/.jupyter/jupyter_notebook_config.py
+sed -i "s/.eae_ip = 'localhost'/.eae_ip = '$ADDRESS'/g" /root/.jupyter/jupyter_notebook_config.py
 
-printf "## Port of the interfaceEAE.
-c.NotebookApp.eAEPort = $PORT" | tee -a /root/.jupyter/jupyter_notebook_config.py
+sed -i "s/.eae_port = 8081/.eae_port = $PORT/g" /root/.jupyter/jupyter_notebook_config.py
 
 ## We start the notebook server in the jupyter folder
 cd /root/jupyter

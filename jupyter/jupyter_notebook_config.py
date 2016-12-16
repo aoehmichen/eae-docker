@@ -573,3 +573,10 @@ c.NotebookApp.port = 7777
 #  
 #  By default, all installed kernels are allowed.
 #c.KernelSpecManager.whitelist = set([])
+
+## Address of the interfaceEAE.
+#  The address should either be the IP of the machine or the FQDN.
+c.NotebookApp.eae_ip = 'localhost'
+
+## Port of the interfaceEAE.
+c.NotebookApp.eae_port = 8081

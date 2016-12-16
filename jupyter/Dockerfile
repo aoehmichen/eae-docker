@@ -25,7 +25,7 @@ RUN chmod 777 start_eae.sh
 
 RUN bash install_notebook.sh
 
-EXPOSE 7180 7777 8888 18088
+EXPOSE 22 7180 7777 8888 18088
 
 VOLUME ["/root/jupyter/"]
 
