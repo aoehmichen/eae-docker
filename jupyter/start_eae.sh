@@ -15,6 +15,7 @@ sleep 60
 service cloudera-scm-agent restart
 sleep 120
 service cloudera-scm-server restart
+sleep 60
 
 ## We restart all the Hadoop services
 python /root/Cloudera_Management.py
@@ -30,7 +31,7 @@ fi
 
 echo "## Address of the interfaceEAE.
 #  The address should either be the IP of the machine or the FQDN.
-c.NotebookApp.eAEAdress = $ADDRESS" | tee -a /root/.jupyter/jupyter_notebook_config.py
+c.NotebookApp.eAEAddress = $ADDRESS" | tee -a /root/.jupyter/jupyter_notebook_config.py
 
 printf "## Port of the interfaceEAE.
 c.NotebookApp.eAEPort = $PORT" | tee -a /root/.jupyter/jupyter_notebook_config.py

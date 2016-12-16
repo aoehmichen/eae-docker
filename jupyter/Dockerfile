@@ -29,7 +29,7 @@ EXPOSE 7180 7777 8888 18088
 
 VOLUME ["/root/jupyter/"]
 
-ENTRYPOINT ["bash", "-c", "/root/start_eae.sh"]
+ENTRYPOINT ["bash", "/root/start_eae.sh"]
 
 # Default parameters in case the user does not provide them wih the RUN commande
 CMD ["localhost", "8081"]
