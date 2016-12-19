@@ -11,7 +11,7 @@ RUN apt-get update -q && apt-get upgrade -y --no-install-recommends \
     && mkdir -p /root/data \
     && chmod 777 /root/data \
     && git clone https://github.com/aoehmichen/AnalyticsEAE.git \
-    && cp web-app/Scripts/putToHDFS.sh /root \
+    && curl -L "https://raw.githubusercontent.com/aoehmichen/interfaceEAE/master/web-app/Scripts/putToHDFS.sh" > /root/putToHDFS.sh \
     && chmod +x /root/putToHDFS.sh
 
 ## We install openlava
