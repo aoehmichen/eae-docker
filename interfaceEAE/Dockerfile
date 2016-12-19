@@ -5,7 +5,7 @@ WORKDIR /root
 
 ## We install all the dependencies
 RUN apt-get update -q && apt-get upgrade -y --no-install-recommends \
-    && apt-get install -y wget curl git unzip zip tomcat7 libncurses-dev \
+    && apt-get install -y wget curl git unzip zip tomcat7 libncurses-dev psmisc \
     && apt-get install -y tcl-dev \
     && mkdir -p /root/.grails/interfaceEAEConfig \
     && mkdir -p /root/data \
@@ -35,6 +35,7 @@ ADD lsb.hosts /root
 ADD lsb.queues /root
 ADD lsf.cluster.openlava /root
 ADD Config.groovy /root/.grails/interfaceEAEConfig/
+ADD start_eae.sh /root
 
 RUN curl -L https://github.com/aoehmichen/eae-files/raw/master/interfaceEAE.war -o /var/lib/tomcat7/webapps/interfaceEAE.war \
     && mv lsb.hosts /opt/openlava-3.3/etc/ \
