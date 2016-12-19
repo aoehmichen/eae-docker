@@ -10,7 +10,7 @@ RUN apt-get update -q && apt-get upgrade -y --no-install-recommends \
     && mkdir -p /root/.grails/interfaceEAEConfig \
     && mkdir -p /root/data \
     && chmod 777 /root/data \
-    && git clone https://github.com/aoehmichen/AnalyticsEAE.git /root/ \
+    && git clone https://github.com/aoehmichen/AnalyticsEAE.git /root/AnalyticsEAE \
     && curl -L "https://raw.githubusercontent.com/aoehmichen/interfaceEAE/master/web-app/Scripts/putToHDFS.sh" > /root/putToHDFS.sh \
     && chmod +x /root/putToHDFS.sh
 
@@ -31,7 +31,8 @@ RUN curl -L https://github.com/aoehmichen/eae-files/raw/master/op.tar.gz -o /roo
     && chown openlava:openlava /etc/profile.d/openlava.* \
     && chmod 755 /etc/profile.d/openlava.sh
 
-ADD lsf.conf /root
+ADD lsf.hosts /root
+ADD lsf.queues /root
 ADD lsf.cluster.openlava /root
 ADD Config.groovy /root/.grails/interfaceEAEConfig/
 
