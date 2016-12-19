@@ -4,7 +4,7 @@ MAINTAINER Axel Oehmichen <axelfrancois.oehmichen11@imperial.ac.uk>
 WORKDIR /root
 
 ## We install all the dependencies
-RUN apt-get update -q && sudo apt-get upgrade -y --no-install-recommends \
+RUN apt-get update -q && apt-get upgrade -y --no-install-recommends \
     && apt-get install -y wget curl git unzip zip tomcat7 libncurses-dev \
     && apt-get install -y tcl-dev \
     && mkdir -p /root/.grails/interfaceEAEConfig \
@@ -40,5 +40,5 @@ RUN curl -L https://github.com/aoehmichen/eae-files/raw/master/interfaceEAE.war 
     && mv lsf.cluster.openlava /opt/openlava-3.3/etc/ \
     && service openlava start
 
-EXPOSE 22 8081
+EXPOSE 22 8081 16322 16323 16324 16325
 
