@@ -10,12 +10,12 @@ RUN apt-get update -q && apt-get upgrade -y --no-install-recommends \
     && mkdir -p /root/.grails/interfaceEAEConfig \
     && mkdir -p /root/data \
     && chmod 777 /root/data \
-    && git clone https://github.com/aoehmichen/AnalyticsEAE.git \
+    && git clone https://github.com/aoehmichen/AnalyticsEAE.git /root/ \
     && curl -L "https://raw.githubusercontent.com/aoehmichen/interfaceEAE/master/web-app/Scripts/putToHDFS.sh" > /root/putToHDFS.sh \
     && chmod +x /root/putToHDFS.sh
 
 ## We install openlava
-RUN curl -L https://github.com/aoehmichen/eae-files/raw/master/op.tar.gz \
+RUN curl -L https://github.com/aoehmichen/eae-files/raw/master/op.tar.gz -o /root/op.tar.gz  \
     && tar zxvf op.tar.gz openlava-3.3 \
     && cd openlava-3.* \
     && ./configure \
