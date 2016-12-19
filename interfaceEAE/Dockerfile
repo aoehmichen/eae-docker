@@ -39,7 +39,7 @@ ADD Config.groovy /root/.grails/interfaceEAEConfig/
 RUN curl -L https://github.com/aoehmichen/eae-files/raw/master/interfaceEAE.war -o /var/lib/tomcat7/webapps/interfaceEAE.war \
     && mv lsb.hosts /opt/openlava-3.3/etc/ \
     && mv lsb.queues /opt/openlava-3.3/etc/ \
-    && mv lsf.cluster.openlava /opt/openlava-3.3/etc/ \
+    && mv lsf.cluster.openlava /opt/openlava-3.3/etc/
 
 EXPOSE 22 8081 16322 16323 16324 16325
 
