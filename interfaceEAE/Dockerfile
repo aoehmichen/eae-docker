@@ -31,8 +31,8 @@ RUN curl -L https://github.com/aoehmichen/eae-files/raw/master/op.tar.gz -o /roo
     && chown openlava:openlava /etc/profile.d/openlava.* \
     && chmod 755 /etc/profile.d/openlava.sh
 
-ADD lsf.hosts /root
-ADD lsf.queues /root
+ADD lsb.hosts /root
+ADD lsb.queues /root
 ADD lsf.cluster.openlava /root
 ADD Config.groovy /root/.grails/interfaceEAEConfig/
 
