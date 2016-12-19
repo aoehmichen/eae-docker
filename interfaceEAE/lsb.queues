@@ -346,7 +346,7 @@ PRIORITY      = 30
 NICE          = 20
 QJOB_LIMIT    = 100
 #PROCLIMIT    = 5              # job processor limit
-HOSTS         = node01
+HOSTS         = interfaceEAE
 #RES_REQ       = "gpu>0"
 DESCRIPTION   = For computations requiring GPU ressources.
 End Queue
@@ -356,7 +356,7 @@ QUEUE_NAME    = spark
 PRIORITY      = 30
 NICE          = 20
 QJOB_LIMIT    = 100
-HOSTS         = node01
+HOSTS         = interfaceEAE
 DESCRIPTION   = For computations requiring Spark ressources.
 End Queue
 
@@ -365,7 +365,7 @@ QUEUE_NAME    = R_small
 PRIORITY      = 30
 NICE          = 20
 QJOB_LIMIT    = 100
-HOSTS         = node01
+HOSTS         = interfaceEAE
 DESCRIPTION   = For computations requiring R ressources.
 End Queue
 
@@ -374,6 +374,6 @@ QUEUE_NAME    = python_small
 PRIORITY      = 30
 NICE          = 20
 QJOB_LIMIT    = 100
-HOSTS         = node01
+HOSTS         = interfaceEAE
 DESCRIPTION   = For computations requiring Python ressources.
 End Queue

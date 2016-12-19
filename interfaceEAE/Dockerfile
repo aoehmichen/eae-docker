@@ -16,7 +16,7 @@ RUN apt-get update -q && apt-get upgrade -y --no-install-recommends \
 
 ## We install openlava
 RUN curl -L https://github.com/aoehmichen/eae-files/raw/master/op.tar.gz -o /root/op.tar.gz  \
-    && tar zxvf op.tar.gz openlava-3.3 \
+    && tar zxvf /root/op.tar.gz openlava-3.3 \
     && cd openlava-3.* \
     && ./configure \
     && make \
@@ -37,9 +37,10 @@ ADD lsf.cluster.openlava /root
 ADD Config.groovy /root/.grails/interfaceEAEConfig/
 
 RUN curl -L https://github.com/aoehmichen/eae-files/raw/master/interfaceEAE.war -o /var/lib/tomcat7/webapps/interfaceEAE.war \
-    && mv lsf.conf /opt/openlava-3.3/etc/ \
+    && mv lsb.hosts /opt/openlava-3.3/etc/ \
+    && mv lsb.queues /opt/openlava-3.3/etc/ \
     && mv lsf.cluster.openlava /opt/openlava-3.3/etc/ \
-    && service openlava start
 
 EXPOSE 22 8081 16322 16323 16324 16325
 
+ENTRYPOINT ["bash", "/root/start_eae.sh"]
