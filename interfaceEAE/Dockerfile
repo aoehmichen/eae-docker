@@ -5,7 +5,7 @@ WORKDIR /root
 
 ## We install all the dependencies
 RUN apt-get update -q && apt-get upgrade -y --no-install-recommends \
-    && apt-get install -y wget curl git unzip zip tomcat7 libncurses-dev psmisc default-jdk \
+    && apt-get install -y wget curl git unzip zip tomcat7 libncurses-dev psmisc default-jdk vim htop \
     && apt-get install -y tcl-dev \
     && mkdir -p /root/.grails/interfaceEAEConfig \
     && mkdir -p /root/data \
