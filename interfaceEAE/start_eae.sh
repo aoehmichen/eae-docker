@@ -11,10 +11,13 @@ service openlava restart
 sed -i -e '89d;93d' /var/lib/tomcat7/conf/server.xml
 sed -i "s/sslProtocol=\"TLS\"/sslProtocol=\"TLS\"  keystorePass=\"changeit\"/g" /var/lib/tomcat7/conf/server.xml
 
-# We restart tomcat
-service tomcat7 start
+echo "Host *
+    StrictHostKeyChecking no" > /home/eae/.ssh/config
 
-if [[ $1 == "-d" ]]; then
+# We restart tomcat
+service tomcat7 restart
+
+if [[ $1 == "-deamon" ]]; then
   while true; do sleep 1000; done
 fi
 

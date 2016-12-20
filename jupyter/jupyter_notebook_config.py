@@ -579,4 +579,10 @@ c.NotebookApp.port = 7777
 c.NotebookApp.eae_ip = 'localhost'
 
 ## Port of the interfaceEAE.
-c.NotebookApp.eae_port = 8081
+c.NotebookApp.eae_port = 8433
+
+## IP of the host machine
+c.NotebookApp.eae_host_ip = '127.0.0.1'
+
+## Port on the host machine where ssh port is mapped
+c.NotebookApp.eae_host_ssh_port = 22222

@@ -39,3 +39,4 @@ echo 'exec "$SPARK_HOME"/bin/spark-submit \
 
 ## We create the folder where the jupyter notebooks will run
 mkdir -p /root/jupyter
+chmod 777 /root/jupyter

@@ -25,6 +25,15 @@ RUN chmod 777 start_eae.sh
 
 RUN bash install_notebook.sh
 
+# We set up the ssh keys for user eae
+RUN useradd -ms /bin/bash eae
+USER eae
+WORKDIR /home/eae
+RUN echo -e "\n\n\n" | ssh-keygen -t rsa
+    && rm -rf .ssh/id_rsa*
+ADD id_rsa.pub /home/eae/.ssh/
+RUN cat .ssh/id_rsa.pub > .ssh/authorized_keys
+
 EXPOSE 22 7180 7777 8888 18088
 
 VOLUME ["/root/jupyter/"]

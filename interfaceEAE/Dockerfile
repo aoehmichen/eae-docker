@@ -7,7 +7,7 @@ WORKDIR /root
 RUN apt-get update -q && apt-get upgrade -y --no-install-recommends \
     && apt-get install -y wget curl git unzip zip tomcat7 libncurses-dev psmisc default-jdk vim htop \
     && apt-get install -y tcl-dev \
-    && mkdir -p /root/.grails/interfaceEAEConfig \
+    && mkdir -p /home/eae/.grails/interfaceEAEConfig \
     && mkdir -p /root/data \
     && chmod 777 /root/data \
     && git clone https://github.com/aoehmichen/AnalyticsEAE.git /root/AnalyticsEAE \
@@ -37,10 +37,32 @@ ADD lsf.cluster.openlava /root
 ADD Config.groovy /root/.grails/interfaceEAEConfig/
 ADD start_eae.sh /root
 
+# We set the configuration files
 RUN curl -L https://github.com/aoehmichen/eae-files/raw/master/interfaceEAE.war -o /var/lib/tomcat7/webapps/interfaceEAE.war \
     && mv lsb.hosts /opt/openlava-3.3/etc/ \
     && mv lsb.queues /opt/openlava-3.3/etc/ \
     && mv lsf.cluster.openlava /opt/openlava-3.3/etc/
+
+# We create the eae user and set the tomcat to run as the newly created eae user
+RUN useradd -ms /bin/bash eae \
+    && service tomcat7 stop \
+    && sed -i "s/TOMCAT7_USER=tomcat7/TOMCAT7_USER=eae/g" /etc/default/tomcat7 \
+    && sed -i "s/TOMCAT7_GROUP=tomcat7/TOMCAT7_GROUP=eae/g" /etc/default/tomcat7 \
+    && chown -R eae:eae /var/log/tomcat7 \
+    && chown eae:eae /var/lib/tomcat7/webapps \
+    && chown eae:eae /var/cache/tomcat7 \
+    && chown -R eae:eae /var/cache/tomcat7/Catalina \
+    && chown -R root:eae /var/lib/tomcat7/conf/ \
+    && usermod -a -G tomcat7 eae
+
+# We set up the ssh keys for user eae
+USER eae
+WORKDIR /home/eae
+RUN echo -e "\n\n\n" | ssh-keygen -t rsa
+    && rm -rf .ssh/id_rsa*
+ADD id_rsa /home/eae/.ssh/
+ADD id_rsa.pub /home/eae/.ssh/
+RUN cat .ssh/id_rsa.pub > .ssh/authorized_keys
 
 EXPOSE 22 8443 16322 16323 16324 16325
 
