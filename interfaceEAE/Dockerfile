@@ -1,4 +1,4 @@
-FROM ubuntu:16.04
+FROM ubuntu:14.04
 MAINTAINER Axel Oehmichen <axelfrancois.oehmichen11@imperial.ac.uk>
 
 WORKDIR /root
@@ -47,24 +47,37 @@ RUN curl -L https://github.com/aoehmichen/eae-files/raw/master/interfaceEAE.war 
 RUN useradd -ms /bin/bash eae \
     && mkdir -p /home/eae/.grails/interfaceEAEConfig \
     && mv /root/Config.groovy /home/eae/.grails/interfaceEAEConfig \
-    && killall java \
+    && chown -R eae:eae /home/eae/.grails/ \
     && sed -i "s/TOMCAT7_USER=tomcat7/TOMCAT7_USER=eae/g" /etc/default/tomcat7 \
     && sed -i "s/TOMCAT7_GROUP=tomcat7/TOMCAT7_GROUP=eae/g" /etc/default/tomcat7 \
+    && /usr/lib/jvm/default-java/bin/keytool -genkey -alias tomcat -keyalg RSA -storepass changeit -keypass changeit -validity 365 -dname "cn=AOehmichen, ou=eAE, o=DSI, c=UK" \
+    && mv /root/.keystore /home/eae/ \
+    && chown eae:eae /home/eae/.keystore \
+    && sed -i 's/port="8433"/port="8081"/g' /var/lib/tomcat7/conf/server.xml \
+    && sed -i -e '87d;91d' /var/lib/tomcat7/conf/server.xml \
+    && sed -i "s/sslProtocol=\"TLS\"/sslProtocol=\"TLS\"  keystorePass=\"changeit\"/g" /var/lib/tomcat7/conf/server.xml \
     && chown -R eae:eae /var/log/tomcat7 \
+    && chmod 777  /var/lib/tomcat7/logs \
     && chown eae:eae /var/lib/tomcat7/webapps \
     && chown eae:eae /var/cache/tomcat7 \
     && chown -R root:eae /var/lib/tomcat7/conf/ \
-    && rm -rf /var/log/tomcat7/*
+    && rm -rf /var/log/tomcat7/* \
     && usermod -a -G tomcat7 eae
 
 # We set up the ssh keys for user eae
 USER eae
 WORKDIR /home/eae
-RUN echo -e "\n\n\n" | ssh-keygen -t rsa
-    && rm -rf .ssh/id_rsa*
+RUN mkdir ~/.ssh && chmod 700 ~/.ssh
+
 ADD id_rsa /home/eae/.ssh/
 ADD id_rsa.pub /home/eae/.ssh/
-RUN cat .ssh/id_rsa.pub > .ssh/authorized_keys
+
+USER root
+RUN cat .ssh/id_rsa.pub > .ssh/authorized_keys \
+    && echo "Host * \
+    StrictHostKeyChecking no" > /home/eae/.ssh/config \
+    && chown -R eae:eae .ssh/ \
+    && chmod 600 .ssh/id_rsa
 
 EXPOSE 22 8443 16322 16323 16324 16325
 
