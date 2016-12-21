@@ -36,7 +36,6 @@ RUN curl -L https://github.com/aoehmichen/eae-files/raw/master/op.tar.gz -o /roo
     && chown openlava:openlava /etc/profile.d/openlava.* \
     && chmod 755 /etc/profile.d/openlava.sh
 
-
 # We set the configuration files
 RUN curl -L https://github.com/aoehmichen/eae-files/raw/master/interfaceEAE.war -o /var/lib/tomcat7/webapps/interfaceEAE.war \
     && mv lsb.hosts /opt/openlava-3.3/etc/ \
@@ -79,6 +78,6 @@ RUN cat .ssh/id_rsa.pub > .ssh/authorized_keys \
     && chown -R eae:eae .ssh/ \
     && chmod 600 .ssh/id_rsa
 
-EXPOSE 22 8443 16322 16323 16324 16325
+EXPOSE 22 8081 16322 16323 16324 16325
 
 ENTRYPOINT ["bash", "/root/start_eae.sh"]
