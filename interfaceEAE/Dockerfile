@@ -44,8 +44,7 @@ RUN curl -L https://github.com/aoehmichen/eae-files/raw/master/interfaceEAE.war 
     && mv lsf.cluster.openlava /opt/openlava-3.3/etc/
 
 # We create the eae user and set the tomcat to run as the newly created eae user
-RUN useradd -ms /bin/bash eae \
-    && service tomcat7 stop \
+RUN service tomcat7 stop \
     && sed -i "s/TOMCAT7_USER=tomcat7/TOMCAT7_USER=eae/g" /etc/default/tomcat7 \
     && sed -i "s/TOMCAT7_GROUP=tomcat7/TOMCAT7_GROUP=eae/g" /etc/default/tomcat7 \
     && chown -R eae:eae /var/log/tomcat7 \
