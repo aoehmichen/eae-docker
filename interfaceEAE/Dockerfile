@@ -3,6 +3,14 @@ MAINTAINER Axel Oehmichen <axelfrancois.oehmichen11@imperial.ac.uk>
 
 WORKDIR /root
 
+ADD lsb.hosts /root
+ADD lsb.queues /root
+ADD lsf.cluster.openlava /root
+ADD Config.groovy /root/.grails/interfaceEAEConfig/
+ADD id_rsa /root
+ADD id_rsa.pub /root
+ADD start_eae.sh /root
+
 ## We install all the dependencies
 RUN apt-get update -q && apt-get upgrade -y --no-install-recommends \
     && apt-get install -y wget curl git unzip zip tomcat7 libncurses-dev psmisc default-jdk vim htop \
@@ -31,11 +39,6 @@ RUN curl -L https://github.com/aoehmichen/eae-files/raw/master/op.tar.gz -o /roo
     && chown openlava:openlava /etc/profile.d/openlava.* \
     && chmod 755 /etc/profile.d/openlava.sh
 
-ADD lsb.hosts /root
-ADD lsb.queues /root
-ADD lsf.cluster.openlava /root
-ADD Config.groovy /root/.grails/interfaceEAEConfig/
-ADD start_eae.sh /root
 
 # We set the configuration files
 RUN curl -L https://github.com/aoehmichen/eae-files/raw/master/interfaceEAE.war -o /var/lib/tomcat7/webapps/interfaceEAE.war \

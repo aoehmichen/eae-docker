@@ -1,6 +1,17 @@
 FROM aoehmich/cdh5.9:latest
 MAINTAINER Axel Oehmichen <axelfrancois.oehmichen11@imperial.ac.uk>
 
+WORKDIR /root
+
+ADD Cloudera_Management.py /root
+ADD irkernel_install.r /root
+ADD jupyter_notebook_config.py /root
+ADD pyspark_kernel.json /root
+ADD spark_kernel.json /root
+ADD id_rsa /root
+ADD id_rsa.pub /root
+ADD start_eae.sh /root
+
 RUN echo "deb https://dl.bintray.com/sbt/debian /" | sudo tee -a /etc/apt/sources.list.d/sbt.list \
     && apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 2EE0EA64E40A89B84B2DF73499E82A75642AC823 \
     && apt-get update -q \
@@ -9,21 +20,8 @@ RUN echo "deb https://dl.bintray.com/sbt/debian /" | sudo tee -a /etc/apt/source
     && apt-get -y install libcurl4-gnutls-dev sbt \
     && pip install scimath \
     && pip install pymongo \
-    && pip install cm-api
-
-WORKDIR /root
-
-ADD Cloudera_Management.py /root
-ADD irkernel_install.r /root
-ADD jupyter_notebook_config.py /root
-ADD pyspark_kernel.json /root
-ADD spark_kernel.json /root
-ADD install_notebook.sh /root
-ADD start_eae.sh /root
-
-RUN chmod 777 start_eae.sh
-
-RUN bash install_notebook.sh
+    && pip install cm-api \
+    && chmod 777 start_eae.sh
 
 ## Setting up Jupyter notebook and we create the folder where the jupyter notebooks will run
 RUN pip install setuptools pip --upgrade --user \
@@ -31,9 +29,9 @@ RUN pip install setuptools pip --upgrade --user \
     && git clone https://github.com/aoehmichen/notebook.git \
     && cd notebook \
     && pip install -e . --user \
-    && cd \
+    && cd /root \
     && jupyter-nbextension enable --py widgetsnbextension \
-    && mkdir -p /root/jupyter
+    && mkdir -p /root/jupyter \
     && chmod 777 /root/jupyter
 
 ## Setting up R and R Kernel
@@ -45,27 +43,26 @@ RUN wget https://mran.revolutionanalytics.com/install/mro/3.3.1/microsoft-r-open
     && Rscript irkernel_install.r
 
 ## Setting up the Spark Kernels (Toree)
-RUN ipython profile create spark
-    && git clone https://github.com/CGnal/incubator-toree/
-    && cd incubator-toree
-    && git checkout cdh5.7.x
-    && make dist
-    && mkdir -p /root/.ipython/kernels/spark
-    && mkdir -p /root/.ipython/kernels/pyspark
-    && cp -r dist/toree /root/.ipython/kernels/spark/
-    && jupyter notebook --generate-config
-    && mv /root/jupyter_notebook_config.py /root/.jupyter/
-    && mv /root/spark_kernel.json /root/.ipython/kernels/spark/kernel.json
-    && mv /root/pyspark_kernel.json /root/.ipython/kernels/pyspark/kernel.json
-    && cd /root/.ipython/kernels/spark/toree/bin
-    && sed -i "/eval exec/d" run.sh
+RUN ipython profile create spark \
+    && git clone https://github.com/CGnal/incubator-toree/ \
+    && cd incubator-toree \
+    && git checkout cdh5.7.x \
+    && make dist \
+    && mkdir -p /root/.ipython/kernels/spark \
+    && mkdir -p /root/.ipython/kernels/pyspark \
+    && cp -r dist/toree /root/.ipython/kernels/spark/ \
+    && jupyter notebook --generate-config \
+    && mv /root/jupyter_notebook_config.py /root/.jupyter/ \
+    && mv /root/spark_kernel.json /root/.ipython/kernels/spark/kernel.json \
+    && mv /root/pyspark_kernel.json /root/.ipython/kernels/pyspark/kernel.json \
+    && cd /root/.ipython/kernels/spark/toree/bin \
+    && sed -i "/eval exec/d" run.sh \
     && echo 'exec "$SPARK_HOME"/bin/spark-submit \
         ${SPARK_OPTS} \
         --driver-class-path $PROG_HOME/lib/${KERNEL_ASSEMBLY} \
         --class org.apache.toree.Main $PROG_HOME/lib/${KERNEL_ASSEMBLY} "$@"' >> run.sh
 
 # We set up the ssh keys for user eae
-RUN useradd -ms /bin/bash eae
 USER eae
 WORKDIR /home/eae
 RUN echo -e "\n\n\n" | ssh-keygen -t rsa
@@ -73,11 +70,11 @@ RUN echo -e "\n\n\n" | ssh-keygen -t rsa
 ADD id_rsa.pub /home/eae/.ssh/
 RUN cat .ssh/id_rsa.pub > .ssh/authorized_keys
 
-EXPOSE 22 7180 7777 8888 18088
+EXPOSE 22 7180 7777 8433 8888 18088
 
 VOLUME ["/root/jupyter/"]
 
 ENTRYPOINT ["bash", "/root/start_eae.sh"]
 
 # Default parameters in case the user does not provide them wih the RUN commande
-CMD ["localhost", "8081"]
+CMD ["localhost", "8433"]
