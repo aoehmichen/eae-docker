@@ -8,6 +8,8 @@ service openlava restart
 
 # We restart tomcat
 killall java
+mkdir /var/cache/tomcat7/Catalina/localhost
+chown -R eae:eae /var/cache/tomcat7/Catalina
 service tomcat7 restart
 
 if [[ $1 == "-deamon" ]]; then
