@@ -6,7 +6,7 @@ WORKDIR /root
 ADD lsb.hosts /root
 ADD lsb.queues /root
 ADD lsf.cluster.openlava /root
-ADD Config.groovy /root/.grails/interfaceEAEConfig/
+ADD Config.groovy /root
 ADD id_rsa /root
 ADD id_rsa.pub /root
 ADD start_eae.sh /root
@@ -15,7 +15,6 @@ ADD start_eae.sh /root
 RUN apt-get update -q && apt-get upgrade -y --no-install-recommends \
     && apt-get install -y wget curl git unzip zip tomcat7 libncurses-dev psmisc default-jdk vim htop \
     && apt-get install -y tcl-dev \
-    && mkdir -p /home/eae/.grails/interfaceEAEConfig \
     && mkdir -p /root/data \
     && chmod 777 /root/data \
     && git clone https://github.com/aoehmichen/AnalyticsEAE.git /root/AnalyticsEAE \
@@ -47,7 +46,10 @@ RUN curl -L https://github.com/aoehmichen/eae-files/raw/master/interfaceEAE.war 
     && mv lsf.cluster.openlava /opt/openlava-3.3/etc/
 
 # We create the eae user and set the tomcat to run as the newly created eae user
-RUN service tomcat7 stop \
+RUN useradd -ms /bin/bash eae \
+    && mkdir -p /home/eae/.grails/interfaceEAEConfig \
+    && mv /root/Config.groovy /home/eae/.grails/interfaceEAEConfig \
+    && service tomcat7 stop \
     && sed -i "s/TOMCAT7_USER=tomcat7/TOMCAT7_USER=eae/g" /etc/default/tomcat7 \
     && sed -i "s/TOMCAT7_GROUP=tomcat7/TOMCAT7_GROUP=eae/g" /etc/default/tomcat7 \
     && chown -R eae:eae /var/log/tomcat7 \

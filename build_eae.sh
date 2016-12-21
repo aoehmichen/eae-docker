@@ -14,5 +14,5 @@ cp  id_rsa.pub interfaceEAE
 cp id_rsa.pub jupyter
 
 ## We build the images
-Docker build interfaceEAE/
-Docker build jupyter/
+docker build interfaceEAE/
+docker build jupyter/
