@@ -7,8 +7,6 @@ ADD lsb.hosts /root
 ADD lsb.queues /root
 ADD lsf.cluster.openlava /root
 ADD Config.groovy /root
-ADD id_rsa /root
-ADD id_rsa.pub /root
 ADD start_eae.sh /root
 
 ## We install all the dependencies
@@ -49,14 +47,14 @@ RUN curl -L https://github.com/aoehmichen/eae-files/raw/master/interfaceEAE.war 
 RUN useradd -ms /bin/bash eae \
     && mkdir -p /home/eae/.grails/interfaceEAEConfig \
     && mv /root/Config.groovy /home/eae/.grails/interfaceEAEConfig \
-    && service tomcat7 stop \
+    && killall java \
     && sed -i "s/TOMCAT7_USER=tomcat7/TOMCAT7_USER=eae/g" /etc/default/tomcat7 \
     && sed -i "s/TOMCAT7_GROUP=tomcat7/TOMCAT7_GROUP=eae/g" /etc/default/tomcat7 \
     && chown -R eae:eae /var/log/tomcat7 \
     && chown eae:eae /var/lib/tomcat7/webapps \
     && chown eae:eae /var/cache/tomcat7 \
-    && chown -R eae:eae /var/cache/tomcat7/Catalina \
     && chown -R root:eae /var/lib/tomcat7/conf/ \
+    && rm -rf /var/log/tomcat7/*
     && usermod -a -G tomcat7 eae
 
 # We set up the ssh keys for user eae

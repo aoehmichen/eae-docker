@@ -15,6 +15,7 @@ echo "Host *
     StrictHostKeyChecking no" > /home/eae/.ssh/config
 
 # We restart tomcat
+killall java
 service tomcat7 restart
 
 if [[ $1 == "-deamon" ]]; then
