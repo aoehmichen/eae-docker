@@ -12,12 +12,7 @@ ADD start_eae.sh /root
 ## We install all the dependencies
 RUN apt-get update -q && apt-get upgrade -y --no-install-recommends \
     && apt-get install -y wget curl git unzip zip tomcat7 libncurses-dev psmisc default-jdk vim htop \
-    && apt-get install -y tcl-dev \
-    && mkdir -p /root/data \
-    && chmod 777 /root/data \
-    && git clone https://github.com/aoehmichen/AnalyticsEAE.git /root/AnalyticsEAE \
-    && curl -L "https://raw.githubusercontent.com/aoehmichen/interfaceEAE/master/web-app/Scripts/putToHDFS.sh" > /root/putToHDFS.sh \
-    && chmod +x /root/putToHDFS.sh
+    && apt-get install -y tcl-dev
 
 ## We install openlava
 RUN curl -L https://github.com/aoehmichen/eae-files/raw/master/op.tar.gz -o /root/op.tar.gz  \
@@ -52,7 +47,6 @@ RUN useradd -ms /bin/bash eae \
     && /usr/lib/jvm/default-java/bin/keytool -genkey -alias tomcat -keyalg RSA -storepass changeit -keypass changeit -validity 365 -dname "cn=AOehmichen, ou=eAE, o=DSI, c=UK" \
     && mv /root/.keystore /home/eae/ \
     && chown eae:eae /home/eae/.keystore \
-    && sed -i 's/port="8433"/port="8081"/g' /var/lib/tomcat7/conf/server.xml \
     && sed -i -e '87d;91d' /var/lib/tomcat7/conf/server.xml \
     && sed -i "s/sslProtocol=\"TLS\"/sslProtocol=\"TLS\"  keystorePass=\"changeit\"/g" /var/lib/tomcat7/conf/server.xml \
     && chown -R eae:eae /var/log/tomcat7 \
@@ -66,7 +60,12 @@ RUN useradd -ms /bin/bash eae \
 # We set up the ssh keys for user eae
 USER eae
 WORKDIR /home/eae
-RUN mkdir ~/.ssh && chmod 700 ~/.ssh
+RUN mkdir ~/.ssh && chmod 700 ~/.ssh \
+    && mkdir -p data \
+    && chmod 777 data \
+    && git clone https://github.com/aoehmichen/AnalyticsEAE.git /home/eae/AnalyticsEAE \
+    && curl -L "https://raw.githubusercontent.com/aoehmichen/interfaceEAE/master/web-app/Scripts/putToHDFS.sh" > putToHDFS.sh \
+    && chmod +x putToHDFS.sh
 
 ADD id_rsa /home/eae/.ssh/
 ADD id_rsa.pub /home/eae/.ssh/
@@ -78,6 +77,6 @@ RUN cat .ssh/id_rsa.pub > .ssh/authorized_keys \
     && chown -R eae:eae .ssh/ \
     && chmod 600 .ssh/id_rsa
 
-EXPOSE 22 8081 16322 16323 16324 16325
+EXPOSE 22 8433 16322 16323 16324 16325
 
 ENTRYPOINT ["bash", "/root/start_eae.sh"]
