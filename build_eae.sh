@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+WorkerIP=
+
 ## Cleanup before build
 rm -f id_rsa*
 rm -f interfaceEAE/id_rsa*
@@ -18,3 +20,17 @@ cp id_rsa.pub workerExample
 ## We build the images
 docker build interfaceEAE/
 docker build jupyter/
+docker build workerExample/
+
+# NB -it to be replaced by -d
+## InterfaceEAE start
+docker run -it \
+            -h interfaceEAE \
+            -p 22222:22 \
+            -p 22223:8443 \
+            -p 16322:16322 \
+            -p 16323:16323 \
+            -p 16324:16324 \
+            -p 16325:16325 \
+            --add-host worker1:$WorkerIP \
+            aoehmichen/interfaceEAE:latest -bash None

@@ -203,7 +203,7 @@ NICE         = 20
 #CORELIMIT    = 20000
 #PROCLIMIT    = 5              # job processor limit
 #USERS        = all            # users who can submit jobs to this queue
-#HOSTS        = all            # hosts on which jobs in this queue can run
+HOSTS        = all            # hosts on which jobs in this queue can run
 #PRE_EXEC     = /usr/local/lsf/misc/testq_pre >> /tmp/pre.out
 #POST_EXEC    = /usr/local/lsf/misc/testq_post |grep -v "Hey"
 #REQUEUE_EXIT_VALUES = 55 34 78
@@ -327,45 +327,32 @@ End Queue
 #DESCRIPTION  = Running only if the machine is idle and very lightly loaded.
 #End Queue
 
-
 #Begin Queue
-#QUEUE_NAME   = chkpnt_rerun_queue
-#PRIORITY     = 40
-#NICE         = 10
-#r1m	     = 0.8/2.5
-##STACKLIMIT   = 2048
-#CHKPNT       = /tmp 10  # chkpnt period 10 minutes;
-#RERUNNABLE   = YES
-#DESCRIPTION  = Jobs submitted to this queue will be checkpointed\
-#automatically and also rerunnable.
+#QUEUE_NAME    = gpu
+#PRIORITY      = 30
+#NICE          = 20
+#QJOB_LIMIT    = 100
+##PROCLIMIT    = 5              # job processor limit
+#HOSTS         = worker_gpu
+##RES_REQ       = "gpu>0"
+#DESCRIPTION   = For computations requiring GPU ressources.
 #End Queue
 
-Begin Queue
-QUEUE_NAME    = gpu
-PRIORITY      = 30
-NICE          = 20
-QJOB_LIMIT    = 100
-#PROCLIMIT    = 5              # job processor limit
-HOSTS         = interfaceEAE
-#RES_REQ       = "gpu>0"
-DESCRIPTION   = For computations requiring GPU ressources.
-End Queue
-
-Begin Queue
-QUEUE_NAME    = spark
-PRIORITY      = 30
-NICE          = 20
-QJOB_LIMIT    = 100
-HOSTS         = interfaceEAE
-DESCRIPTION   = For computations requiring Spark ressources.
-End Queue
+#Begin Queue
+#QUEUE_NAME    = spark
+#PRIORITY      = 30
+#NICE          = 20
+#QJOB_LIMIT    = 100
+#HOSTS         = worker_Spark
+#DESCRIPTION   = For computations requiring Spark ressources.
+#End Queue
 
 Begin Queue
 QUEUE_NAME    = R_small
 PRIORITY      = 30
 NICE          = 20
 QJOB_LIMIT    = 100
-HOSTS         = interfaceEAE
+HOSTS         = worker1
 DESCRIPTION   = For computations requiring R ressources.
 End Queue
 
@@ -374,6 +361,6 @@ QUEUE_NAME    = python_small
 PRIORITY      = 30
 NICE          = 20
 QJOB_LIMIT    = 100
-HOSTS         = interfaceEAE
+HOSTS         = worker1
 DESCRIPTION   = For computations requiring Python ressources.
 End Queue
