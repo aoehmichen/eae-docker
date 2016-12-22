@@ -7,6 +7,7 @@ ADD lsb.hosts /root
 ADD lsb.queues /root
 ADD lsf.cluster.openlava /root
 ADD Config.groovy /root
+ADD insert_first_user.py /root
 ADD start_eae.sh /root
 
 ## We install all the dependencies
