@@ -57,6 +57,7 @@ sed -i "s/.eae_host_ssh_port = 22222/.eae_host_ssh_port = $SSH_HOST_PORT/g" /roo
 cd /root/jupyter
 screen -d -m -S jupyter "jupyter-notebook --allow-root --kernel=ir"
 
+## Hook on the container
 if [[ $START_MODE == "-deamon" ]]; then
   while true; do sleep 1000; done
 fi

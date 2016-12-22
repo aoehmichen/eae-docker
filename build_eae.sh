@@ -9,9 +9,11 @@ rm -f jupyter/id_rsa.pub
 ssh-keygen -t rsa -N "" -f id_rsa
 
 ## We copy to the directories
-cp  id_rsa interfaceEAE
-cp  id_rsa.pub interfaceEAE
+cp id_rsa interfaceEAE
+cp id_rsa.pub interfaceEAE
 cp id_rsa.pub jupyter
+cp id_rsa workerExample
+cp id_rsa.pub workerExample
 
 ## We build the images
 docker build interfaceEAE/

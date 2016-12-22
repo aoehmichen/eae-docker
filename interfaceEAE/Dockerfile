@@ -77,6 +77,8 @@ RUN cat .ssh/id_rsa.pub > .ssh/authorized_keys \
     && chown -R eae:eae .ssh/ \
     && chmod 600 .ssh/id_rsa
 
-EXPOSE 22 8433 16322 16323 16324 16325
+EXPOSE 22 8443 16322 16323 16324 16325
 
 ENTRYPOINT ["bash", "/root/start_eae.sh"]
+
+CMD ["-deamon", "None"]

@@ -10,8 +10,22 @@ service openlava restart
 killall java
 mkdir -p /var/cache/tomcat7/Catalina/localhost
 chown -R eae:eae /var/cache/tomcat7/Catalina
+
+## build a local mongo if a remote one is not provided
+if [[ $2 == "None" ]]; then
+    apt-get install python-dev python-pip mongodb
+    pip install pymongo
+    pip install pycrypto
+    python /root/insert_first_user.py localhost:27017 eae
+    ## We need to download and deploy an interfaceEAE version without user authentication
+    rm -rf /var/lib/tomcat/webapps/interfaceEAE*
+    rm -rf /var/lib/tomcat/logs/*
+    curl -L https://github.com/aoehmichen/eae-files/raw/master/interfaceEAE_unsecure.war -o /var/lib/tomcat7/webapps/interfaceEAE.war
+fi
+
 service tomcat7 restart
 
+## Hook on the container
 if [[ $1 == "-deamon" ]]; then
   while true; do sleep 1000; done
 fi
