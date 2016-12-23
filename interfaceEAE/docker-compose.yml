@@ -4,17 +4,17 @@ services:
   mongodb:
     image: mongo:3.4.0
     restart: unless-stopped
-    port:
+    ports:
     - "127.0.0.1:27017:27017"
   interfaceEAE:
-    image: aoehmichen/interfaceEAE:latest
+    image: aoehmich/interface-eae:latest
     restart: unless-stopped
-    port:
-    - "22:22"
+    ports:
+    - "22222:22"
     - "8443:8443"
     - "16322:16322"
     - "16323:16323"
     - "16324:16324"
-    - "16324:16325"
+    - "16325:16325"
     depends_on:
     - mongodb

@@ -7,7 +7,6 @@ ADD lsb.hosts /root
 ADD lsb.queues /root
 ADD lsf.cluster.openlava /root
 ADD Config.groovy /root
-ADD insert_first_user.py /root
 ADD start_eae.sh /root
 
 ## We install all the dependencies
@@ -82,4 +81,4 @@ EXPOSE 22 8443 16322 16323 16324 16325
 
 ENTRYPOINT ["bash", "/root/start_eae.sh"]
 
-CMD ["-deamon", "None"]
+CMD ["-deamon", "Unsecure"]

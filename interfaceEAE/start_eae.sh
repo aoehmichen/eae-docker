@@ -12,14 +12,7 @@ mkdir -p /var/cache/tomcat7/Catalina/localhost
 chown -R eae:eae /var/cache/tomcat7/Catalina
 
 ## build a local mongo if a remote one is not provided
-if [[ $2 == "None" ]]; then
-    apt-get install -y python-dev python-pip
-#    mongodb
-    pip install pymongo
-    pip install pycrypto
-#    service mongodb restart
-#    sleep 30
-    python /root/insert_first_user.py localhost:27017 eae
+if [[ $2 == "Unsecure" ]]; then
     ## We need to download and deploy an interfaceEAE version without user authentication
     rm -rf /var/lib/tomcat/webapps/interfaceEAE*
     rm -rf /var/lib/tomcat/logs/*
