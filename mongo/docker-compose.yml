@@ -1,0 +1,12 @@
+version: '2'
+
+services:
+  mongodb:
+    image: mongo:3.4.0
+    restart: unless-stopped
+    ports:
+    - "27017:27017"
+  interfaceEAE:
+    image: aoehmich/mongo-eae:latest
+    depends_on:
+    - mongodb
