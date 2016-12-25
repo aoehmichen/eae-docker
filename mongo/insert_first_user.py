@@ -12,10 +12,12 @@ adminPwd = sys.argv[2]
 hash = SHA256.new()
 hash.update(adminPwd)
 
-db = MongoClient('mongodb://' + mongoURL + '/').eae
+client = MongoClient('mongodb://' + mongoURL + '/')
 
 adminUser = {"username": "admin",
              "password": hash.hexdigest()
              }
 
-db.users.insert_one(adminUser)
+client.eae.users.insert_one(adminUser)
+
+client.close()
