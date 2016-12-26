@@ -16,7 +16,7 @@ RUN echo "deb https://dl.bintray.com/sbt/debian /" | sudo tee -a /etc/apt/source
     && apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 2EE0EA64E40A89B84B2DF73499E82A75642AC823 \
     && apt-get update -q \
     && apt-get upgrade -y --install-recommends \
-    && apt-get install -y git python-numpy python-scipy python-matplotlib ipython python-pip python-scikits-learn nodejs-legacy npm zip libcurl4-openssl-dev libxml2-dev screen\
+    && apt-get install -y git python-numpy python-scipy python-matplotlib ipython python-pip python-scikits-learn nodejs-legacy npm zip libcurl4-openssl-dev libxml2-dev screen \
     && apt-get -y install libcurl4-gnutls-dev sbt \
     && pip install scimath \
     && pip install pymongo \
@@ -65,7 +65,7 @@ RUN ipython profile create spark \
 # We set up the ssh keys for user eae
 USER eae
 WORKDIR /home/eae
-RUN echo -e "\n\n\n" | ssh-keygen -t rsa
+RUN echo -e "\n\n\n" | ssh-keygen -t rsa \
     && rm -rf .ssh/id_rsa*
 ADD id_rsa.pub /home/eae/.ssh/
 RUN cat .ssh/id_rsa.pub > .ssh/authorized_keys

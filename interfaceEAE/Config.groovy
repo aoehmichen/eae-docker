@@ -1,4 +1,4 @@
-com.eae.mongoURL = '127.0.0.1:27017'
+com.eae.mongoURL = 'mongo_mongo_1:27017'
 com.eae.mongoUser = 'eae'
 com.eae.mongoUserdatabse = 'eae'
 com.eae.mongoPassword = 'eae'

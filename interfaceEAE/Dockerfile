@@ -81,4 +81,4 @@ EXPOSE 22 8443 16322 16323 16324 16325
 
 ENTRYPOINT ["bash", "/root/start_eae.sh"]
 
-CMD ["-deamon", "Unsecure"]
+CMD ["-bash", "Unsecure"]

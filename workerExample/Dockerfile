@@ -1,13 +1,15 @@
 FROM ubuntu:16.04
 MAINTAINER Axel Oehmichen <axelfrancois.oehmichen11@imperial.ac.uk>
 
+ADD lsf.cluster.openlava /root
 ADD id_rsa /home/eae/.ssh/
 ADD id_rsa.pub /home/eae/.ssh/
-ADD ../interfaceEAE/lsf.cluster.openlava /root
+ADD start_eae.sh /root
 
 ## We install all the dependencies
 RUN apt-get update -q && apt-get upgrade -y --no-install-recommends \
-    && apt-get install -y git python-numpy python-scipy python-matplotlib python-pip python-scikits-learn \
+    && apt-get install -y git wget curl nodejs-legacy npm zip python-numpy python-scipy python-matplotlib python-pip python-scikits-learn libcurl4-openssl-dev libncurses-dev \
+    && apt-get install -y libcurl4-gnutls-dev tcl-dev \
     && pip install scimath \
     && pip install pymongo
 
@@ -15,9 +17,7 @@ RUN apt-get update -q && apt-get upgrade -y --no-install-recommends \
 RUN wget https://mran.revolutionanalytics.com/install/mro/3.3.1/microsoft-r-open-3.3.1.tar.gz \
     && tar xzf microsoft-r-open-3.3.1.tar.gz \
     && cd microsoft-r-open \
-    && ./install.sh \
-    && cd /root \
-    && Rscript irkernel_install.r
+    && ./install.sh
 
 ## We install openlava
 RUN curl -L https://github.com/aoehmichen/eae-files/raw/master/op.tar.gz -o /root/op.tar.gz  \
@@ -37,7 +37,8 @@ RUN curl -L https://github.com/aoehmichen/eae-files/raw/master/op.tar.gz -o /roo
     && chmod 755 /etc/profile.d/openlava.sh \
     && mv lsf.cluster.openlava /opt/openlava-3.3/etc/
 
-RUN cat .ssh/id_rsa.pub > .ssh/authorized_keys \
+RUN mkdir ~/.ssh && chmod 700 ~/.ssh \
+    && cat .ssh/id_rsa.pub > .ssh/authorized_keys \
     && echo "Host * \
     StrictHostKeyChecking no" > /home/eae/.ssh/config \
     && chown -R eae:eae .ssh/ \
@@ -47,4 +48,4 @@ EXPOSE 22 16322 16323 16324 16325
 
 ENTRYPOINT ["bash", "/root/start_eae.sh"]
 
-CMD ["-deamon"]
+CMD ["-bash"]

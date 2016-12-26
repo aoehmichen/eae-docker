@@ -16,6 +16,8 @@ cp id_rsa.pub interfaceEAE
 cp id_rsa.pub jupyter
 cp id_rsa workerExample
 cp id_rsa.pub workerExample
+cp interfaceEAE/lsf.cluster.* workerExample
+cp jupyter/irkernel_install.r workerExample
 
 ## We build the images
 docker build interfaceEAE/
@@ -26,8 +28,10 @@ docker build workerExample/
 ## InterfaceEAE start
 docker run -it \
             -h interfaceEAE \
+            --link mongo_mongo_1 \
+            --net mongo_default \
             -p 22222:22 \
-            -p 22223:8443 \
+            -p 8443:8443 \
             -p 16322:16322 \
             -p 16323:16323 \
             -p 16324:16324 \
