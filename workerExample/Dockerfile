@@ -7,7 +7,7 @@ ADD start_eae.sh /root
 ## We install all the dependencies
 RUN apt-get update -q && apt-get upgrade -y --no-install-recommends \
     && apt-get install -y git wget curl nodejs-legacy npm zip python-numpy python-scipy python-matplotlib python-pip python-scikits-learn libcurl4-openssl-dev libncurses-dev \
-    && apt-get install -y libcurl4-gnutls-dev tcl-dev \
+    && apt-get install -y libcurl4-gnutls-dev tcl-dev psmisc \
     && pip install scimath \
     && pip install pymongo \
     && useradd -ms /bin/bash eae
@@ -42,11 +42,11 @@ RUN mkdir ~/.ssh && chmod 700 ~/.ssh
 ADD id_rsa /home/eae/.ssh/
 ADD id_rsa.pub /home/eae/.ssh/
 
-RUN cat .ssh/id_rsa.pub > .ssh/authorized_keys \
+RUN cat /home/eae/.ssh/id_rsa.pub > /home/eae/.ssh/authorized_keys \
     && echo "Host * \
     StrictHostKeyChecking no" > /home/eae/.ssh/config \
-    && chown -R eae:eae .ssh/ \
-    && chmod 600 .ssh/id_rsa
+    && chown -R eae:eae /home/eae/.ssh/ \
+    && chmod 600 /home/eae/.ssh/id_rsa
 
 EXPOSE 22 16322 16323 16324 16325
 

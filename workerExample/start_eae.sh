@@ -1,5 +1,10 @@
 #!/usr/bin/env bash
 
+# We get the environment set to get access to the openlava's bhosts, bqueues etc...
+. /etc/profile.d/openlava.sh
+
+# We restart the openlava services
+service openlava restart
 
 ## Hook on the container
 if [[ $1 == "-deamon" ]]; then
