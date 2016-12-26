@@ -2,8 +2,6 @@ FROM ubuntu:16.04
 MAINTAINER Axel Oehmichen <axelfrancois.oehmichen11@imperial.ac.uk>
 
 ADD lsf.cluster.openlava /root
-ADD id_rsa /home/eae/.ssh/
-ADD id_rsa.pub /home/eae/.ssh/
 ADD start_eae.sh /root
 
 ## We install all the dependencies
@@ -11,7 +9,8 @@ RUN apt-get update -q && apt-get upgrade -y --no-install-recommends \
     && apt-get install -y git wget curl nodejs-legacy npm zip python-numpy python-scipy python-matplotlib python-pip python-scikits-learn libcurl4-openssl-dev libncurses-dev \
     && apt-get install -y libcurl4-gnutls-dev tcl-dev \
     && pip install scimath \
-    && pip install pymongo
+    && pip install pymongo \
+    && useradd -ms /bin/bash eae
 
 ## Setting up R and R Kernel
 RUN wget https://mran.revolutionanalytics.com/install/mro/3.3.1/microsoft-r-open-3.3.1.tar.gz \
@@ -37,8 +36,13 @@ RUN curl -L https://github.com/aoehmichen/eae-files/raw/master/op.tar.gz -o /roo
     && chmod 755 /etc/profile.d/openlava.sh \
     && mv lsf.cluster.openlava /opt/openlava-3.3/etc/
 
-RUN mkdir ~/.ssh && chmod 700 ~/.ssh \
-    && cat .ssh/id_rsa.pub > .ssh/authorized_keys \
+# We set up the ssh keys for user eae
+RUN mkdir ~/.ssh && chmod 700 ~/.ssh
+
+ADD id_rsa /home/eae/.ssh/
+ADD id_rsa.pub /home/eae/.ssh/
+
+RUN cat .ssh/id_rsa.pub > .ssh/authorized_keys \
     && echo "Host * \
     StrictHostKeyChecking no" > /home/eae/.ssh/config \
     && chown -R eae:eae .ssh/ \
