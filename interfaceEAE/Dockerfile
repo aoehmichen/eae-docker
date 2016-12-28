@@ -11,7 +11,7 @@ ADD start_eae.sh /root
 
 ## We install all the dependencies
 RUN apt-get update -q && apt-get upgrade -y --no-install-recommends \
-    && apt-get install -y wget curl git unzip zip tomcat7 libncurses-dev psmisc default-jdk vim htop \
+    && apt-get install -y wget curl git unzip zip tomcat7 libncurses-dev psmisc default-jdk vim htop openssh-server \
     && apt-get install -y tcl-dev
 
 ## We install openlava
@@ -35,7 +35,8 @@ RUN curl -L https://github.com/aoehmichen/eae-files/raw/master/op.tar.gz -o /roo
 RUN curl -L https://github.com/aoehmichen/eae-files/raw/master/interfaceEAE.war -o /var/lib/tomcat7/webapps/interfaceEAE.war \
     && mv lsb.hosts /opt/openlava-3.3/etc/ \
     && mv lsb.queues /opt/openlava-3.3/etc/ \
-    && mv lsf.cluster.openlava /opt/openlava-3.3/etc/
+    && mv lsf.cluster.openlava /opt/openlava-3.3/etc/ \
+    && chown openlava:openlava /opt/openlava-3.3/etc/*
 
 # We create the eae user and set the tomcat to run as the newly created eae user
 RUN useradd -ms /bin/bash eae \
@@ -72,12 +73,13 @@ ADD id_rsa.pub /home/eae/.ssh/
 
 USER root
 RUN cat .ssh/id_rsa.pub > .ssh/authorized_keys \
-    && echo "Host * \
-    StrictHostKeyChecking no" > /home/eae/.ssh/config \
+    && echo "Host *" > /home/eae/.ssh/config \
+    && echo "       StrictHostKeyChecking no" >> /home/eae/.ssh/config \
     && chown -R eae:eae .ssh/ \
     && chmod 600 .ssh/id_rsa
 
 EXPOSE 22 8443 16322 16323 16324 16325
+EXPOSE 16322/udp
 
 ENTRYPOINT ["bash", "/root/start_eae.sh"]
 

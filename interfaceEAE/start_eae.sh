@@ -5,6 +5,7 @@
 
 # We restart the openlava services
 service openlava restart
+service ssh restart
 
 # We restart tomcat
 killall java

@@ -5,6 +5,7 @@
 
 # We restart the openlava services
 service openlava restart
+service ssh restart
 
 ## Hook on the container
 if [[ $1 == "-deamon" ]]; then

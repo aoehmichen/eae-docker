@@ -7,7 +7,7 @@ ADD start_eae.sh /root
 ## We install all the dependencies
 RUN apt-get update -q && apt-get upgrade -y --no-install-recommends \
     && apt-get install -y vim git wget curl nodejs-legacy npm zip python-numpy python-scipy python-matplotlib python-pip python-scikits-learn libcurl4-openssl-dev libncurses-dev \
-    && apt-get install -y libcurl4-gnutls-dev tcl-dev psmisc \
+    && apt-get install -y libcurl4-gnutls-dev tcl-dev psmisc openssh-server \
     && pip install scimath \
     && pip install pymongo \
     && useradd -ms /bin/bash eae
@@ -34,7 +34,8 @@ RUN curl -L https://github.com/aoehmichen/eae-files/raw/master/op.tar.gz -o /roo
     && cp /opt/openlava-3.3/etc/openlava.* /etc/profile.d \
     && chown openlava:openlava /etc/profile.d/openlava.* \
     && chmod 755 /etc/profile.d/openlava.sh \
-    && mv /root/lsf.cluster.openlava /opt/openlava-3.3/etc/
+    && mv /root/lsf.cluster.openlava /opt/openlava-3.3/etc/ \
+    && chown openlava:openlava /opt/openlava-3.3/etc/*
 
 # We set up the ssh keys for user eae
 RUN mkdir ~/.ssh && chmod 700 ~/.ssh
@@ -43,12 +44,13 @@ ADD id_rsa /home/eae/.ssh/
 ADD id_rsa.pub /home/eae/.ssh/
 
 RUN cat /home/eae/.ssh/id_rsa.pub > /home/eae/.ssh/authorized_keys \
-    && echo "Host * \
-    StrictHostKeyChecking no" > /home/eae/.ssh/config \
+    && echo "Host *" > /home/eae/.ssh/config \
+    && echo "       StrictHostKeyChecking no" >> /home/eae/.ssh/config \
     && chown -R eae:eae /home/eae/.ssh/ \
     && chmod 600 /home/eae/.ssh/id_rsa
 
 EXPOSE 22 16322 16323 16324 16325
+EXPOSE 16322/udp
 
 ENTRYPOINT ["bash", "/root/start_eae.sh"]
 
