@@ -1,0 +1,31 @@
+version: '2'
+
+services:
+  interfaceeae:
+    image: aoehmich/interfaceEAE:latest
+    depends_on:
+    - mongo
+    - worker1
+    - worker2
+    ports:
+    - "22:22"
+    - "8443:8443"
+    - "16322:16322/udp"
+    - "16322:16322"
+    - "16323:16323"
+  worker1:
+    image: aoehmich/worker1:latest
+    ports:
+    - "22:22"
+    - "8443:8443"
+    - "16322:16322/udp"
+    - "16322:16322"
+    - "16323:16323"
+  worker2:
+      image: aoehmich/worker1:latest
+      ports:
+      - "22:22"
+      - "8443:8443"
+      - "16322:16322/udp"
+      - "16322:16322"
+      - "16323:16323"

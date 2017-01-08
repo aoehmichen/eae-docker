@@ -38,3 +38,13 @@ docker run -it \
             -p 16325:16325 \
             --add-host worker1:$WorkerIP \
             aoehmichen/interfaceEAE:latest -bash None
+
+docker run -it \
+            -h worker1 \
+            -p 22222:22 \
+            -p 16322:16322 \
+            -p 16323:16323 \
+            -p 16324:16324 \
+            -p 16325:16325 \
+            --add-host interfaceEAE:146.169.33.20 \
+            xxxxxxxx -bash
