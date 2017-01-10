@@ -1,6 +1,17 @@
 version: '2'
 
 services:
+  jupyter:
+    image: aoehmich/jupyterEAE:latest
+    hostname: interfaceeae
+    stdin_open: true
+    tty: true
+    depends_on:
+    - interfaceeae
+    ports:
+    - "7777:7777"
+    - "8888:8888"
+    - "18088:18088"
   interfaceeae:
     image: aoehmich/interfaceEAE:latest
     hostname: interfaceeae
