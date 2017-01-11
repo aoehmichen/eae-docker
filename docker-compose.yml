@@ -3,7 +3,7 @@ version: '2'
 services:
   # eAE Parts
   jupyter:
-    image: aoehmich/jupyterEAE:latest
+    image: aoehmich/jupyter-eae:latest
     hostname: interfaceeae
     stdin_open: true
     tty: true
@@ -14,7 +14,7 @@ services:
     - "8888:8888"
     - "18088:18088"
   interfaceeae:
-    image: aoehmich/interfaceEAE:latest
+    image: aoehmich/interface-eae:latest
     hostname: interfaceeae
     stdin_open: true
     tty: true
@@ -25,19 +25,19 @@ services:
     ports:
     - "8443:8443"
   worker1:
-    image: aoehmich/workerEAE:latest
+    image: aoehmich/worker-eae:latest
     container_name: worker1
     hostname: worker1
     stdin_open: true
     tty: true
   worker2:
-    image: aoehmich/workerEAE:latest
+    image: aoehmich/worker-eae:latest
     container_name: worker2
     hostname: worker2
     stdin_open: true
     tty: true
   mongo-initialize:
-    image: aoehmich/mongoEAE:latest
+    image: aoehmich/mongo-eae:latest
     depends_on:
     - mongo
   mongo:
