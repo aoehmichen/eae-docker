@@ -41,8 +41,8 @@ RUN curl -L https://github.com/aoehmichen/eae-files/raw/master/op.tar.gz -o /roo
 RUN mkdir ~/.ssh && chmod 700 ~/.ssh \
     && echo "Host *" > /home/eae/.ssh/config \
     && echo "       StrictHostKeyChecking no" >> /home/eae/.ssh/config \
-    && chown -R eae:eae /home/eae/.ssh/ \
-    && chmod 600 /home/eae/.ssh/id_rsa
+    && chown -R eae:eae /home/eae/.ssh/
+#    && chmod 600 /home/eae/.ssh/id_rsa
 
 EXPOSE 22 16322 16323 16324 16325
 EXPOSE 16322/udp
