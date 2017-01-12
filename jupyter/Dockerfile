@@ -21,7 +21,10 @@ RUN echo "deb https://dl.bintray.com/sbt/debian /" | sudo tee -a /etc/apt/source
     && pip install scimath \
     && pip install pymongo \
     && pip install cm-api \
-    && chmod 777 start_eae.sh
+    && chmod 777 start_eae.sh \
+    # We create the eae user and set up the ssh folder for user eae
+    && useradd -ms /bin/bash eae \
+    && mkdir /home/eae/.ssh && chmod 700 /home/eae/.ssh
 
 ## Setting up Jupyter notebook and we create the folder where the jupyter notebooks will run
 RUN pip install setuptools pip --upgrade --user \
@@ -63,9 +66,9 @@ RUN ipython profile create spark \
         --class org.apache.toree.Main $PROG_HOME/lib/${KERNEL_ASSEMBLY} "$@"' >> run.sh
 
 # We set up the ssh keys for user eae
-USER eae
-WORKDIR /home/eae
-RUN mkdir ~/.ssh && chmod 700 ~/.ssh
+#USER eae
+#WORKDIR /home/eae
+#RUN mkdir ~/.ssh && chmod 700 ~/.ssh
 
 #ADD id_rsa.pub /home/eae/.ssh/
 #RUN cat .ssh/id_rsa.pub > .ssh/authorized_keys

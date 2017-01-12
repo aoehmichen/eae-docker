@@ -12,6 +12,12 @@ killall java
 mkdir -p /var/cache/tomcat7/Catalina/localhost
 chown -R eae:eae /var/cache/tomcat7/Catalina
 
+cat /home/eae/.ssh/id_rsa.pub > /home/eae/.ssh/authorized_keys
+chmod 600 /home/eae/.ssh/id_rsa
+chown -R eae:eae /home/eae/.ssh/
+chown openlava:openlava /opt/openlava-3.3/etc/*
+chown -R eae:eae /home/eae/.grails/interfaceEAEConfig
+
 ## build a local mongo if a remote one is not provided
 if [[ $2 == "Unsecure" ]]; then
     ## We need to download and deploy an interfaceEAE version without user authentication

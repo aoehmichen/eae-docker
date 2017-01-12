@@ -27,7 +27,8 @@ echo "Host machine port where ssh is mapped: $SSH_HOST_PORT"
 service ssh restart
 sed "/eae-jupyter/d" /etc/hosts |  sed '/127.0.0.1/c  127.0.0.1 eae-jupyter' > /tmp/sed.txt
 cat /tmp/sed.txt > /etc/hosts
-cat /root/.ssh/id_rsa.pub > /root/.ssh/authorized_keys
+cat /home/eae/.ssh/id_rsa.pub > /home/eae/.ssh/authorized_keys
+chown -R eae:eae /home/eae/.ssh/
 service cloudera-scm-server-db restart
 
 sleep 60
