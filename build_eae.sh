@@ -17,6 +17,8 @@ ssh-keygen -t rsa -N "" -f id_rsa
 cp interfaceEAE/lsf.cluster.* workerExample
 cp jupyter/irkernel_install.r workerExample
 
+docker-compose build
+
 echo -e "Please start a screen with 'screen -S eae' \nThen run the command: 'docker-compose up' \nTo leave the screen please type Ctrl + a + d"
 
 
