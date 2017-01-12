@@ -4,26 +4,37 @@ services:
   # eAE Parts
   jupyter:
     image: aoehmich/jupyter-eae:latest
-    hostname: interfaceeae
+    hostname: jupyter
     stdin_open: true
     tty: true
     depends_on:
-    - interfaceeae
+      - interfaceeae
     ports:
-    - "7777:7777"
-    - "8888:8888"
-    - "18088:18088"
+      - "7777:7777"
+      - "8888:8888"
+      - "18088:18088"
+    volumes:
+      - "./transmart-app/Config.groovy:/root/.grails/transmartConfig/Config.groovy"
+      - "./transmart-app/DataSource.groovy:/root/.grails/transmartConfig/DataSource.groovy"
+      - "./transmart-app/setenv.sh:/usr/local/tomcat/bin/setenv.sh"
   interfaceeae:
     image: aoehmich/interface-eae:latest
     hostname: interfaceeae
     stdin_open: true
     tty: true
     depends_on:
-    - mongo
-    - worker1
-    - worker2
+      - mongo
+      - worker1
+      - worker2
     ports:
-    - "8443:8443"
+      - "8443:8443"
+    volumes:
+      - "./interfaceEAE/Config.groovy:/home/eae/.grails/transmartConfig/Config.groovy"
+      - "./interfaceEAE/lsb.hosts :/opt/openlava-3.3/etc/lsb.hosts"
+      - "./interfaceEAE/lsb.queues:/opt/openlava-3.3/etc/lsb.queues"
+      - "./interfaceEAE/lsf.cluster.openlava:/opt/openlava-3.3/etc/lsf.cluster.openlava"
+      - "id_rsa:/home/eae/.ssh/id_rsa"
+      - "id_rsa.pub:/home/eae/.ssh/id_rsa.pub"
   worker1:
     image: aoehmich/worker-eae:latest
     container_name: worker1
@@ -39,48 +50,48 @@ services:
   mongo-initialize:
     image: aoehmich/mongo-eae:latest
     depends_on:
-    - mongo
+      - mongo
   mongo:
     image: mongo:3.4.0
     ports:
-    - "27017:27017"
+      - "27017:27017"
 
   # tranSMART with the eAE plugin
-    tmweb:
-      image: httpd:alpine
-      restart: unless-stopped
-      network_mode: host
-      depends_on:
-        - tmapp
-      volumes:
-        - "./transmart-web/httpd-vhosts.conf:/usr/local/apache2/conf/extra/httpd-vhosts.conf"
-        - "./transmart-web/httpd.conf:/usr/local/apache2/conf/httpd.conf"
-    tmapp:
-      image: aoehmich/transmart-app-eae:latest
-      restart: unless-stopped
-      ports:
-        - "127.0.0.1:8009:8009"
-      depends_on:
-        - tmdb
-        - tmsolr
-      volumes:
-        - "./transmart-app/Config.groovy:/root/.grails/transmartConfig/Config.groovy"
-        - "./transmart-app/DataSource.groovy:/root/.grails/transmartConfig/DataSource.groovy"
-        - "./transmart-app/setenv.sh:/usr/local/tomcat/bin/setenv.sh"
-    tmdb:
-      image: dennyverbeeck/transmart-db:etriks-v3.0
-      restart: unless-stopped
-      ports:
-        - "127.0.0.1:5432:5432"
-    tmsolr:
-      image: dennyverbeeck/transmart-solr:etriks-v3.0
-      restart: unless-stopped
-    tmrserve:
-      image: dennyverbeeck/transmart-rserve:etriks-v3.0
-      restart: unless-stopped
-      volumes_from:
-        - tmapp
-    tmload:
-      image: dennyverbeeck/transmart-load:etriks-v3.0
-      depends_on:
-        - tmdb
+  tmweb:
+    image: httpd:alpine
+    restart: unless-stopped
+    network_mode: host
+    depends_on:
+      - tmapp
+    volumes:
+      - "./transmart-web/httpd-vhosts.conf:/usr/local/apache2/conf/extra/httpd-vhosts.conf"
+      - "./transmart-web/httpd.conf:/usr/local/apache2/conf/httpd.conf"
+  tmapp:
+    image: aoehmich/transmart-app-eae:latest
+    restart: unless-stopped
+    ports:
+      - "127.0.0.1:8009:8009"
+    depends_on:
+      - tmdb
+      - tmsolr
+    volumes:
+      - "./transmart-app/Config.groovy:/root/.grails/transmartConfig/Config.groovy"
+      - "./transmart-app/DataSource.groovy:/root/.grails/transmartConfig/DataSource.groovy"
+      - "./transmart-app/setenv.sh:/usr/local/tomcat/bin/setenv.sh"
+  tmdb:
+    image: dennyverbeeck/transmart-db:etriks-v3.0
+    restart: unless-stopped
+    ports:
+      - "127.0.0.1:5432:5432"
+  tmsolr:
+    image: dennyverbeeck/transmart-solr:etriks-v3.0
+    restart: unless-stopped
+  tmrserve:
+    image: dennyverbeeck/transmart-rserve:etriks-v3.0
+    restart: unless-stopped
+    volumes_from:
+      - tmapp
+  tmload:
+    image: dennyverbeeck/transmart-load:etriks-v3.0
+    depends_on:
+      - tmdb
