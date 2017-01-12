@@ -2,21 +2,6 @@ version: '2'
 
 services:
   # eAE Parts
-  jupyter:
-    image: aoehmich/jupyter-eae:latest
-    hostname: jupyter
-    stdin_open: true
-    tty: true
-    depends_on:
-      - interfaceeae
-    ports:
-      - "7777:7777"
-      - "8888:8888"
-      - "18088:18088"
-    volumes:
-      - "./transmart-app/Config.groovy:/root/.grails/transmartConfig/Config.groovy"
-      - "./transmart-app/DataSource.groovy:/root/.grails/transmartConfig/DataSource.groovy"
-      - "./transmart-app/setenv.sh:/usr/local/tomcat/bin/setenv.sh"
   interfaceeae:
     image: aoehmich/interface-eae:latest
     hostname: interfaceeae
@@ -41,12 +26,20 @@ services:
     hostname: worker1
     stdin_open: true
     tty: true
+    volumes:
+      - "./interfaceEAE/lsf.cluster.openlava:/opt/openlava-3.3/etc/lsf.cluster.openlava"
+      - "id_rsa:/home/eae/.ssh/id_rsa"
+      - "id_rsa.pub:/home/eae/.ssh/id_rsa.pub"
   worker2:
     image: aoehmich/worker-eae:latest
     container_name: worker2
     hostname: worker2
     stdin_open: true
     tty: true
+    volumes:
+      - "./interfaceEAE/lsf.cluster.openlava:/opt/openlava-3.3/etc/lsf.cluster.openlava"
+      - "id_rsa:/home/eae/.ssh/id_rsa"
+      - "id_rsa.pub:/home/eae/.ssh/id_rsa.pub"
   mongo-initialize:
     image: aoehmich/mongo-eae:latest
     depends_on:

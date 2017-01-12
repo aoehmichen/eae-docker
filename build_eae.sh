@@ -31,6 +31,7 @@ echo -e "Please start a screen with 'screen -S eae' \nThen run the command: 'doc
 #            -h interfaceEAE \
 #            --link mongo_mongo_1 \
 #            --net mongo_default \
+#            -v ~/.id_rsa.pub:/root/.ssh/.id_rsa.pub
 #            -p 22222:22 \
 #            -p 8443:8443 \
 #            -p 16322:16322 \

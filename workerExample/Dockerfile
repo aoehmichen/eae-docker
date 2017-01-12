@@ -1,7 +1,7 @@
 FROM ubuntu:16.04
 MAINTAINER Axel Oehmichen <axelfrancois.oehmichen11@imperial.ac.uk>
 
-ADD lsf.cluster.openlava /root
+#ADD lsf.cluster.openlava /root
 ADD start_eae.sh /root
 
 ## We install all the dependencies
@@ -34,16 +34,11 @@ RUN curl -L https://github.com/aoehmichen/eae-files/raw/master/op.tar.gz -o /roo
     && cp /opt/openlava-3.3/etc/openlava.* /etc/profile.d \
     && chown openlava:openlava /etc/profile.d/openlava.* \
     && chmod 755 /etc/profile.d/openlava.sh \
-    && mv /root/lsf.cluster.openlava /opt/openlava-3.3/etc/ \
+#    && mv /root/lsf.cluster.openlava /opt/openlava-3.3/etc/ \
     && chown openlava:openlava /opt/openlava-3.3/etc/*
 
 # We set up the ssh keys for user eae
-RUN mkdir ~/.ssh && chmod 700 ~/.ssh
-
-ADD id_rsa /home/eae/.ssh/
-ADD id_rsa.pub /home/eae/.ssh/
-
-RUN cat /home/eae/.ssh/id_rsa.pub > /home/eae/.ssh/authorized_keys \
+RUN mkdir ~/.ssh && chmod 700 ~/.ssh \
     && echo "Host *" > /home/eae/.ssh/config \
     && echo "       StrictHostKeyChecking no" >> /home/eae/.ssh/config \
     && chown -R eae:eae /home/eae/.ssh/ \

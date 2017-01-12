@@ -65,10 +65,10 @@ RUN ipython profile create spark \
 # We set up the ssh keys for user eae
 USER eae
 WORKDIR /home/eae
-RUN echo -e "\n\n\n" | ssh-keygen -t rsa \
-    && rm -rf .ssh/id_rsa*
-ADD id_rsa.pub /home/eae/.ssh/
-RUN cat .ssh/id_rsa.pub > .ssh/authorized_keys
+RUN mkdir ~/.ssh && chmod 700 ~/.ssh
+
+#ADD id_rsa.pub /home/eae/.ssh/
+#RUN cat .ssh/id_rsa.pub > .ssh/authorized_keys
 
 EXPOSE 22 7180 7777 8433 8888 18088
 
