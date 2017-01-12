@@ -38,7 +38,7 @@ RUN curl -L https://github.com/aoehmichen/eae-files/raw/master/op.tar.gz -o /roo
     && chown openlava:openlava /opt/openlava-3.3/etc/*
 
 # We set up the ssh keys for user eae
-RUN mkdir ~/.ssh && chmod 700 ~/.ssh \
+RUN mkdir -p /home/eae/.ssh && chmod 700 /home/eae/.ssh \
     && echo "Host *" > /home/eae/.ssh/config \
     && echo "       StrictHostKeyChecking no" >> /home/eae/.ssh/config \
     && chown -R eae:eae /home/eae/.ssh/
