@@ -53,11 +53,11 @@ echo -e "Please start a screen with 'screen -S eae' \nThen run the command: 'doc
 #            -p 16325:16325 \
 #            --add-host interfaceEAE:146.169.33.20 \
 #            xxxxxxxx -bash
-
-docker run -it \
-            -h interfaceEAE \
-            -v ./id_rsa.pub:/home/eae/.ssh/id_rsa.pub \
-            -v ./interfaceEAE/Config.groovy:/home/eae/.grails/transmartConfig/Config.groovy \
-            -v ./id_rsa:/home/eae/.ssh/id_rsa \
-            -v ./interfaceEAE/lsb.hosts :/opt/openlava-3.3/etc/lsb.hosts \
-            aoehmichen/interfaceEAE:latest
+#
+#docker run -it \
+#            -h interfaceEAE \
+#            -v ./id_rsa.pub:/home/eae/.ssh/id_rsa.pub \
+#            -v ./interfaceEAE/Config.groovy:/home/eae/.grails/transmartConfig/Config.groovy \
+#            -v ./id_rsa:/home/eae/.ssh/id_rsa \
+#            -v ./interfaceEAE/lsb.hosts :/opt/openlava-3.3/etc/lsb.hosts \
+#            aoehmichen/interfaceEAE:latest
