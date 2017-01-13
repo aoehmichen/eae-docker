@@ -9,11 +9,12 @@ rm -f jupyter/id_rsa.pub
 ssh-keygen -t rsa -N "" -f id_rsa
 
 ## We copy to the directories
-#cp id_rsa interfaceEAE
-#cp id_rsa.pub interfaceEAE
-#cp id_rsa.pub jupyter
-#cp id_rsa workerExample
-#cp id_rsa.pub workerExample
+if [ ! -d ssh ]; then
+    mkdir ssh
+fi
+
+rm -rf ssh/*
+mv id_rsa* ssh/
 cp interfaceEAE/lsf.cluster.* workerExample
 cp jupyter/irkernel_install.r workerExample
 
@@ -52,3 +53,11 @@ echo -e "Please start a screen with 'screen -S eae' \nThen run the command: 'doc
 #            -p 16325:16325 \
 #            --add-host interfaceEAE:146.169.33.20 \
 #            xxxxxxxx -bash
+
+docker run -it \
+            -h interfaceEAE \
+            -v ./id_rsa.pub:/home/eae/.ssh/id_rsa.pub \
+            -v ./interfaceEAE/Config.groovy:/home/eae/.grails/transmartConfig/Config.groovy \
+            -v ./id_rsa:/home/eae/.ssh/id_rsa \
+            -v ./interfaceEAE/lsb.hosts :/opt/openlava-3.3/etc/lsb.hosts \
+            aoehmichen/interfaceEAE:latest

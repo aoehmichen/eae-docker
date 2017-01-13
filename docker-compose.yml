@@ -19,8 +19,8 @@ services:
       - "./interfaceEAE/lsb.hosts :/opt/openlava-3.3/etc/lsb.hosts"
       - "./interfaceEAE/lsb.queues:/opt/openlava-3.3/etc/lsb.queues"
       - "./interfaceEAE/lsf.cluster.openlava:/opt/openlava-3.3/etc/lsf.cluster.openlava"
-      - "./id_rsa:/home/eae/.ssh/id_rsa"
-      - "./id_rsa.pub:/home/eae/.ssh/id_rsa.pub"
+      - "./ssh/id_rsa:/home/eae/.ssh/id_rsa"
+      - "./ssh/id_rsa.pub:/home/eae/.ssh/id_rsa.pub"
   worker1:
     image: aoehmich/worker-eae:latest
     container_name: worker1
@@ -29,8 +29,8 @@ services:
     tty: true
     volumes:
       - "./interfaceEAE/lsf.cluster.openlava:/opt/openlava-3.3/etc/lsf.cluster.openlava"
-      - "./id_rsa:/home/eae/.ssh/id_rsa"
-      - "./id_rsa.pub:/home/eae/.ssh/id_rsa.pub"
+      - "./ssh/id_rsa:/home/eae/.ssh/id_rsa"
+      - "./ssh/id_rsa.pub:/home/eae/.ssh/id_rsa.pub"
   worker2:
     image: aoehmich/worker-eae:latest
     container_name: worker2
@@ -39,8 +39,8 @@ services:
     tty: true
     volumes:
       - "./interfaceEAE/lsf.cluster.openlava:/opt/openlava-3.3/etc/lsf.cluster.openlava"
-      - "./id_rsa:/home/eae/.ssh/id_rsa"
-      - "./id_rsa.pub:/home/eae/.ssh/id_rsa.pub"
+      - "./ssh/id_rsa:/home/eae/.ssh/id_rsa"
+      - "./ssh/id_rsa.pub:/home/eae/.ssh/id_rsa.pub"
   mongo-initialize:
     image: aoehmich/mongo-eae:latest
     depends_on:
