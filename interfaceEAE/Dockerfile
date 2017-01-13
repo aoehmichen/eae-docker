@@ -22,7 +22,7 @@ RUN curl -L https://github.com/aoehmichen/eae-files/raw/master/op.tar.gz -o /roo
     && make \
     && make install \
     && cd config \
-    && cp lsb.hosts lsb.params lsb.queues lsb.users lsf.cluster.openlava lsf.conf lsf.shared lsf.task openlava.* /opt/openlava-3.3/etc/ \
+    && cp  lsb.params lsb.users lsf.conf lsf.shared lsf.task openlava.* /opt/openlava-3.3/etc/ \
     && useradd -r openlava \
     && chown -R openlava:openlava /opt/openlava-3.*/ \
     && cp /opt/openlava-3.*/etc/openlava /etc/init.d \
