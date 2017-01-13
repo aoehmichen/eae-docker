@@ -15,7 +15,7 @@ services:
     ports:
       - "8443:8443"
     volumes:
-      - "./interfaceEAE/Config.groovy:/home/eae/.grails/transmartConfig/Config.groovy"
+      - "./interfaceEAE/Config.groovy:/home/eae/.grails/interfaceEAEConfig/Config.groovy"
       - "./interfaceEAE/lsb.hosts :/opt/openlava-3.3/etc/lsb.hosts"
       - "./interfaceEAE/lsb.queues:/opt/openlava-3.3/etc/lsb.queues"
       - "./interfaceEAE/lsf.cluster.openlava:/opt/openlava-3.3/etc/lsf.cluster.openlava"
