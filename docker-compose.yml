@@ -16,7 +16,7 @@ services:
       - "8443:8443"
     volumes:
       - "./interfaceEAE/Config.groovy:/home/eae/.grails/interfaceEAEConfig/Config.groovy"
-      - "./interfaceEAE/lsb.hosts :/opt/openlava-3.3/etc/lsb.hosts"
+      - "./interfaceEAE/lsb.hosts:/opt/openlava-3.3/etc/lsb.hosts"
       - "./interfaceEAE/lsb.queues:/opt/openlava-3.3/etc/lsb.queues"
       - "./interfaceEAE/lsf.cluster.openlava:/opt/openlava-3.3/etc/lsf.cluster.openlava"
       - "./ssh/id_rsa:/home/eae/.ssh/id_rsa"
@@ -29,6 +29,8 @@ services:
     tty: true
     volumes:
       - "./interfaceEAE/lsf.cluster.openlava:/opt/openlava-3.3/etc/lsf.cluster.openlava"
+      - "./interfaceEAE/lsb.hosts:/opt/openlava-3.3/etc/lsb.hosts"
+      - "./interfaceEAE/lsb.queues:/opt/openlava-3.3/etc/lsb.queues"
       - "./ssh/id_rsa:/home/eae/.ssh/id_rsa"
       - "./ssh/id_rsa.pub:/home/eae/.ssh/id_rsa.pub"
   worker2:
@@ -39,6 +41,8 @@ services:
     tty: true
     volumes:
       - "./interfaceEAE/lsf.cluster.openlava:/opt/openlava-3.3/etc/lsf.cluster.openlava"
+      - "./interfaceEAE/lsb.hosts:/opt/openlava-3.3/etc/lsb.hosts"
+      - "./interfaceEAE/lsb.queues:/opt/openlava-3.3/etc/lsb.queues"
       - "./ssh/id_rsa:/home/eae/.ssh/id_rsa"
       - "./ssh/id_rsa.pub:/home/eae/.ssh/id_rsa.pub"
   mongo-initialize:
@@ -47,8 +51,6 @@ services:
       - mongo
   mongo:
     image: mongo:3.4.0
-    ports:
-      - "27017:27017"
 
   # tranSMART with the eAE plugin
   tmweb:
