@@ -28,6 +28,11 @@ fi
 
 service tomcat7 restart
 
+### Sometimes the openlava master and workers are out of sync so we restart the service to make sure that every worker
+### is accounted for.
+sleep 60
+service openlava restart
+
 ## Hook on the container
 if [[ $1 == "-deamon" ]]; then
   while true; do sleep 1000; done
