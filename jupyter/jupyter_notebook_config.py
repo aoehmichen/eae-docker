@@ -576,13 +576,13 @@ c.NotebookApp.port = 7777
 
 ## Address of the interfaceEAE.
 #  The address should either be the IP of the machine or the FQDN.
-c.NotebookApp.eae_ip = 'localhost'
+c.NotebookApp.eae_ip = 'interfaceeae'
 
 ## Port of the interfaceEAE.
-c.NotebookApp.eae_port = 8433
+c.NotebookApp.eae_port = 8443
 
 ## IP of the host machine
-c.NotebookApp.eae_host_ip = '127.0.0.1'
+c.NotebookApp.eae_host_ip = 'jupytereae'
 
 ## Port on the host machine where ssh port is mapped
-c.NotebookApp.eae_host_ssh_port = 22222
+c.NotebookApp.eae_host_ssh_port = 22

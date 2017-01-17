@@ -5,11 +5,8 @@ WORKDIR /root
 
 ADD Cloudera_Management.py /root
 ADD irkernel_install.r /root
-ADD jupyter_notebook_config.py /root
 ADD pyspark_kernel.json /root
 ADD spark_kernel.json /root
-ADD id_rsa /root
-ADD id_rsa.pub /root
 ADD start_eae.sh /root
 
 RUN echo "deb https://dl.bintray.com/sbt/debian /" | sudo tee -a /etc/apt/sources.list.d/sbt.list \
@@ -55,7 +52,6 @@ RUN ipython profile create spark \
     && mkdir -p /root/.ipython/kernels/pyspark \
     && cp -r dist/toree /root/.ipython/kernels/spark/ \
     && jupyter notebook --generate-config \
-    && mv /root/jupyter_notebook_config.py /root/.jupyter/ \
     && mv /root/spark_kernel.json /root/.ipython/kernels/spark/kernel.json \
     && mv /root/pyspark_kernel.json /root/.ipython/kernels/pyspark/kernel.json \
     && cd /root/.ipython/kernels/spark/toree/bin \
@@ -65,19 +61,11 @@ RUN ipython profile create spark \
         --driver-class-path $PROG_HOME/lib/${KERNEL_ASSEMBLY} \
         --class org.apache.toree.Main $PROG_HOME/lib/${KERNEL_ASSEMBLY} "$@"' >> run.sh
 
-# We set up the ssh keys for user eae
-#USER eae
-#WORKDIR /home/eae
-#RUN mkdir ~/.ssh && chmod 700 ~/.ssh
-
-#ADD id_rsa.pub /home/eae/.ssh/
-#RUN cat .ssh/id_rsa.pub > .ssh/authorized_keys
-
 EXPOSE 22 7180 7777 8433 8888 18088
 
 VOLUME ["/root/jupyter/"]
 
 ENTRYPOINT ["bash", "/root/start_eae.sh"]
 
-# Default parameters in case the user does not provide them wih the RUN commande
-CMD ["localhost", "8433"]
+## Default parameters in case the user does not provide them wih the RUN commande
+CMD ["-deamon", interfaceeae, 8443, jupytereae, 22]

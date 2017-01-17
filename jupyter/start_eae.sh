@@ -9,7 +9,7 @@ SSH_HOST_PORT=${args[4]}
 PASSWORD="${args[5]}"
 
 ## Safe guard against empty parameters
-if [[ ! -z $PORT ]] || [[ ! -z $ADDRESS ]] || [[ ! -z $HOST_IP ]] || [[ ! -z $SSH_HOST_PORT ]]; then
+if [[ ! -z $ADDRESS ]] || [[ ! -z $PORT ]] || [[ ! -z $HOST_IP ]] || [[ ! -z $SSH_HOST_PORT ]]; then
     echo "Interface eAE ADDRESS or PORT or HOST_IP or SSH_HOST_PORT is not set!"
     echo "Interface eAE ADDRESS: $ADDRESS"
     echo "Interface eAE PORT: $PORT"
@@ -50,14 +50,14 @@ if [[ ! -z $PASSWORD ]]; then
 fi
 
 # We edit the default configurations
-sed -i "s/.eae_ip = 'localhost'/.eae_ip = '$ADDRESS'/g" /root/.jupyter/jupyter_notebook_config.py
-sed -i "s/.eae_port = 8433/.eae_port = $PORT/g" /root/.jupyter/jupyter_notebook_config.py
-sed -i "s/.eae_host_ip = '127.0.0.1'/.eae_host_ip = '$HOST_IP'/g" /root/.jupyter/jupyter_notebook_config.py
-sed -i "s/.eae_host_ssh_port = 22222/.eae_host_ssh_port = $SSH_HOST_PORT/g" /root/.jupyter/jupyter_notebook_config.py
+sed -i "s/.eae_ip = 'interfaceeae'/.eae_ip = '$ADDRESS'/g" /root/.jupyter/jupyter_notebook_config.py
+sed -i "s/.eae_port = 8443/.eae_port = $PORT/g" /root/.jupyter/jupyter_notebook_config.py
+sed -i "s/.eae_host_ip = 'jupytereae'/.eae_host_ip = '$HOST_IP'/g" /root/.jupyter/jupyter_notebook_config.py
+sed -i "s/.eae_host_ssh_port = 22/.eae_host_ssh_port = $SSH_HOST_PORT/g" /root/.jupyter/jupyter_notebook_config.py
 
 ## We start the notebook server in the jupyter folder
 cd /root/jupyter
-screen -d -m -S jupyter "jupyter-notebook --allow-root --kernel=ir"
+screen -mdS jupyter jupyter-notebook --allow-root --kernel=ir
 
 ## Hook on the container
 if [[ $START_MODE == "-deamon" ]]; then

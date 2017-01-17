@@ -2,6 +2,21 @@ version: '2'
 
 services:
   # eAE Parts
+  jupytereae:
+    image: aoehmich/jupyter-eae:latest
+    hostname: jupyter
+    privileged: true
+    depends_on:
+      - interfaceeae
+    command: [-deamon, interfaceeae, 8443, jupytereae, 22]
+    ports:
+      - "7180:7180"
+      - "7777:7777"
+      - "8888:8888"
+      - "18088:18088"
+    volumes:
+      - "./jupyter/jupyter_notebook_config.py:/root/.jupyter/jupyter_notebook_config.py"
+      - "./ssh/id_rsa.pub:/home/eae/.ssh/id_rsa.pub"
   interfaceeae:
     image: aoehmich/interface-eae:latest
     container_name: interfaceeae
