@@ -20,7 +20,7 @@ cp jupyter/irkernel_install.r workerExample
 
 docker-compose build
 
-echo -e "Please start a screen with 'screen -S eae' \nThen run the command: 'docker-compose up' \nTo leave the screen please type Ctrl + a + d"
+echo -e "To start the eAE please run 'bash start_eae.sh'\nAlternatively, if you do not want to run tranSMART at the same time, please run 'bash start_eae_without_transmart.sh'\n"
 
 
 ## We build the images

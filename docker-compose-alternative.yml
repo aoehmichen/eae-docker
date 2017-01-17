@@ -1,0 +1,55 @@
+version: '2'
+
+services:
+  # eAE Parts
+  interfaceeae:
+    image: aoehmich/interface-eae:latest
+    container_name: interfaceeae
+    hostname: interfaceeae
+    stdin_open: true
+    tty: true
+    depends_on:
+      - mongo
+    ports:
+      - "8443:8443"
+    volumes:
+      - "./interfaceEAE/Config.groovy:/home/eae/.grails/interfaceEAEConfig/Config.groovy"
+      - "./interfaceEAE/lsb.hosts:/opt/openlava-3.3/etc/lsb.hosts"
+      - "./interfaceEAE/lsb.queues:/opt/openlava-3.3/etc/lsb.queues"
+      - "./interfaceEAE/lsf.cluster.openlava:/opt/openlava-3.3/etc/lsf.cluster.openlava"
+      - "./ssh/id_rsa:/home/eae/.ssh/id_rsa"
+      - "./ssh/id_rsa.pub:/home/eae/.ssh/id_rsa.pub"
+  worker1:
+    image: aoehmich/worker-eae:latest
+    container_name: worker1
+    hostname: worker1
+    stdin_open: true
+    tty: true
+    depends_on:
+      - interfaceeae
+    volumes:
+      - "./interfaceEAE/lsf.cluster.openlava:/opt/openlava-3.3/etc/lsf.cluster.openlava"
+      - "./interfaceEAE/lsb.hosts:/opt/openlava-3.3/etc/lsb.hosts"
+      - "./interfaceEAE/lsb.queues:/opt/openlava-3.3/etc/lsb.queues"
+      - "./ssh/id_rsa:/home/eae/.ssh/id_rsa"
+      - "./ssh/id_rsa.pub:/home/eae/.ssh/id_rsa.pub"
+  worker2:
+    image: aoehmich/worker-eae:latest
+    container_name: worker2
+    hostname: worker2
+    stdin_open: true
+    tty: true
+    depends_on:
+      - interfaceeae
+    volumes:
+      - "./interfaceEAE/lsf.cluster.openlava:/opt/openlava-3.3/etc/lsf.cluster.openlava"
+      - "./interfaceEAE/lsb.hosts:/opt/openlava-3.3/etc/lsb.hosts"
+      - "./interfaceEAE/lsb.queues:/opt/openlava-3.3/etc/lsb.queues"
+      - "./ssh/id_rsa:/home/eae/.ssh/id_rsa"
+      - "./ssh/id_rsa.pub:/home/eae/.ssh/id_rsa.pub"
+  mongo-initialize:
+    image: aoehmich/mongo-eae:latest
+    depends_on:
+      - mongo
+  mongo:
+    image: mongo:3.4.0
