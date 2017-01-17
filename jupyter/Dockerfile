@@ -19,9 +19,7 @@ RUN echo "deb https://dl.bintray.com/sbt/debian /" | sudo tee -a /etc/apt/source
     && pip install pymongo \
     && pip install cm-api \
     && chmod 777 start_eae.sh \
-    # We create the eae user and set up the ssh folder for user eae
-    && useradd -ms /bin/bash eae \
-    && mkdir /home/eae/.ssh && chmod 700 /home/eae/.ssh
+    && rm -f /home/eae/.ssh/*
 
 ## Setting up Jupyter notebook and we create the folder where the jupyter notebooks will run
 RUN pip install setuptools pip --upgrade --user \

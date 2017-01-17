@@ -16,6 +16,7 @@ services:
       - "18088:18088"
     volumes:
       - "./jupyter/jupyter_notebook_config.py:/root/.jupyter/jupyter_notebook_config.py"
+      - "./ssh/id_rsa:/home/eae/.ssh/id_rsa"
       - "./ssh/id_rsa.pub:/home/eae/.ssh/id_rsa.pub"
   interfaceeae:
     image: aoehmich/interface-eae:latest
