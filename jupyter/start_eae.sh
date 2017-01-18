@@ -9,7 +9,7 @@ SSH_HOST_PORT=${args[4]}
 PASSWORD="${args[5]}"
 
 ## Safe guard against empty parameters
-if [[ ! -z $ADDRESS ]] || [[ ! -z $PORT ]] || [[ ! -z $HOST_IP ]] || [[ ! -z $SSH_HOST_PORT ]]; then
+if [[ -z $ADDRESS ]] || [[ -z $PORT ]] || [[ -z $HOST_IP ]] || [[ -z $SSH_HOST_PORT ]]; then
     echo "Interface eAE ADDRESS or PORT or HOST_IP or SSH_HOST_PORT is not set!"
     echo "Interface eAE ADDRESS: $ADDRESS"
     echo "Interface eAE PORT: $PORT"
@@ -23,15 +23,23 @@ echo "Notebook password Hash: $PASSWORD"
 echo "IP of the host machine: $HOST_IP"
 echo "Host machine port where ssh is mapped: $SSH_HOST_PORT"
 
-## We restart all the necessary services
+## We restart all the ssh service
 service ssh restart
+
+## Hosts file configuration change for CDH to work properly
 sed "/eae-jupyter/d" /etc/hosts |  sed '/127.0.0.1/c  127.0.0.1 eae-jupyter' > /tmp/sed.txt
 cat /tmp/sed.txt > /etc/hosts
+
+## We copy the files to their rightful place so we can edit them on the flight later.
+yes | cp -rf /root/id_rsa /home/eae/.ssh/id_rsa
+yes | cp -rf /root/id_rsa.pub /home/eae/.ssh/id_rsa.pub
+yes | cp -rf /root/jupyter_notebook_config.py /root/.jupyter/jupyter_notebook_config.py
 cat /home/eae/.ssh/id_rsa.pub > /home/eae/.ssh/authorized_keys
 chmod 600 /home/eae/.ssh/id_rsa
 chown -R eae:eae /home/eae/.ssh/
-service cloudera-scm-server-db restart
 
+## We restart all the necessary Cloudera services
+service cloudera-scm-server-db restart
 sleep 60
 service cloudera-scm-agent restart
 sleep 120

@@ -9,3 +9,11 @@ sudo service cloudera-scm-server restart &&
 sudo service apache2 restart
 
 sudo service cloudera-scm-agent restart
+
+docker run -it -h eae-jupyter -p 7777:7777 -p 18088:18088 -p 8888:8888 -p 7180:7180 \
+    --privileged \
+    -v /root/eae-docker/jupyter/jupyter_notebook_config.py:/root/jupyter_notebook_config.py \
+    -v /root/eae-docker/ssh/id_rsa.pub:/root/id_rsa.pub \
+    -v /root/eae-docker/ssh/id_rsa:/root/id_rsa \
+    01471fba514e \
+    -bash 146.169.15.140 8081 146.169.33.20 22222
