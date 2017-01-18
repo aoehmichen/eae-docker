@@ -44,15 +44,13 @@ RUN wget https://mran.revolutionanalytics.com/install/mro/3.3.1/microsoft-r-open
 RUN ipython profile create spark \
     && git clone https://github.com/CGnal/incubator-toree/ \
     && cd incubator-toree \
-    && git checkout cdh5.7.x
-
-RUN make dist \
+    && git checkout cdh5.7.x \
+    && make dist \
     && mkdir -p /root/.ipython/kernels/spark \
     && mkdir -p /root/.ipython/kernels/pyspark \
     && cp -r dist/toree /root/.ipython/kernels/spark/ \
-    && jupyter notebook --generate-config
-
-RUN mv /root/spark_kernel.json /root/.ipython/kernels/spark/kernel.json \
+    && jupyter notebook --generate-config --allow-root \
+    && mv /root/spark_kernel.json /root/.ipython/kernels/spark/kernel.json \
     && mv /root/pyspark_kernel.json /root/.ipython/kernels/pyspark/kernel.json \
     && cd /root/.ipython/kernels/spark/toree/bin \
     && sed -i "/eval exec/d" run.sh \
