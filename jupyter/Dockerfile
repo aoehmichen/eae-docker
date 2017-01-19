@@ -42,9 +42,9 @@ RUN wget https://mran.revolutionanalytics.com/install/mro/3.3.1/microsoft-r-open
 
 ## Setting up the Spark Kernels (Toree)
 RUN ipython profile create spark \
-    && git clone https://github.com/CGnal/incubator-toree/ \
+    && git clone https://github.com/aoehmichen/incubator-toree/ \
     && cd incubator-toree \
-    && git checkout cdh5.7.x \
+#    && git checkout cdh5.7.x \
     && make dist \
     && mkdir -p /root/.ipython/kernels/spark \
     && mkdir -p /root/.ipython/kernels/pyspark \
