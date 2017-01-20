@@ -29,8 +29,8 @@ RUN pip install setuptools pip --upgrade --user \
     && pip install -e . --user \
     && cd /root \
     && jupyter-nbextension enable --py widgetsnbextension \
-    && mkdir -p /root/jupyter \
-    && chmod 777 /root/jupyter
+    && mkdir -p /home/eae/jupyter \
+    && chmod eae:eae /home/eae/jupyter
 
 ## Setting up R and R Kernel
 RUN wget https://mran.revolutionanalytics.com/install/mro/3.3.1/microsoft-r-open-3.3.1.tar.gz \
