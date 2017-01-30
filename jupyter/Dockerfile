@@ -1,4 +1,4 @@
-FROM aoehmich/cdh5.9:latest
+FROM aoehmich/cdh5.9:release-candidate
 MAINTAINER Axel Oehmichen <axelfrancois.oehmichen11@imperial.ac.uk>
 
 WORKDIR /root
@@ -30,7 +30,12 @@ RUN pip install setuptools pip --upgrade --user \
     && cd /root \
     && jupyter-nbextension enable --py widgetsnbextension \
     && mkdir -p /home/eae/jupyter \
-    && chmod eae:eae /home/eae/jupyter
+    && chown eae:eae /home/eae/jupyter \
+    && chmod 777 /home/eae/jupyter \
+    && cd /home/eae/jupyter \
+    && wget https://github.com/aoehmichen/eae-files/raw/master/jupyter-examples.zip \
+    && unzip jupyter-examples.zip \
+    && rm jupyter-examples.zip
 
 ## Setting up R and R Kernel
 RUN wget https://mran.revolutionanalytics.com/install/mro/3.3.1/microsoft-r-open-3.3.1.tar.gz \
@@ -44,7 +49,6 @@ RUN wget https://mran.revolutionanalytics.com/install/mro/3.3.1/microsoft-r-open
 RUN ipython profile create spark \
     && git clone https://github.com/aoehmichen/incubator-toree/ \
     && cd incubator-toree \
-#    && git checkout cdh5.7.x \
     && make dist \
     && mkdir -p /root/.ipython/kernels/spark \
     && mkdir -p /root/.ipython/kernels/pyspark \

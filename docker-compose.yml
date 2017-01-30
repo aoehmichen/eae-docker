@@ -3,12 +3,12 @@ version: '2'
 services:
   # eAE Parts
   jupytereae:
-    image: aoehmich/jupyter-eae:latest
+    image: aoehmich/jupyter-eae:release-candidate
     hostname: jupyter
     privileged: true
     depends_on:
       - interfaceeae
-    command: [-deamon, interfaceeae, 8443, jupytereae, 22]
+    command: [-deamon, interfaceeae, "8443", jupytereae, "22"]
     ports:
       - "7180:7180"
       - "7777:7777"
