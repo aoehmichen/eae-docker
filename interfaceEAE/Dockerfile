@@ -3,10 +3,6 @@ MAINTAINER Axel Oehmichen <axelfrancois.oehmichen11@imperial.ac.uk>
 
 WORKDIR /root
 
-#ADD lsb.hosts /root
-#ADD lsb.queues /root
-#ADD lsf.cluster.openlava /root
-#ADD Config.groovy /root
 ADD start_eae.sh /root
 
 ## We install all the dependencies
@@ -33,15 +29,11 @@ RUN curl -L https://github.com/aoehmichen/eae-files/raw/master/op.tar.gz -o /roo
 
 # We set the configuration files
 RUN curl -L https://github.com/aoehmichen/eae-files/raw/master/interfaceEAE.war -o /var/lib/tomcat7/webapps/interfaceEAE.war \
-#    && mv lsb.hosts /opt/openlava-3.3/etc/ \
-#    && mv lsb.queues /opt/openlava-3.3/etc/ \
-#    && mv lsf.cluster.openlava /opt/openlava-3.3/etc/ \
     && chown openlava:openlava /opt/openlava-3.3/etc/*
 
 # We create the eae user and set the tomcat to run as the newly created eae user
 RUN useradd -ms /bin/bash eae \
     && mkdir -p /home/eae/.grails/interfaceEAEConfig \
-#    && mv /root/Config.groovy /home/eae/.grails/interfaceEAEConfig \
     && chown -R eae:eae /home/eae/.grails/ \
     && sed -i "s/TOMCAT7_USER=tomcat7/TOMCAT7_USER=eae/g" /etc/default/tomcat7 \
     && sed -i "s/TOMCAT7_GROUP=tomcat7/TOMCAT7_GROUP=eae/g" /etc/default/tomcat7 \
@@ -67,9 +59,6 @@ RUN mkdir ~/.ssh && chmod 700 ~/.ssh \
     && git clone https://github.com/aoehmichen/AnalyticsEAE.git /home/eae/AnalyticsEAE \
     && curl -L "https://raw.githubusercontent.com/aoehmichen/interfaceEAE/master/web-app/Scripts/putToHDFS.sh" > putToHDFS.sh \
     && chmod +x putToHDFS.sh
-
-#ADD id_rsa /home/eae/.ssh/
-#ADD id_rsa.pub /home/eae/.ssh/
 
 USER root
 RUN echo "Host *" > /home/eae/.ssh/config \
