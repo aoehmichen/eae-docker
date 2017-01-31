@@ -12,7 +12,7 @@ ADD start_eae.sh /root
 RUN echo "deb https://dl.bintray.com/sbt/debian /" | sudo tee -a /etc/apt/sources.list.d/sbt.list \
     && apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 2EE0EA64E40A89B84B2DF73499E82A75642AC823 \
     && apt-get update -q \
-    && apt-get upgrade -y --install-recommends \
+#    && apt-get upgrade -y --install-recommends \
     && apt-get install -y git python-numpy python-scipy python-matplotlib ipython python-pip python-scikits-learn nodejs-legacy npm zip libcurl4-openssl-dev libxml2-dev screen \
     && apt-get -y install libcurl4-gnutls-dev sbt \
     && pip install scimath \

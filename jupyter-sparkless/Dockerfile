@@ -9,10 +9,12 @@ RUN apt-get update -q \
     && apt-get install -y git python-numpy python-scipy python-matplotlib ipython python-pip python-scikits-learn nodejs-legacy npm zip libcurl4-openssl-dev libxml2-dev screen \
     && pip install scimath \
     && pip install pymongo \
-    && pip install tensorflow \
+    &&  export TF_BINARY_URL=https://storage.googleapis.com/tensorflow/linux/cpu/tensorflow-0.12.1-cp27-none-linux_x86_64.whl \
+    && sudo pip install --upgrade $TF_BINARY_URL \
     && chmod 777 start_eae.sh \
     && useradd -ms /bin/bash eae \
-    && rm -f /home/eae/.ssh/*
+    && mkdir /home/eae/.ssh \
+    && chmod 700 /home/eae/.ssh
 
 ## Setting up Jupyter notebook and we create the folder where the jupyter notebooks will run
 RUN pip install setuptools pip --upgrade --user \

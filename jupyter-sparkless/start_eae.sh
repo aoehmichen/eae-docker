@@ -26,7 +26,6 @@ echo "Host machine port where ssh is mapped: $SSH_HOST_PORT"
 ## We restart all the ssh service
 service ssh restart
 
-
 ## We copy the files to their rightful place so we can edit them on the flight later.
 yes | cp -rf /root/id_rsa /home/eae/.ssh/id_rsa
 yes | cp -rf /root/id_rsa.pub /home/eae/.ssh/id_rsa.pub
