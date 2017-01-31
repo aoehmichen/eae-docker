@@ -8,7 +8,7 @@ ADD start_eae.sh /root
 
 RUN apt-get update -q \
     && apt-get upgrade -y --install-recommends \
-    && apt-get install -y git python-numpy python-scipy python-matplotlib ipython python-pip python-scikits-learn nodejs-legacy npm zip libcurl4-openssl-dev libxml2-dev screen
+    && apt-get install -y vim wget git python-numpy python-scipy python-matplotlib ipython python-pip python-scikits-learn nodejs-legacy npm zip libcurl4-openssl-dev libxml2-dev screen
 
 RUN pip install scimath \
     && pip install pymongo \
