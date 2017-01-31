@@ -1,15 +1,18 @@
 FROM ubuntu:14.04
 MAINTAINER Axel Oehmichen <axelfrancois.oehmichen11@imperial.ac.uk>
 
+WORKDIR /root
+
 ADD irkernel_install.r /root
 ADD start_eae.sh /root
 
 RUN apt-get update -q \
     && apt-get upgrade -y --install-recommends \
-    && apt-get install -y git python-numpy python-scipy python-matplotlib ipython python-pip python-scikits-learn nodejs-legacy npm zip libcurl4-openssl-dev libxml2-dev screen \
-    && pip install scimath \
+    && apt-get install -y git python-numpy python-scipy python-matplotlib ipython python-pip python-scikits-learn nodejs-legacy npm zip libcurl4-openssl-dev libxml2-dev screen
+
+RUN pip install scimath \
     && pip install pymongo \
-    &&  export TF_BINARY_URL=https://storage.googleapis.com/tensorflow/linux/cpu/tensorflow-0.12.1-cp27-none-linux_x86_64.whl \
+    && export TF_BINARY_URL=https://storage.googleapis.com/tensorflow/linux/cpu/tensorflow-0.12.1-cp27-none-linux_x86_64.whl \
     && sudo pip install --upgrade $TF_BINARY_URL \
     && chmod 777 start_eae.sh \
     && useradd -ms /bin/bash eae \
