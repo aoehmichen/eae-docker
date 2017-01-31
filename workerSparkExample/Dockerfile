@@ -1,4 +1,4 @@
-FROM ubuntu:14.04
+FROM aoehmich/cdh5.9:release-candidate
 MAINTAINER Axel Oehmichen <axelfrancois.oehmichen11@imperial.ac.uk>
 
 ADD Cloudera_Management.py /root

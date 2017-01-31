@@ -1,7 +1,5 @@
-FROM aoehmich/cdh5.9:release-candidate
+FROM ubuntu:14.04
 MAINTAINER Axel Oehmichen <axelfrancois.oehmichen11@imperial.ac.uk>
-
-WORKDIR /root
 
 ADD irkernel_install.r /root
 ADD start_eae.sh /root
@@ -13,6 +11,7 @@ RUN apt-get update -q \
     && pip install pymongo \
     && pip install tensorflow \
     && chmod 777 start_eae.sh \
+    && useradd -ms /bin/bash eae \
     && rm -f /home/eae/.ssh/*
 
 ## Setting up Jupyter notebook and we create the folder where the jupyter notebooks will run
