@@ -14,7 +14,10 @@ RUN echo "deb https://dl.bintray.com/sbt/debian /" | sudo tee -a /etc/apt/source
     && apt-get update -q \
 #    && apt-get upgrade -y --install-recommends \
     && apt-get install -y git wget python-numpy python-scipy python-matplotlib ipython python-pip python-scikits-learn nodejs-legacy npm zip libcurl4-openssl-dev libxml2-dev screen \
-    && apt-get -y install libcurl4-gnutls-dev sbt \
+    && apt-get -y install libcurl4-gnutls-dev sbt
+    
+RUN export TF_BINARY_URL=https://storage.googleapis.com/tensorflow/linux/cpu/tensorflow-0.12.1-cp27-none-linux_x86_64.whl \
+    && sudo pip install --upgrade $TF_BINARY_URL \
     && pip install scimath \
     && pip install pymongo \
     && pip install cm-api \
