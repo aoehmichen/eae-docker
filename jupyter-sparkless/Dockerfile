@@ -1,4 +1,4 @@
-FROM ubuntu:14.04
+FROM nvidia/cuda:8.0-cudnn5-devel-ubuntu14.04
 MAINTAINER Axel Oehmichen <axelfrancois.oehmichen11@imperial.ac.uk>
 
 WORKDIR /root
@@ -12,7 +12,7 @@ RUN apt-get update -q \
 
 RUN pip install scimath \
     && pip install pymongo \
-    && export TF_BINARY_URL=https://storage.googleapis.com/tensorflow/linux/cpu/tensorflow-0.12.1-cp27-none-linux_x86_64.whl \
+    && export TF_BINARY_URL=https://storage.googleapis.com/tensorflow/linux/gpu/tensorflow_gpu-0.12.1-cp27-none-linux_x86_64.whl \
     && sudo pip install --upgrade $TF_BINARY_URL \
     && chmod 777 start_eae.sh \
     && useradd -ms /bin/bash eae \
@@ -33,12 +33,12 @@ RUN pip install setuptools pip --upgrade --user \
     && cd /home/eae/jupyter
 
 ## Setting up R and R Kernel
-RUN wget https://mran.revolutionanalytics.com/install/mro/3.3.1/microsoft-r-open-3.3.1.tar.gz \
-    && tar xzf microsoft-r-open-3.3.1.tar.gz \
-    && cd microsoft-r-open \
-    && ./install.sh \
-    && cd /root \
-    && Rscript irkernel_install.r
+#RUN wget https://mran.revolutionanalytics.com/install/mro/3.3.1/microsoft-r-open-3.3.1.tar.gz \
+#    && tar xzf microsoft-r-open-3.3.1.tar.gz \
+#    && cd microsoft-r-open \
+#    && ./install.sh \
+#    && cd /root \
+#    && Rscript irkernel_install.r
 
 EXPOSE 22 7180 7777 8433 8888 18088
 
