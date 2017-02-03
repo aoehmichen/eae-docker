@@ -10,6 +10,14 @@ service ssh restart
 sed "/eae-jupyter/d" /etc/hosts |  sed '/127.0.0.1/c  127.0.0.1 eae-jupyter' > /tmp/sed.txt
 cat /tmp/sed.txt > /etc/hosts
 
+cat /home/eae/.ssh/id_rsa.pub > /home/eae/.ssh/authorized_keys
+chown -R eae:eae /home/eae/.ssh/
+chmod 600 /home/eae/.ssh/id_rsa
+chown openlava:openlava /opt/openlava-3.3/etc/*
+
+# We restart the openlava service after we wait for the interface node to startup
+service openlava restart
+
 ## We restart all the necessary Cloudera services
 service cloudera-scm-server-db restart
 sleep 60
@@ -20,15 +28,6 @@ sleep 60
 
 ## We restart all the Hadoop services
 python /root/Cloudera_Management.py
-
-cat /home/eae/.ssh/id_rsa.pub > /home/eae/.ssh/authorized_keys
-chown -R eae:eae /home/eae/.ssh/
-chmod 600 /home/eae/.ssh/id_rsa
-chown openlava:openlava /opt/openlava-3.3/etc/*
-
-# We restart the openlava service after we wait for the interface node to startup
-sleep 20
-service openlava restart
 
 ## Hook on the container
 if [[ $1 == "-deamon" ]]; then

@@ -29,6 +29,7 @@ HOST_NAME     MXJ JL/U   r1m    pg    ls     tmp  DISPATCH_WINDOW  # Keywords
 #host2        ()   ()   3.5/5   18    15     ()     ()		   # Example
 worker1        1   ()     ()    ()    ()     ()     ()         # Example eAE
 worker2        1   ()     ()    ()    ()     ()     ()         # Example eAE
+workerSpark        1   ()     ()    ()    ()     ()     ()         # Example eAE
 default       !   ()     ()    ()    ()     ()     ()		   # Example
 End Host
 
