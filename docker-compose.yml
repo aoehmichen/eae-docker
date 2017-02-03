@@ -67,6 +67,8 @@ services:
     image: aoehmich/worker-spark-eae:latest
     container_name: workerSpark
     hostname: workerSpark
+    stdin_open: true
+    tty: true
     depends_on:
       - interfaceeae
     volumes:
