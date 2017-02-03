@@ -16,7 +16,6 @@ chmod 600 /home/eae/.ssh/id_rsa
 chown openlava:openlava /opt/openlava-3.3/etc/*
 
 # We restart the openlava service after we wait for the interface node to startup
-sleep 20
 service openlava restart
 
 ## We restart all the necessary Cloudera services
