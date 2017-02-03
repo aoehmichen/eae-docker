@@ -17,6 +17,7 @@ rm -rf ssh/*
 mv id_rsa* ssh/
 cp interfaceEAE/lsf.cluster.* workerExample
 cp jupyter/irkernel_install.r workerExample
+cp interfaceEAE/lsf.cluster.* workerSparkExample
 
 docker-compose build
 
