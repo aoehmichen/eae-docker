@@ -63,6 +63,18 @@ services:
       - "./interfaceEAE/lsb.queues:/opt/openlava-3.3/etc/lsb.queues"
       - "./ssh/id_rsa:/home/eae/.ssh/id_rsa"
       - "./ssh/id_rsa.pub:/home/eae/.ssh/id_rsa.pub"
+  workerSpark:
+    image: aoehmich/worker-spark-eae:latest
+    container_name: workerSpark
+    hostname: workerSpark
+    depends_on:
+      - interfaceeae
+    volumes:
+      - "./interfaceEAE/lsf.cluster.openlava:/opt/openlava-3.3/etc/lsf.cluster.openlava"
+      - "./interfaceEAE/lsb.hosts:/opt/openlava-3.3/etc/lsb.hosts"
+      - "./interfaceEAE/lsb.queues:/opt/openlava-3.3/etc/lsb.queues"
+      - "./ssh/id_rsa:/home/eae/.ssh/id_rsa"
+      - "./ssh/id_rsa.pub:/home/eae/.ssh/id_rsa.pub"
   mongo-initialize:
     image: aoehmich/mongo-eae:latest
     depends_on:

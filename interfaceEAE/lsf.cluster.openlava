@@ -17,6 +17,7 @@ HOSTNAME          model          type  server  r1m  RESOURCES
 interfaceeae                !              !     1       -       -
 worker1                     !              !     1       -       -
 worker2                     !              !     1       -       -
+workerSpark                     !              !     1       -       -
 End     Host
 
 Begin ResourceMap
