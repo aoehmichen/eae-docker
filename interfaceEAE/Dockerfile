@@ -56,7 +56,7 @@ WORKDIR /home/eae
 RUN mkdir ~/.ssh && chmod 700 ~/.ssh \
     && mkdir -p data \
     && chmod 777 data \
-    && git clone https://github.com/aoehmichen/AnalyticsEAE.git /home/eae/AnalyticsEAE \
+    && git clone -b unsecure https://github.com/aoehmichen/AnalyticsEAE.git /home/eae/AnalyticsEAE \
     && curl -L "https://raw.githubusercontent.com/aoehmichen/interfaceEAE/master/web-app/Scripts/putToHDFS.sh" > putToHDFS.sh \
     && chmod +x putToHDFS.sh
 

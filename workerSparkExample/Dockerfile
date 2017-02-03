@@ -36,6 +36,10 @@ RUN mkdir -p /home/eae/.ssh && chmod 700 /home/eae/.ssh \
     && echo "       StrictHostKeyChecking no" >> /home/eae/.ssh/config \
     && chown -R eae:eae /home/eae/.ssh/
 
+WORKDIR /usr/lib/jvm
+
+# We need to locate the proper java for Hadoop
+RUN ln -s java-7-oracle-cloudera/ default-java
 
 EXPOSE 22 16322 16323 16324 16325
 EXPOSE 16322/udp
