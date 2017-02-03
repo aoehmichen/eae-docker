@@ -1,4 +1,4 @@
-FROM ubuntu:14.04
+FROM ubuntu:16.04
 MAINTAINER Axel Oehmichen <axelfrancois.oehmichen11@imperial.ac.uk>
 
 WORKDIR /root
@@ -10,7 +10,7 @@ RUN apt-get update -q && apt-get upgrade -y --no-install-recommends \
     && apt-get install -y wget curl git unzip zip tomcat7 libncurses-dev psmisc default-jdk vim htop openssh-server \
     && apt-get install -y tcl-dev
 
-## We install openlava
+## We install LSF
 RUN curl -L https://github.com/aoehmichen/eae-files/raw/master/op.tar.gz -o /root/op.tar.gz  \
     && tar zxvf /root/op.tar.gz openlava-3.3 \
     && cd openlava-3.* \
