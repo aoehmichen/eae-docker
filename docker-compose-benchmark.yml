@@ -1,0 +1,1443 @@
+version: '2'
+
+services:
+  # eAE Parts
+  jupytereae:
+    image: aoehmich/jupyter-eae:latest
+    hostname: jupyter
+    privileged: true
+    depends_on:
+      - interfaceeae
+    command: [-deamon, "146.169.33.20", "8443", jupytereae, "22"]
+    ports:
+      - "7180:7180"
+      - "7777:7777"
+      - "8888:8888"
+      - "18088:18088"
+    volumes:
+      - "./jupyter/jupyter_notebook_config.py:/root/jupyter_notebook_config.py"
+      - "./ssh/id_rsa:/root/id_rsa"
+      - "./ssh/id_rsa.pub:/root/id_rsa.pub"
+  interfaceeae:
+    image: aoehmich/interface-eae:latest
+    container_name: interfaceeae
+    hostname: interfaceeae
+    stdin_open: true
+    tty: true
+    depends_on:
+      - mongo
+    ports:
+      - "8443:8443"
+    volumes:
+      - "./interfaceEAE/Config.groovy:/home/eae/.grails/interfaceEAEConfig/Config.groovy"
+      - "./interfaceEAE/lsb.hosts:/opt/openlava-3.3/etc/lsb.hosts"
+      - "./interfaceEAE/lsb.queues:/opt/openlava-3.3/etc/lsb.queues"
+      - "./interfaceEAE/lsf.cluster.openlava:/opt/openlava-3.3/etc/lsf.cluster.openlava"
+      - "./ssh/id_rsa:/home/eae/.ssh/id_rsa"
+      - "./ssh/id_rsa.pub:/home/eae/.ssh/id_rsa.pub"
+  worker1:
+    image: aoehmich/worker-eae:latest
+    container_name: worker1
+    hostname: worker1
+    stdin_open: true
+    tty: true
+    depends_on:
+      - interfaceeae
+    volumes:
+      - "./interfaceEAE/lsf.cluster.openlava:/opt/openlava-3.3/etc/lsf.cluster.openlava"
+      - "./interfaceEAE/lsb.hosts:/opt/openlava-3.3/etc/lsb.hosts"
+      - "./interfaceEAE/lsb.queues:/opt/openlava-3.3/etc/lsb.queues"
+      - "./ssh/id_rsa:/home/eae/.ssh/id_rsa"
+      - "./ssh/id_rsa.pub:/home/eae/.ssh/id_rsa.pub"
+  worker2:
+    image: aoehmich/worker-eae:latest
+    container_name: worker2
+    hostname: worker2
+    stdin_open: true
+    tty: true
+    depends_on:
+      - interfaceeae
+    volumes:
+      - "./interfaceEAE/lsf.cluster.openlava:/opt/openlava-3.3/etc/lsf.cluster.openlava"
+      - "./interfaceEAE/lsb.hosts:/opt/openlava-3.3/etc/lsb.hosts"
+      - "./interfaceEAE/lsb.queues:/opt/openlava-3.3/etc/lsb.queues"
+      - "./ssh/id_rsa:/home/eae/.ssh/id_rsa"
+      - "./ssh/id_rsa.pub:/home/eae/.ssh/id_rsa.pub"
+  worker3:
+    image: aoehmich/worker-eae:latest
+    container_name: worker3
+    hostname: worker3
+    stdin_open: true
+    tty: true
+    depends_on:
+      - interfaceeae
+    volumes:
+      - "./interfaceEAE/lsf.cluster.openlava:/opt/openlava-3.3/etc/lsf.cluster.openlava"
+      - "./interfaceEAE/lsb.hosts:/opt/openlava-3.3/etc/lsb.hosts"
+      - "./interfaceEAE/lsb.queues:/opt/openlava-3.3/etc/lsb.queues"
+      - "./ssh/id_rsa:/home/eae/.ssh/id_rsa"
+      - "./ssh/id_rsa.pub:/home/eae/.ssh/id_rsa.pub"
+  worker4:
+    image: aoehmich/worker-eae:latest
+    container_name: worker4
+    hostname: worker4
+    stdin_open: true
+    tty: true
+    depends_on:
+      - interfaceeae
+    volumes:
+      - "./interfaceEAE/lsf.cluster.openlava:/opt/openlava-3.3/etc/lsf.cluster.openlava"
+      - "./interfaceEAE/lsb.hosts:/opt/openlava-3.3/etc/lsb.hosts"
+      - "./interfaceEAE/lsb.queues:/opt/openlava-3.3/etc/lsb.queues"
+      - "./ssh/id_rsa:/home/eae/.ssh/id_rsa"
+      - "./ssh/id_rsa.pub:/home/eae/.ssh/id_rsa.pub"
+  worker5:
+    image: aoehmich/worker-eae:latest
+    container_name: worker5
+    hostname: worker5
+    stdin_open: true
+    tty: true
+    depends_on:
+      - interfaceeae
+    volumes:
+      - "./interfaceEAE/lsf.cluster.openlava:/opt/openlava-3.3/etc/lsf.cluster.openlava"
+      - "./interfaceEAE/lsb.hosts:/opt/openlava-3.3/etc/lsb.hosts"
+      - "./interfaceEAE/lsb.queues:/opt/openlava-3.3/etc/lsb.queues"
+      - "./ssh/id_rsa:/home/eae/.ssh/id_rsa"
+      - "./ssh/id_rsa.pub:/home/eae/.ssh/id_rsa.pub"
+  worker6:
+    image: aoehmich/worker-eae:latest
+    container_name: worker6
+    hostname: worker6
+    stdin_open: true
+    tty: true
+    depends_on:
+      - interfaceeae
+    volumes:
+      - "./interfaceEAE/lsf.cluster.openlava:/opt/openlava-3.3/etc/lsf.cluster.openlava"
+      - "./interfaceEAE/lsb.hosts:/opt/openlava-3.3/etc/lsb.hosts"
+      - "./interfaceEAE/lsb.queues:/opt/openlava-3.3/etc/lsb.queues"
+      - "./ssh/id_rsa:/home/eae/.ssh/id_rsa"
+      - "./ssh/id_rsa.pub:/home/eae/.ssh/id_rsa.pub"
+  worker7:
+    image: aoehmich/worker-eae:latest
+    container_name: worker7
+    hostname: worker7
+    stdin_open: true
+    tty: true
+    depends_on:
+      - interfaceeae
+    volumes:
+      - "./interfaceEAE/lsf.cluster.openlava:/opt/openlava-3.3/etc/lsf.cluster.openlava"
+      - "./interfaceEAE/lsb.hosts:/opt/openlava-3.3/etc/lsb.hosts"
+      - "./interfaceEAE/lsb.queues:/opt/openlava-3.3/etc/lsb.queues"
+      - "./ssh/id_rsa:/home/eae/.ssh/id_rsa"
+      - "./ssh/id_rsa.pub:/home/eae/.ssh/id_rsa.pub"
+  worker8:
+    image: aoehmich/worker-eae:latest
+    container_name: worker8
+    hostname: worker8
+    stdin_open: true
+    tty: true
+    depends_on:
+      - interfaceeae
+    volumes:
+      - "./interfaceEAE/lsf.cluster.openlava:/opt/openlava-3.3/etc/lsf.cluster.openlava"
+      - "./interfaceEAE/lsb.hosts:/opt/openlava-3.3/etc/lsb.hosts"
+      - "./interfaceEAE/lsb.queues:/opt/openlava-3.3/etc/lsb.queues"
+      - "./ssh/id_rsa:/home/eae/.ssh/id_rsa"
+      - "./ssh/id_rsa.pub:/home/eae/.ssh/id_rsa.pub"
+  worker9:
+    image: aoehmich/worker-eae:latest
+    container_name: worker9
+    hostname: worker9
+    stdin_open: true
+    tty: true
+    depends_on:
+      - interfaceeae
+    volumes:
+      - "./interfaceEAE/lsf.cluster.openlava:/opt/openlava-3.3/etc/lsf.cluster.openlava"
+      - "./interfaceEAE/lsb.hosts:/opt/openlava-3.3/etc/lsb.hosts"
+      - "./interfaceEAE/lsb.queues:/opt/openlava-3.3/etc/lsb.queues"
+      - "./ssh/id_rsa:/home/eae/.ssh/id_rsa"
+      - "./ssh/id_rsa.pub:/home/eae/.ssh/id_rsa.pub"
+  worker10:
+    image: aoehmich/worker-eae:latest
+    container_name: worker10
+    hostname: worker10
+    stdin_open: true
+    tty: true
+    depends_on:
+      - interfaceeae
+    volumes:
+      - "./interfaceEAE/lsf.cluster.openlava:/opt/openlava-3.3/etc/lsf.cluster.openlava"
+      - "./interfaceEAE/lsb.hosts:/opt/openlava-3.3/etc/lsb.hosts"
+      - "./interfaceEAE/lsb.queues:/opt/openlava-3.3/etc/lsb.queues"
+      - "./ssh/id_rsa:/home/eae/.ssh/id_rsa"
+      - "./ssh/id_rsa.pub:/home/eae/.ssh/id_rsa.pub"
+  worker11:
+    image: aoehmich/worker-eae:latest
+    container_name: worker11
+    hostname: worker11
+    stdin_open: true
+    tty: true
+    depends_on:
+      - interfaceeae
+    volumes:
+      - "./interfaceEAE/lsf.cluster.openlava:/opt/openlava-3.3/etc/lsf.cluster.openlava"
+      - "./interfaceEAE/lsb.hosts:/opt/openlava-3.3/etc/lsb.hosts"
+      - "./interfaceEAE/lsb.queues:/opt/openlava-3.3/etc/lsb.queues"
+      - "./ssh/id_rsa:/home/eae/.ssh/id_rsa"
+      - "./ssh/id_rsa.pub:/home/eae/.ssh/id_rsa.pub"
+  worker12:
+    image: aoehmich/worker-eae:latest
+    container_name: worker12
+    hostname: worker12
+    stdin_open: true
+    tty: true
+    depends_on:
+      - interfaceeae
+    volumes:
+      - "./interfaceEAE/lsf.cluster.openlava:/opt/openlava-3.3/etc/lsf.cluster.openlava"
+      - "./interfaceEAE/lsb.hosts:/opt/openlava-3.3/etc/lsb.hosts"
+      - "./interfaceEAE/lsb.queues:/opt/openlava-3.3/etc/lsb.queues"
+      - "./ssh/id_rsa:/home/eae/.ssh/id_rsa"
+      - "./ssh/id_rsa.pub:/home/eae/.ssh/id_rsa.pub"
+  worker13:
+    image: aoehmich/worker-eae:latest
+    container_name: worker13
+    hostname: worker13
+    stdin_open: true
+    tty: true
+    depends_on:
+      - interfaceeae
+    volumes:
+      - "./interfaceEAE/lsf.cluster.openlava:/opt/openlava-3.3/etc/lsf.cluster.openlava"
+      - "./interfaceEAE/lsb.hosts:/opt/openlava-3.3/etc/lsb.hosts"
+      - "./interfaceEAE/lsb.queues:/opt/openlava-3.3/etc/lsb.queues"
+      - "./ssh/id_rsa:/home/eae/.ssh/id_rsa"
+      - "./ssh/id_rsa.pub:/home/eae/.ssh/id_rsa.pub"
+  worker14:
+    image: aoehmich/worker-eae:latest
+    container_name: worker14
+    hostname: worker14
+    stdin_open: true
+    tty: true
+    depends_on:
+      - interfaceeae
+    volumes:
+      - "./interfaceEAE/lsf.cluster.openlava:/opt/openlava-3.3/etc/lsf.cluster.openlava"
+      - "./interfaceEAE/lsb.hosts:/opt/openlava-3.3/etc/lsb.hosts"
+      - "./interfaceEAE/lsb.queues:/opt/openlava-3.3/etc/lsb.queues"
+      - "./ssh/id_rsa:/home/eae/.ssh/id_rsa"
+      - "./ssh/id_rsa.pub:/home/eae/.ssh/id_rsa.pub"
+  worker15:
+    image: aoehmich/worker-eae:latest
+    container_name: worker15
+    hostname: worker15
+    stdin_open: true
+    tty: true
+    depends_on:
+      - interfaceeae
+    volumes:
+      - "./interfaceEAE/lsf.cluster.openlava:/opt/openlava-3.3/etc/lsf.cluster.openlava"
+      - "./interfaceEAE/lsb.hosts:/opt/openlava-3.3/etc/lsb.hosts"
+      - "./interfaceEAE/lsb.queues:/opt/openlava-3.3/etc/lsb.queues"
+      - "./ssh/id_rsa:/home/eae/.ssh/id_rsa"
+      - "./ssh/id_rsa.pub:/home/eae/.ssh/id_rsa.pub"
+  worker16:
+    image: aoehmich/worker-eae:latest
+    container_name: worker16
+    hostname: worker16
+    stdin_open: true
+    tty: true
+    depends_on:
+      - interfaceeae
+    volumes:
+      - "./interfaceEAE/lsf.cluster.openlava:/opt/openlava-3.3/etc/lsf.cluster.openlava"
+      - "./interfaceEAE/lsb.hosts:/opt/openlava-3.3/etc/lsb.hosts"
+      - "./interfaceEAE/lsb.queues:/opt/openlava-3.3/etc/lsb.queues"
+      - "./ssh/id_rsa:/home/eae/.ssh/id_rsa"
+      - "./ssh/id_rsa.pub:/home/eae/.ssh/id_rsa.pub"
+  worker17:
+    image: aoehmich/worker-eae:latest
+    container_name: worker17
+    hostname: worker17
+    stdin_open: true
+    tty: true
+    depends_on:
+      - interfaceeae
+    volumes:
+      - "./interfaceEAE/lsf.cluster.openlava:/opt/openlava-3.3/etc/lsf.cluster.openlava"
+      - "./interfaceEAE/lsb.hosts:/opt/openlava-3.3/etc/lsb.hosts"
+      - "./interfaceEAE/lsb.queues:/opt/openlava-3.3/etc/lsb.queues"
+      - "./ssh/id_rsa:/home/eae/.ssh/id_rsa"
+      - "./ssh/id_rsa.pub:/home/eae/.ssh/id_rsa.pub"
+  worker18:
+    image: aoehmich/worker-eae:latest
+    container_name: worker18
+    hostname: worker18
+    stdin_open: true
+    tty: true
+    depends_on:
+      - interfaceeae
+    volumes:
+      - "./interfaceEAE/lsf.cluster.openlava:/opt/openlava-3.3/etc/lsf.cluster.openlava"
+      - "./interfaceEAE/lsb.hosts:/opt/openlava-3.3/etc/lsb.hosts"
+      - "./interfaceEAE/lsb.queues:/opt/openlava-3.3/etc/lsb.queues"
+      - "./ssh/id_rsa:/home/eae/.ssh/id_rsa"
+      - "./ssh/id_rsa.pub:/home/eae/.ssh/id_rsa.pub"
+  worker19:
+    image: aoehmich/worker-eae:latest
+    container_name: worker19
+    hostname: worker19
+    stdin_open: true
+    tty: true
+    depends_on:
+      - interfaceeae
+    volumes:
+      - "./interfaceEAE/lsf.cluster.openlava:/opt/openlava-3.3/etc/lsf.cluster.openlava"
+      - "./interfaceEAE/lsb.hosts:/opt/openlava-3.3/etc/lsb.hosts"
+      - "./interfaceEAE/lsb.queues:/opt/openlava-3.3/etc/lsb.queues"
+      - "./ssh/id_rsa:/home/eae/.ssh/id_rsa"
+      - "./ssh/id_rsa.pub:/home/eae/.ssh/id_rsa.pub"
+  worker20:
+    image: aoehmich/worker-eae:latest
+    container_name: worker20
+    hostname: worker20
+    stdin_open: true
+    tty: true
+    depends_on:
+      - interfaceeae
+    volumes:
+      - "./interfaceEAE/lsf.cluster.openlava:/opt/openlava-3.3/etc/lsf.cluster.openlava"
+      - "./interfaceEAE/lsb.hosts:/opt/openlava-3.3/etc/lsb.hosts"
+      - "./interfaceEAE/lsb.queues:/opt/openlava-3.3/etc/lsb.queues"
+      - "./ssh/id_rsa:/home/eae/.ssh/id_rsa"
+      - "./ssh/id_rsa.pub:/home/eae/.ssh/id_rsa.pub"
+  worker21:
+    image: aoehmich/worker-eae:latest
+    container_name: worker21
+    hostname: worker21
+    stdin_open: true
+    tty: true
+    depends_on:
+      - interfaceeae
+    volumes:
+      - "./interfaceEAE/lsf.cluster.openlava:/opt/openlava-3.3/etc/lsf.cluster.openlava"
+      - "./interfaceEAE/lsb.hosts:/opt/openlava-3.3/etc/lsb.hosts"
+      - "./interfaceEAE/lsb.queues:/opt/openlava-3.3/etc/lsb.queues"
+      - "./ssh/id_rsa:/home/eae/.ssh/id_rsa"
+      - "./ssh/id_rsa.pub:/home/eae/.ssh/id_rsa.pub"
+  worker22:
+    image: aoehmich/worker-eae:latest
+    container_name: worker22
+    hostname: worker22
+    stdin_open: true
+    tty: true
+    depends_on:
+      - interfaceeae
+    volumes:
+      - "./interfaceEAE/lsf.cluster.openlava:/opt/openlava-3.3/etc/lsf.cluster.openlava"
+      - "./interfaceEAE/lsb.hosts:/opt/openlava-3.3/etc/lsb.hosts"
+      - "./interfaceEAE/lsb.queues:/opt/openlava-3.3/etc/lsb.queues"
+      - "./ssh/id_rsa:/home/eae/.ssh/id_rsa"
+      - "./ssh/id_rsa.pub:/home/eae/.ssh/id_rsa.pub"
+  worker23:
+    image: aoehmich/worker-eae:latest
+    container_name: worker23
+    hostname: worker23
+    stdin_open: true
+    tty: true
+    depends_on:
+      - interfaceeae
+    volumes:
+      - "./interfaceEAE/lsf.cluster.openlava:/opt/openlava-3.3/etc/lsf.cluster.openlava"
+      - "./interfaceEAE/lsb.hosts:/opt/openlava-3.3/etc/lsb.hosts"
+      - "./interfaceEAE/lsb.queues:/opt/openlava-3.3/etc/lsb.queues"
+      - "./ssh/id_rsa:/home/eae/.ssh/id_rsa"
+      - "./ssh/id_rsa.pub:/home/eae/.ssh/id_rsa.pub"
+  worker24:
+    image: aoehmich/worker-eae:latest
+    container_name: worker24
+    hostname: worker24
+    stdin_open: true
+    tty: true
+    depends_on:
+      - interfaceeae
+    volumes:
+      - "./interfaceEAE/lsf.cluster.openlava:/opt/openlava-3.3/etc/lsf.cluster.openlava"
+      - "./interfaceEAE/lsb.hosts:/opt/openlava-3.3/etc/lsb.hosts"
+      - "./interfaceEAE/lsb.queues:/opt/openlava-3.3/etc/lsb.queues"
+      - "./ssh/id_rsa:/home/eae/.ssh/id_rsa"
+      - "./ssh/id_rsa.pub:/home/eae/.ssh/id_rsa.pub"
+  worker25:
+    image: aoehmich/worker-eae:latest
+    container_name: worker25
+    hostname: worker25
+    stdin_open: true
+    tty: true
+    depends_on:
+      - interfaceeae
+    volumes:
+      - "./interfaceEAE/lsf.cluster.openlava:/opt/openlava-3.3/etc/lsf.cluster.openlava"
+      - "./interfaceEAE/lsb.hosts:/opt/openlava-3.3/etc/lsb.hosts"
+      - "./interfaceEAE/lsb.queues:/opt/openlava-3.3/etc/lsb.queues"
+      - "./ssh/id_rsa:/home/eae/.ssh/id_rsa"
+      - "./ssh/id_rsa.pub:/home/eae/.ssh/id_rsa.pub"
+  worker26:
+    image: aoehmich/worker-eae:latest
+    container_name: worker26
+    hostname: worker26
+    stdin_open: true
+    tty: true
+    depends_on:
+      - interfaceeae
+    volumes:
+      - "./interfaceEAE/lsf.cluster.openlava:/opt/openlava-3.3/etc/lsf.cluster.openlava"
+      - "./interfaceEAE/lsb.hosts:/opt/openlava-3.3/etc/lsb.hosts"
+      - "./interfaceEAE/lsb.queues:/opt/openlava-3.3/etc/lsb.queues"
+      - "./ssh/id_rsa:/home/eae/.ssh/id_rsa"
+      - "./ssh/id_rsa.pub:/home/eae/.ssh/id_rsa.pub"
+  worker27:
+    image: aoehmich/worker-eae:latest
+    container_name: worker27
+    hostname: worker27
+    stdin_open: true
+    tty: true
+    depends_on:
+      - interfaceeae
+    volumes:
+      - "./interfaceEAE/lsf.cluster.openlava:/opt/openlava-3.3/etc/lsf.cluster.openlava"
+      - "./interfaceEAE/lsb.hosts:/opt/openlava-3.3/etc/lsb.hosts"
+      - "./interfaceEAE/lsb.queues:/opt/openlava-3.3/etc/lsb.queues"
+      - "./ssh/id_rsa:/home/eae/.ssh/id_rsa"
+      - "./ssh/id_rsa.pub:/home/eae/.ssh/id_rsa.pub"
+  worker28:
+    image: aoehmich/worker-eae:latest
+    container_name: worker28
+    hostname: worker28
+    stdin_open: true
+    tty: true
+    depends_on:
+      - interfaceeae
+    volumes:
+      - "./interfaceEAE/lsf.cluster.openlava:/opt/openlava-3.3/etc/lsf.cluster.openlava"
+      - "./interfaceEAE/lsb.hosts:/opt/openlava-3.3/etc/lsb.hosts"
+      - "./interfaceEAE/lsb.queues:/opt/openlava-3.3/etc/lsb.queues"
+      - "./ssh/id_rsa:/home/eae/.ssh/id_rsa"
+      - "./ssh/id_rsa.pub:/home/eae/.ssh/id_rsa.pub"
+  worker29:
+    image: aoehmich/worker-eae:latest
+    container_name: worker29
+    hostname: worker29
+    stdin_open: true
+    tty: true
+    depends_on:
+      - interfaceeae
+    volumes:
+      - "./interfaceEAE/lsf.cluster.openlava:/opt/openlava-3.3/etc/lsf.cluster.openlava"
+      - "./interfaceEAE/lsb.hosts:/opt/openlava-3.3/etc/lsb.hosts"
+      - "./interfaceEAE/lsb.queues:/opt/openlava-3.3/etc/lsb.queues"
+      - "./ssh/id_rsa:/home/eae/.ssh/id_rsa"
+      - "./ssh/id_rsa.pub:/home/eae/.ssh/id_rsa.pub"
+  worker30:
+    image: aoehmich/worker-eae:latest
+    container_name: worker30
+    hostname: worker30
+    stdin_open: true
+    tty: true
+    depends_on:
+      - interfaceeae
+    volumes:
+      - "./interfaceEAE/lsf.cluster.openlava:/opt/openlava-3.3/etc/lsf.cluster.openlava"
+      - "./interfaceEAE/lsb.hosts:/opt/openlava-3.3/etc/lsb.hosts"
+      - "./interfaceEAE/lsb.queues:/opt/openlava-3.3/etc/lsb.queues"
+      - "./ssh/id_rsa:/home/eae/.ssh/id_rsa"
+      - "./ssh/id_rsa.pub:/home/eae/.ssh/id_rsa.pub"
+  worker31:
+    image: aoehmich/worker-eae:latest
+    container_name: worker31
+    hostname: worker31
+    stdin_open: true
+    tty: true
+    depends_on:
+      - interfaceeae
+    volumes:
+      - "./interfaceEAE/lsf.cluster.openlava:/opt/openlava-3.3/etc/lsf.cluster.openlava"
+      - "./interfaceEAE/lsb.hosts:/opt/openlava-3.3/etc/lsb.hosts"
+      - "./interfaceEAE/lsb.queues:/opt/openlava-3.3/etc/lsb.queues"
+      - "./ssh/id_rsa:/home/eae/.ssh/id_rsa"
+      - "./ssh/id_rsa.pub:/home/eae/.ssh/id_rsa.pub"
+  worker32:
+    image: aoehmich/worker-eae:latest
+    container_name: worker32
+    hostname: worker32
+    stdin_open: true
+    tty: true
+    depends_on:
+      - interfaceeae
+    volumes:
+      - "./interfaceEAE/lsf.cluster.openlava:/opt/openlava-3.3/etc/lsf.cluster.openlava"
+      - "./interfaceEAE/lsb.hosts:/opt/openlava-3.3/etc/lsb.hosts"
+      - "./interfaceEAE/lsb.queues:/opt/openlava-3.3/etc/lsb.queues"
+      - "./ssh/id_rsa:/home/eae/.ssh/id_rsa"
+      - "./ssh/id_rsa.pub:/home/eae/.ssh/id_rsa.pub"
+  worker33:
+    image: aoehmich/worker-eae:latest
+    container_name: worker33
+    hostname: worker33
+    stdin_open: true
+    tty: true
+    depends_on:
+      - interfaceeae
+    volumes:
+      - "./interfaceEAE/lsf.cluster.openlava:/opt/openlava-3.3/etc/lsf.cluster.openlava"
+      - "./interfaceEAE/lsb.hosts:/opt/openlava-3.3/etc/lsb.hosts"
+      - "./interfaceEAE/lsb.queues:/opt/openlava-3.3/etc/lsb.queues"
+      - "./ssh/id_rsa:/home/eae/.ssh/id_rsa"
+      - "./ssh/id_rsa.pub:/home/eae/.ssh/id_rsa.pub"
+  worker34:
+    image: aoehmich/worker-eae:latest
+    container_name: worker34
+    hostname: worker34
+    stdin_open: true
+    tty: true
+    depends_on:
+      - interfaceeae
+    volumes:
+      - "./interfaceEAE/lsf.cluster.openlava:/opt/openlava-3.3/etc/lsf.cluster.openlava"
+      - "./interfaceEAE/lsb.hosts:/opt/openlava-3.3/etc/lsb.hosts"
+      - "./interfaceEAE/lsb.queues:/opt/openlava-3.3/etc/lsb.queues"
+      - "./ssh/id_rsa:/home/eae/.ssh/id_rsa"
+      - "./ssh/id_rsa.pub:/home/eae/.ssh/id_rsa.pub"
+  worker35:
+    image: aoehmich/worker-eae:latest
+    container_name: worker35
+    hostname: worker35
+    stdin_open: true
+    tty: true
+    depends_on:
+      - interfaceeae
+    volumes:
+      - "./interfaceEAE/lsf.cluster.openlava:/opt/openlava-3.3/etc/lsf.cluster.openlava"
+      - "./interfaceEAE/lsb.hosts:/opt/openlava-3.3/etc/lsb.hosts"
+      - "./interfaceEAE/lsb.queues:/opt/openlava-3.3/etc/lsb.queues"
+      - "./ssh/id_rsa:/home/eae/.ssh/id_rsa"
+      - "./ssh/id_rsa.pub:/home/eae/.ssh/id_rsa.pub"
+  worker36:
+    image: aoehmich/worker-eae:latest
+    container_name: worker36
+    hostname: worker36
+    stdin_open: true
+    tty: true
+    depends_on:
+      - interfaceeae
+    volumes:
+      - "./interfaceEAE/lsf.cluster.openlava:/opt/openlava-3.3/etc/lsf.cluster.openlava"
+      - "./interfaceEAE/lsb.hosts:/opt/openlava-3.3/etc/lsb.hosts"
+      - "./interfaceEAE/lsb.queues:/opt/openlava-3.3/etc/lsb.queues"
+      - "./ssh/id_rsa:/home/eae/.ssh/id_rsa"
+      - "./ssh/id_rsa.pub:/home/eae/.ssh/id_rsa.pub"
+  worker37:
+    image: aoehmich/worker-eae:latest
+    container_name: worker37
+    hostname: worker37
+    stdin_open: true
+    tty: true
+    depends_on:
+      - interfaceeae
+    volumes:
+      - "./interfaceEAE/lsf.cluster.openlava:/opt/openlava-3.3/etc/lsf.cluster.openlava"
+      - "./interfaceEAE/lsb.hosts:/opt/openlava-3.3/etc/lsb.hosts"
+      - "./interfaceEAE/lsb.queues:/opt/openlava-3.3/etc/lsb.queues"
+      - "./ssh/id_rsa:/home/eae/.ssh/id_rsa"
+      - "./ssh/id_rsa.pub:/home/eae/.ssh/id_rsa.pub"
+  worker38:
+    image: aoehmich/worker-eae:latest
+    container_name: worker38
+    hostname: worker38
+    stdin_open: true
+    tty: true
+    depends_on:
+      - interfaceeae
+    volumes:
+      - "./interfaceEAE/lsf.cluster.openlava:/opt/openlava-3.3/etc/lsf.cluster.openlava"
+      - "./interfaceEAE/lsb.hosts:/opt/openlava-3.3/etc/lsb.hosts"
+      - "./interfaceEAE/lsb.queues:/opt/openlava-3.3/etc/lsb.queues"
+      - "./ssh/id_rsa:/home/eae/.ssh/id_rsa"
+      - "./ssh/id_rsa.pub:/home/eae/.ssh/id_rsa.pub"
+  worker39:
+    image: aoehmich/worker-eae:latest
+    container_name: worker39
+    hostname: worker39
+    stdin_open: true
+    tty: true
+    depends_on:
+      - interfaceeae
+    volumes:
+      - "./interfaceEAE/lsf.cluster.openlava:/opt/openlava-3.3/etc/lsf.cluster.openlava"
+      - "./interfaceEAE/lsb.hosts:/opt/openlava-3.3/etc/lsb.hosts"
+      - "./interfaceEAE/lsb.queues:/opt/openlava-3.3/etc/lsb.queues"
+      - "./ssh/id_rsa:/home/eae/.ssh/id_rsa"
+      - "./ssh/id_rsa.pub:/home/eae/.ssh/id_rsa.pub"
+  worker40:
+    image: aoehmich/worker-eae:latest
+    container_name: worker40
+    hostname: worker40
+    stdin_open: true
+    tty: true
+    depends_on:
+      - interfaceeae
+    volumes:
+      - "./interfaceEAE/lsf.cluster.openlava:/opt/openlava-3.3/etc/lsf.cluster.openlava"
+      - "./interfaceEAE/lsb.hosts:/opt/openlava-3.3/etc/lsb.hosts"
+      - "./interfaceEAE/lsb.queues:/opt/openlava-3.3/etc/lsb.queues"
+      - "./ssh/id_rsa:/home/eae/.ssh/id_rsa"
+      - "./ssh/id_rsa.pub:/home/eae/.ssh/id_rsa.pub"
+  worker41:
+    image: aoehmich/worker-eae:latest
+    container_name: worker41
+    hostname: worker41
+    stdin_open: true
+    tty: true
+    depends_on:
+      - interfaceeae
+    volumes:
+      - "./interfaceEAE/lsf.cluster.openlava:/opt/openlava-3.3/etc/lsf.cluster.openlava"
+      - "./interfaceEAE/lsb.hosts:/opt/openlava-3.3/etc/lsb.hosts"
+      - "./interfaceEAE/lsb.queues:/opt/openlava-3.3/etc/lsb.queues"
+      - "./ssh/id_rsa:/home/eae/.ssh/id_rsa"
+      - "./ssh/id_rsa.pub:/home/eae/.ssh/id_rsa.pub"
+  worker42:
+    image: aoehmich/worker-eae:latest
+    container_name: worker42
+    hostname: worker42
+    stdin_open: true
+    tty: true
+    depends_on:
+      - interfaceeae
+    volumes:
+      - "./interfaceEAE/lsf.cluster.openlava:/opt/openlava-3.3/etc/lsf.cluster.openlava"
+      - "./interfaceEAE/lsb.hosts:/opt/openlava-3.3/etc/lsb.hosts"
+      - "./interfaceEAE/lsb.queues:/opt/openlava-3.3/etc/lsb.queues"
+      - "./ssh/id_rsa:/home/eae/.ssh/id_rsa"
+      - "./ssh/id_rsa.pub:/home/eae/.ssh/id_rsa.pub"
+  worker43:
+    image: aoehmich/worker-eae:latest
+    container_name: worker43
+    hostname: worker43
+    stdin_open: true
+    tty: true
+    depends_on:
+      - interfaceeae
+    volumes:
+      - "./interfaceEAE/lsf.cluster.openlava:/opt/openlava-3.3/etc/lsf.cluster.openlava"
+      - "./interfaceEAE/lsb.hosts:/opt/openlava-3.3/etc/lsb.hosts"
+      - "./interfaceEAE/lsb.queues:/opt/openlava-3.3/etc/lsb.queues"
+      - "./ssh/id_rsa:/home/eae/.ssh/id_rsa"
+      - "./ssh/id_rsa.pub:/home/eae/.ssh/id_rsa.pub"
+  worker44:
+    image: aoehmich/worker-eae:latest
+    container_name: worker44
+    hostname: worker44
+    stdin_open: true
+    tty: true
+    depends_on:
+      - interfaceeae
+    volumes:
+      - "./interfaceEAE/lsf.cluster.openlava:/opt/openlava-3.3/etc/lsf.cluster.openlava"
+      - "./interfaceEAE/lsb.hosts:/opt/openlava-3.3/etc/lsb.hosts"
+      - "./interfaceEAE/lsb.queues:/opt/openlava-3.3/etc/lsb.queues"
+      - "./ssh/id_rsa:/home/eae/.ssh/id_rsa"
+      - "./ssh/id_rsa.pub:/home/eae/.ssh/id_rsa.pub"
+  worker45:
+    image: aoehmich/worker-eae:latest
+    container_name: worker45
+    hostname: worker45
+    stdin_open: true
+    tty: true
+    depends_on:
+      - interfaceeae
+    volumes:
+      - "./interfaceEAE/lsf.cluster.openlava:/opt/openlava-3.3/etc/lsf.cluster.openlava"
+      - "./interfaceEAE/lsb.hosts:/opt/openlava-3.3/etc/lsb.hosts"
+      - "./interfaceEAE/lsb.queues:/opt/openlava-3.3/etc/lsb.queues"
+      - "./ssh/id_rsa:/home/eae/.ssh/id_rsa"
+      - "./ssh/id_rsa.pub:/home/eae/.ssh/id_rsa.pub"
+  worker46:
+    image: aoehmich/worker-eae:latest
+    container_name: worker46
+    hostname: worker46
+    stdin_open: true
+    tty: true
+    depends_on:
+      - interfaceeae
+    volumes:
+      - "./interfaceEAE/lsf.cluster.openlava:/opt/openlava-3.3/etc/lsf.cluster.openlava"
+      - "./interfaceEAE/lsb.hosts:/opt/openlava-3.3/etc/lsb.hosts"
+      - "./interfaceEAE/lsb.queues:/opt/openlava-3.3/etc/lsb.queues"
+      - "./ssh/id_rsa:/home/eae/.ssh/id_rsa"
+      - "./ssh/id_rsa.pub:/home/eae/.ssh/id_rsa.pub"
+  worker47:
+    image: aoehmich/worker-eae:latest
+    container_name: worker47
+    hostname: worker47
+    stdin_open: true
+    tty: true
+    depends_on:
+      - interfaceeae
+    volumes:
+      - "./interfaceEAE/lsf.cluster.openlava:/opt/openlava-3.3/etc/lsf.cluster.openlava"
+      - "./interfaceEAE/lsb.hosts:/opt/openlava-3.3/etc/lsb.hosts"
+      - "./interfaceEAE/lsb.queues:/opt/openlava-3.3/etc/lsb.queues"
+      - "./ssh/id_rsa:/home/eae/.ssh/id_rsa"
+      - "./ssh/id_rsa.pub:/home/eae/.ssh/id_rsa.pub"
+  worker48:
+    image: aoehmich/worker-eae:latest
+    container_name: worker48
+    hostname: worker48
+    stdin_open: true
+    tty: true
+    depends_on:
+      - interfaceeae
+    volumes:
+      - "./interfaceEAE/lsf.cluster.openlava:/opt/openlava-3.3/etc/lsf.cluster.openlava"
+      - "./interfaceEAE/lsb.hosts:/opt/openlava-3.3/etc/lsb.hosts"
+      - "./interfaceEAE/lsb.queues:/opt/openlava-3.3/etc/lsb.queues"
+      - "./ssh/id_rsa:/home/eae/.ssh/id_rsa"
+      - "./ssh/id_rsa.pub:/home/eae/.ssh/id_rsa.pub"
+  worker49:
+    image: aoehmich/worker-eae:latest
+    container_name: worker49
+    hostname: worker49
+    stdin_open: true
+    tty: true
+    depends_on:
+      - interfaceeae
+    volumes:
+      - "./interfaceEAE/lsf.cluster.openlava:/opt/openlava-3.3/etc/lsf.cluster.openlava"
+      - "./interfaceEAE/lsb.hosts:/opt/openlava-3.3/etc/lsb.hosts"
+      - "./interfaceEAE/lsb.queues:/opt/openlava-3.3/etc/lsb.queues"
+      - "./ssh/id_rsa:/home/eae/.ssh/id_rsa"
+      - "./ssh/id_rsa.pub:/home/eae/.ssh/id_rsa.pub"
+  worker50:
+    image: aoehmich/worker-eae:latest
+    container_name: worker50
+    hostname: worker50
+    stdin_open: true
+    tty: true
+    depends_on:
+      - interfaceeae
+    volumes:
+      - "./interfaceEAE/lsf.cluster.openlava:/opt/openlava-3.3/etc/lsf.cluster.openlava"
+      - "./interfaceEAE/lsb.hosts:/opt/openlava-3.3/etc/lsb.hosts"
+      - "./interfaceEAE/lsb.queues:/opt/openlava-3.3/etc/lsb.queues"
+      - "./ssh/id_rsa:/home/eae/.ssh/id_rsa"
+      - "./ssh/id_rsa.pub:/home/eae/.ssh/id_rsa.pub"
+  worker51:
+    image: aoehmich/worker-eae:latest
+    container_name: worker51
+    hostname: worker51
+    stdin_open: true
+    tty: true
+    depends_on:
+      - interfaceeae
+    volumes:
+      - "./interfaceEAE/lsf.cluster.openlava:/opt/openlava-3.3/etc/lsf.cluster.openlava"
+      - "./interfaceEAE/lsb.hosts:/opt/openlava-3.3/etc/lsb.hosts"
+      - "./interfaceEAE/lsb.queues:/opt/openlava-3.3/etc/lsb.queues"
+      - "./ssh/id_rsa:/home/eae/.ssh/id_rsa"
+      - "./ssh/id_rsa.pub:/home/eae/.ssh/id_rsa.pub"
+  worker52:
+    image: aoehmich/worker-eae:latest
+    container_name: worker52
+    hostname: worker52
+    stdin_open: true
+    tty: true
+    depends_on:
+      - interfaceeae
+    volumes:
+      - "./interfaceEAE/lsf.cluster.openlava:/opt/openlava-3.3/etc/lsf.cluster.openlava"
+      - "./interfaceEAE/lsb.hosts:/opt/openlava-3.3/etc/lsb.hosts"
+      - "./interfaceEAE/lsb.queues:/opt/openlava-3.3/etc/lsb.queues"
+      - "./ssh/id_rsa:/home/eae/.ssh/id_rsa"
+      - "./ssh/id_rsa.pub:/home/eae/.ssh/id_rsa.pub"
+  worker53:
+    image: aoehmich/worker-eae:latest
+    container_name: worker53
+    hostname: worker53
+    stdin_open: true
+    tty: true
+    depends_on:
+      - interfaceeae
+    volumes:
+      - "./interfaceEAE/lsf.cluster.openlava:/opt/openlava-3.3/etc/lsf.cluster.openlava"
+      - "./interfaceEAE/lsb.hosts:/opt/openlava-3.3/etc/lsb.hosts"
+      - "./interfaceEAE/lsb.queues:/opt/openlava-3.3/etc/lsb.queues"
+      - "./ssh/id_rsa:/home/eae/.ssh/id_rsa"
+      - "./ssh/id_rsa.pub:/home/eae/.ssh/id_rsa.pub"
+  worker54:
+    image: aoehmich/worker-eae:latest
+    container_name: worker54
+    hostname: worker54
+    stdin_open: true
+    tty: true
+    depends_on:
+      - interfaceeae
+    volumes:
+      - "./interfaceEAE/lsf.cluster.openlava:/opt/openlava-3.3/etc/lsf.cluster.openlava"
+      - "./interfaceEAE/lsb.hosts:/opt/openlava-3.3/etc/lsb.hosts"
+      - "./interfaceEAE/lsb.queues:/opt/openlava-3.3/etc/lsb.queues"
+      - "./ssh/id_rsa:/home/eae/.ssh/id_rsa"
+      - "./ssh/id_rsa.pub:/home/eae/.ssh/id_rsa.pub"
+  worker55:
+    image: aoehmich/worker-eae:latest
+    container_name: worker55
+    hostname: worker55
+    stdin_open: true
+    tty: true
+    depends_on:
+      - interfaceeae
+    volumes:
+      - "./interfaceEAE/lsf.cluster.openlava:/opt/openlava-3.3/etc/lsf.cluster.openlava"
+      - "./interfaceEAE/lsb.hosts:/opt/openlava-3.3/etc/lsb.hosts"
+      - "./interfaceEAE/lsb.queues:/opt/openlava-3.3/etc/lsb.queues"
+      - "./ssh/id_rsa:/home/eae/.ssh/id_rsa"
+      - "./ssh/id_rsa.pub:/home/eae/.ssh/id_rsa.pub"
+  worker56:
+    image: aoehmich/worker-eae:latest
+    container_name: worker56
+    hostname: worker56
+    stdin_open: true
+    tty: true
+    depends_on:
+      - interfaceeae
+    volumes:
+      - "./interfaceEAE/lsf.cluster.openlava:/opt/openlava-3.3/etc/lsf.cluster.openlava"
+      - "./interfaceEAE/lsb.hosts:/opt/openlava-3.3/etc/lsb.hosts"
+      - "./interfaceEAE/lsb.queues:/opt/openlava-3.3/etc/lsb.queues"
+      - "./ssh/id_rsa:/home/eae/.ssh/id_rsa"
+      - "./ssh/id_rsa.pub:/home/eae/.ssh/id_rsa.pub"
+  worker57:
+    image: aoehmich/worker-eae:latest
+    container_name: worker57
+    hostname: worker57
+    stdin_open: true
+    tty: true
+    depends_on:
+      - interfaceeae
+    volumes:
+      - "./interfaceEAE/lsf.cluster.openlava:/opt/openlava-3.3/etc/lsf.cluster.openlava"
+      - "./interfaceEAE/lsb.hosts:/opt/openlava-3.3/etc/lsb.hosts"
+      - "./interfaceEAE/lsb.queues:/opt/openlava-3.3/etc/lsb.queues"
+      - "./ssh/id_rsa:/home/eae/.ssh/id_rsa"
+      - "./ssh/id_rsa.pub:/home/eae/.ssh/id_rsa.pub"
+  worker58:
+    image: aoehmich/worker-eae:latest
+    container_name: worker58
+    hostname: worker58
+    stdin_open: true
+    tty: true
+    depends_on:
+      - interfaceeae
+    volumes:
+      - "./interfaceEAE/lsf.cluster.openlava:/opt/openlava-3.3/etc/lsf.cluster.openlava"
+      - "./interfaceEAE/lsb.hosts:/opt/openlava-3.3/etc/lsb.hosts"
+      - "./interfaceEAE/lsb.queues:/opt/openlava-3.3/etc/lsb.queues"
+      - "./ssh/id_rsa:/home/eae/.ssh/id_rsa"
+      - "./ssh/id_rsa.pub:/home/eae/.ssh/id_rsa.pub"
+  worker59:
+    image: aoehmich/worker-eae:latest
+    container_name: worker59
+    hostname: worker59
+    stdin_open: true
+    tty: true
+    depends_on:
+      - interfaceeae
+    volumes:
+      - "./interfaceEAE/lsf.cluster.openlava:/opt/openlava-3.3/etc/lsf.cluster.openlava"
+      - "./interfaceEAE/lsb.hosts:/opt/openlava-3.3/etc/lsb.hosts"
+      - "./interfaceEAE/lsb.queues:/opt/openlava-3.3/etc/lsb.queues"
+      - "./ssh/id_rsa:/home/eae/.ssh/id_rsa"
+      - "./ssh/id_rsa.pub:/home/eae/.ssh/id_rsa.pub"
+  worker60:
+    image: aoehmich/worker-eae:latest
+    container_name: worker60
+    hostname: worker60
+    stdin_open: true
+    tty: true
+    depends_on:
+      - interfaceeae
+    volumes:
+      - "./interfaceEAE/lsf.cluster.openlava:/opt/openlava-3.3/etc/lsf.cluster.openlava"
+      - "./interfaceEAE/lsb.hosts:/opt/openlava-3.3/etc/lsb.hosts"
+      - "./interfaceEAE/lsb.queues:/opt/openlava-3.3/etc/lsb.queues"
+      - "./ssh/id_rsa:/home/eae/.ssh/id_rsa"
+      - "./ssh/id_rsa.pub:/home/eae/.ssh/id_rsa.pub"
+  worker61:
+    image: aoehmich/worker-eae:latest
+    container_name: worker61
+    hostname: worker61
+    stdin_open: true
+    tty: true
+    depends_on:
+      - interfaceeae
+    volumes:
+      - "./interfaceEAE/lsf.cluster.openlava:/opt/openlava-3.3/etc/lsf.cluster.openlava"
+      - "./interfaceEAE/lsb.hosts:/opt/openlava-3.3/etc/lsb.hosts"
+      - "./interfaceEAE/lsb.queues:/opt/openlava-3.3/etc/lsb.queues"
+      - "./ssh/id_rsa:/home/eae/.ssh/id_rsa"
+      - "./ssh/id_rsa.pub:/home/eae/.ssh/id_rsa.pub"
+  worker62:
+    image: aoehmich/worker-eae:latest
+    container_name: worker62
+    hostname: worker62
+    stdin_open: true
+    tty: true
+    depends_on:
+      - interfaceeae
+    volumes:
+      - "./interfaceEAE/lsf.cluster.openlava:/opt/openlava-3.3/etc/lsf.cluster.openlava"
+      - "./interfaceEAE/lsb.hosts:/opt/openlava-3.3/etc/lsb.hosts"
+      - "./interfaceEAE/lsb.queues:/opt/openlava-3.3/etc/lsb.queues"
+      - "./ssh/id_rsa:/home/eae/.ssh/id_rsa"
+      - "./ssh/id_rsa.pub:/home/eae/.ssh/id_rsa.pub"
+  worker63:
+    image: aoehmich/worker-eae:latest
+    container_name: worker63
+    hostname: worker63
+    stdin_open: true
+    tty: true
+    depends_on:
+      - interfaceeae
+    volumes:
+      - "./interfaceEAE/lsf.cluster.openlava:/opt/openlava-3.3/etc/lsf.cluster.openlava"
+      - "./interfaceEAE/lsb.hosts:/opt/openlava-3.3/etc/lsb.hosts"
+      - "./interfaceEAE/lsb.queues:/opt/openlava-3.3/etc/lsb.queues"
+      - "./ssh/id_rsa:/home/eae/.ssh/id_rsa"
+      - "./ssh/id_rsa.pub:/home/eae/.ssh/id_rsa.pub"
+  worker64:
+    image: aoehmich/worker-eae:latest
+    container_name: worker64
+    hostname: worker64
+    stdin_open: true
+    tty: true
+    depends_on:
+      - interfaceeae
+    volumes:
+      - "./interfaceEAE/lsf.cluster.openlava:/opt/openlava-3.3/etc/lsf.cluster.openlava"
+      - "./interfaceEAE/lsb.hosts:/opt/openlava-3.3/etc/lsb.hosts"
+      - "./interfaceEAE/lsb.queues:/opt/openlava-3.3/etc/lsb.queues"
+      - "./ssh/id_rsa:/home/eae/.ssh/id_rsa"
+      - "./ssh/id_rsa.pub:/home/eae/.ssh/id_rsa.pub"
+  worker65:
+    image: aoehmich/worker-eae:latest
+    container_name: worker65
+    hostname: worker65
+    stdin_open: true
+    tty: true
+    depends_on:
+      - interfaceeae
+    volumes:
+      - "./interfaceEAE/lsf.cluster.openlava:/opt/openlava-3.3/etc/lsf.cluster.openlava"
+      - "./interfaceEAE/lsb.hosts:/opt/openlava-3.3/etc/lsb.hosts"
+      - "./interfaceEAE/lsb.queues:/opt/openlava-3.3/etc/lsb.queues"
+      - "./ssh/id_rsa:/home/eae/.ssh/id_rsa"
+      - "./ssh/id_rsa.pub:/home/eae/.ssh/id_rsa.pub"
+  worker66:
+    image: aoehmich/worker-eae:latest
+    container_name: worker66
+    hostname: worker66
+    stdin_open: true
+    tty: true
+    depends_on:
+      - interfaceeae
+    volumes:
+      - "./interfaceEAE/lsf.cluster.openlava:/opt/openlava-3.3/etc/lsf.cluster.openlava"
+      - "./interfaceEAE/lsb.hosts:/opt/openlava-3.3/etc/lsb.hosts"
+      - "./interfaceEAE/lsb.queues:/opt/openlava-3.3/etc/lsb.queues"
+      - "./ssh/id_rsa:/home/eae/.ssh/id_rsa"
+      - "./ssh/id_rsa.pub:/home/eae/.ssh/id_rsa.pub"
+  worker67:
+    image: aoehmich/worker-eae:latest
+    container_name: worker67
+    hostname: worker67
+    stdin_open: true
+    tty: true
+    depends_on:
+      - interfaceeae
+    volumes:
+      - "./interfaceEAE/lsf.cluster.openlava:/opt/openlava-3.3/etc/lsf.cluster.openlava"
+      - "./interfaceEAE/lsb.hosts:/opt/openlava-3.3/etc/lsb.hosts"
+      - "./interfaceEAE/lsb.queues:/opt/openlava-3.3/etc/lsb.queues"
+      - "./ssh/id_rsa:/home/eae/.ssh/id_rsa"
+      - "./ssh/id_rsa.pub:/home/eae/.ssh/id_rsa.pub"
+  worker68:
+    image: aoehmich/worker-eae:latest
+    container_name: worker68
+    hostname: worker68
+    stdin_open: true
+    tty: true
+    depends_on:
+      - interfaceeae
+    volumes:
+      - "./interfaceEAE/lsf.cluster.openlava:/opt/openlava-3.3/etc/lsf.cluster.openlava"
+      - "./interfaceEAE/lsb.hosts:/opt/openlava-3.3/etc/lsb.hosts"
+      - "./interfaceEAE/lsb.queues:/opt/openlava-3.3/etc/lsb.queues"
+      - "./ssh/id_rsa:/home/eae/.ssh/id_rsa"
+      - "./ssh/id_rsa.pub:/home/eae/.ssh/id_rsa.pub"
+  worker69:
+    image: aoehmich/worker-eae:latest
+    container_name: worker69
+    hostname: worker69
+    stdin_open: true
+    tty: true
+    depends_on:
+      - interfaceeae
+    volumes:
+      - "./interfaceEAE/lsf.cluster.openlava:/opt/openlava-3.3/etc/lsf.cluster.openlava"
+      - "./interfaceEAE/lsb.hosts:/opt/openlava-3.3/etc/lsb.hosts"
+      - "./interfaceEAE/lsb.queues:/opt/openlava-3.3/etc/lsb.queues"
+      - "./ssh/id_rsa:/home/eae/.ssh/id_rsa"
+      - "./ssh/id_rsa.pub:/home/eae/.ssh/id_rsa.pub"
+  worker70:
+    image: aoehmich/worker-eae:latest
+    container_name: worker70
+    hostname: worker70
+    stdin_open: true
+    tty: true
+    depends_on:
+      - interfaceeae
+    volumes:
+      - "./interfaceEAE/lsf.cluster.openlava:/opt/openlava-3.3/etc/lsf.cluster.openlava"
+      - "./interfaceEAE/lsb.hosts:/opt/openlava-3.3/etc/lsb.hosts"
+      - "./interfaceEAE/lsb.queues:/opt/openlava-3.3/etc/lsb.queues"
+      - "./ssh/id_rsa:/home/eae/.ssh/id_rsa"
+      - "./ssh/id_rsa.pub:/home/eae/.ssh/id_rsa.pub"
+  worker71:
+    image: aoehmich/worker-eae:latest
+    container_name: worker71
+    hostname: worker71
+    stdin_open: true
+    tty: true
+    depends_on:
+      - interfaceeae
+    volumes:
+      - "./interfaceEAE/lsf.cluster.openlava:/opt/openlava-3.3/etc/lsf.cluster.openlava"
+      - "./interfaceEAE/lsb.hosts:/opt/openlava-3.3/etc/lsb.hosts"
+      - "./interfaceEAE/lsb.queues:/opt/openlava-3.3/etc/lsb.queues"
+      - "./ssh/id_rsa:/home/eae/.ssh/id_rsa"
+      - "./ssh/id_rsa.pub:/home/eae/.ssh/id_rsa.pub"
+  worker72:
+    image: aoehmich/worker-eae:latest
+    container_name: worker72
+    hostname: worker72
+    stdin_open: true
+    tty: true
+    depends_on:
+      - interfaceeae
+    volumes:
+      - "./interfaceEAE/lsf.cluster.openlava:/opt/openlava-3.3/etc/lsf.cluster.openlava"
+      - "./interfaceEAE/lsb.hosts:/opt/openlava-3.3/etc/lsb.hosts"
+      - "./interfaceEAE/lsb.queues:/opt/openlava-3.3/etc/lsb.queues"
+      - "./ssh/id_rsa:/home/eae/.ssh/id_rsa"
+      - "./ssh/id_rsa.pub:/home/eae/.ssh/id_rsa.pub"
+  worker73:
+    image: aoehmich/worker-eae:latest
+    container_name: worker73
+    hostname: worker73
+    stdin_open: true
+    tty: true
+    depends_on:
+      - interfaceeae
+    volumes:
+      - "./interfaceEAE/lsf.cluster.openlava:/opt/openlava-3.3/etc/lsf.cluster.openlava"
+      - "./interfaceEAE/lsb.hosts:/opt/openlava-3.3/etc/lsb.hosts"
+      - "./interfaceEAE/lsb.queues:/opt/openlava-3.3/etc/lsb.queues"
+      - "./ssh/id_rsa:/home/eae/.ssh/id_rsa"
+      - "./ssh/id_rsa.pub:/home/eae/.ssh/id_rsa.pub"
+  worker74:
+    image: aoehmich/worker-eae:latest
+    container_name: worker74
+    hostname: worker74
+    stdin_open: true
+    tty: true
+    depends_on:
+      - interfaceeae
+    volumes:
+      - "./interfaceEAE/lsf.cluster.openlava:/opt/openlava-3.3/etc/lsf.cluster.openlava"
+      - "./interfaceEAE/lsb.hosts:/opt/openlava-3.3/etc/lsb.hosts"
+      - "./interfaceEAE/lsb.queues:/opt/openlava-3.3/etc/lsb.queues"
+      - "./ssh/id_rsa:/home/eae/.ssh/id_rsa"
+      - "./ssh/id_rsa.pub:/home/eae/.ssh/id_rsa.pub"
+  worker75:
+    image: aoehmich/worker-eae:latest
+    container_name: worker75
+    hostname: worker75
+    stdin_open: true
+    tty: true
+    depends_on:
+      - interfaceeae
+    volumes:
+      - "./interfaceEAE/lsf.cluster.openlava:/opt/openlava-3.3/etc/lsf.cluster.openlava"
+      - "./interfaceEAE/lsb.hosts:/opt/openlava-3.3/etc/lsb.hosts"
+      - "./interfaceEAE/lsb.queues:/opt/openlava-3.3/etc/lsb.queues"
+      - "./ssh/id_rsa:/home/eae/.ssh/id_rsa"
+      - "./ssh/id_rsa.pub:/home/eae/.ssh/id_rsa.pub"
+  worker76:
+    image: aoehmich/worker-eae:latest
+    container_name: worker76
+    hostname: worker76
+    stdin_open: true
+    tty: true
+    depends_on:
+      - interfaceeae
+    volumes:
+      - "./interfaceEAE/lsf.cluster.openlava:/opt/openlava-3.3/etc/lsf.cluster.openlava"
+      - "./interfaceEAE/lsb.hosts:/opt/openlava-3.3/etc/lsb.hosts"
+      - "./interfaceEAE/lsb.queues:/opt/openlava-3.3/etc/lsb.queues"
+      - "./ssh/id_rsa:/home/eae/.ssh/id_rsa"
+      - "./ssh/id_rsa.pub:/home/eae/.ssh/id_rsa.pub"
+  worker77:
+    image: aoehmich/worker-eae:latest
+    container_name: worker77
+    hostname: worker77
+    stdin_open: true
+    tty: true
+    depends_on:
+      - interfaceeae
+    volumes:
+      - "./interfaceEAE/lsf.cluster.openlava:/opt/openlava-3.3/etc/lsf.cluster.openlava"
+      - "./interfaceEAE/lsb.hosts:/opt/openlava-3.3/etc/lsb.hosts"
+      - "./interfaceEAE/lsb.queues:/opt/openlava-3.3/etc/lsb.queues"
+      - "./ssh/id_rsa:/home/eae/.ssh/id_rsa"
+      - "./ssh/id_rsa.pub:/home/eae/.ssh/id_rsa.pub"
+  worker78:
+    image: aoehmich/worker-eae:latest
+    container_name: worker78
+    hostname: worker78
+    stdin_open: true
+    tty: true
+    depends_on:
+      - interfaceeae
+    volumes:
+      - "./interfaceEAE/lsf.cluster.openlava:/opt/openlava-3.3/etc/lsf.cluster.openlava"
+      - "./interfaceEAE/lsb.hosts:/opt/openlava-3.3/etc/lsb.hosts"
+      - "./interfaceEAE/lsb.queues:/opt/openlava-3.3/etc/lsb.queues"
+      - "./ssh/id_rsa:/home/eae/.ssh/id_rsa"
+      - "./ssh/id_rsa.pub:/home/eae/.ssh/id_rsa.pub"
+  worker79:
+    image: aoehmich/worker-eae:latest
+    container_name: worker79
+    hostname: worker79
+    stdin_open: true
+    tty: true
+    depends_on:
+      - interfaceeae
+    volumes:
+      - "./interfaceEAE/lsf.cluster.openlava:/opt/openlava-3.3/etc/lsf.cluster.openlava"
+      - "./interfaceEAE/lsb.hosts:/opt/openlava-3.3/etc/lsb.hosts"
+      - "./interfaceEAE/lsb.queues:/opt/openlava-3.3/etc/lsb.queues"
+      - "./ssh/id_rsa:/home/eae/.ssh/id_rsa"
+      - "./ssh/id_rsa.pub:/home/eae/.ssh/id_rsa.pub"
+  worker80:
+    image: aoehmich/worker-eae:latest
+    container_name: worker80
+    hostname: worker80
+    stdin_open: true
+    tty: true
+    depends_on:
+      - interfaceeae
+    volumes:
+      - "./interfaceEAE/lsf.cluster.openlava:/opt/openlava-3.3/etc/lsf.cluster.openlava"
+      - "./interfaceEAE/lsb.hosts:/opt/openlava-3.3/etc/lsb.hosts"
+      - "./interfaceEAE/lsb.queues:/opt/openlava-3.3/etc/lsb.queues"
+      - "./ssh/id_rsa:/home/eae/.ssh/id_rsa"
+      - "./ssh/id_rsa.pub:/home/eae/.ssh/id_rsa.pub"
+  worker81:
+    image: aoehmich/worker-eae:latest
+    container_name: worker81
+    hostname: worker81
+    stdin_open: true
+    tty: true
+    depends_on:
+      - interfaceeae
+    volumes:
+      - "./interfaceEAE/lsf.cluster.openlava:/opt/openlava-3.3/etc/lsf.cluster.openlava"
+      - "./interfaceEAE/lsb.hosts:/opt/openlava-3.3/etc/lsb.hosts"
+      - "./interfaceEAE/lsb.queues:/opt/openlava-3.3/etc/lsb.queues"
+      - "./ssh/id_rsa:/home/eae/.ssh/id_rsa"
+      - "./ssh/id_rsa.pub:/home/eae/.ssh/id_rsa.pub"
+  worker82:
+    image: aoehmich/worker-eae:latest
+    container_name: worker82
+    hostname: worker82
+    stdin_open: true
+    tty: true
+    depends_on:
+      - interfaceeae
+    volumes:
+      - "./interfaceEAE/lsf.cluster.openlava:/opt/openlava-3.3/etc/lsf.cluster.openlava"
+      - "./interfaceEAE/lsb.hosts:/opt/openlava-3.3/etc/lsb.hosts"
+      - "./interfaceEAE/lsb.queues:/opt/openlava-3.3/etc/lsb.queues"
+      - "./ssh/id_rsa:/home/eae/.ssh/id_rsa"
+      - "./ssh/id_rsa.pub:/home/eae/.ssh/id_rsa.pub"
+  worker83:
+    image: aoehmich/worker-eae:latest
+    container_name: worker83
+    hostname: worke83
+    stdin_open: true
+    tty: true
+    depends_on:
+      - interfaceeae
+    volumes:
+      - "./interfaceEAE/lsf.cluster.openlava:/opt/openlava-3.3/etc/lsf.cluster.openlava"
+      - "./interfaceEAE/lsb.hosts:/opt/openlava-3.3/etc/lsb.hosts"
+      - "./interfaceEAE/lsb.queues:/opt/openlava-3.3/etc/lsb.queues"
+      - "./ssh/id_rsa:/home/eae/.ssh/id_rsa"
+      - "./ssh/id_rsa.pub:/home/eae/.ssh/id_rsa.pub"
+  worker84:
+    image: aoehmich/worker-eae:latest
+    container_name: worker84
+    hostname: worker84
+    stdin_open: true
+    tty: true
+    depends_on:
+      - interfaceeae
+    volumes:
+      - "./interfaceEAE/lsf.cluster.openlava:/opt/openlava-3.3/etc/lsf.cluster.openlava"
+      - "./interfaceEAE/lsb.hosts:/opt/openlava-3.3/etc/lsb.hosts"
+      - "./interfaceEAE/lsb.queues:/opt/openlava-3.3/etc/lsb.queues"
+      - "./ssh/id_rsa:/home/eae/.ssh/id_rsa"
+      - "./ssh/id_rsa.pub:/home/eae/.ssh/id_rsa.pub"
+  worker85:
+    image: aoehmich/worker-eae:latest
+    container_name: worker85
+    hostname: worker85
+    stdin_open: true
+    tty: true
+    depends_on:
+      - interfaceeae
+    volumes:
+      - "./interfaceEAE/lsf.cluster.openlava:/opt/openlava-3.3/etc/lsf.cluster.openlava"
+      - "./interfaceEAE/lsb.hosts:/opt/openlava-3.3/etc/lsb.hosts"
+      - "./interfaceEAE/lsb.queues:/opt/openlava-3.3/etc/lsb.queues"
+      - "./ssh/id_rsa:/home/eae/.ssh/id_rsa"
+      - "./ssh/id_rsa.pub:/home/eae/.ssh/id_rsa.pub"
+  worker86:
+    image: aoehmich/worker-eae:latest
+    container_name: worker86
+    hostname: worker86
+    stdin_open: true
+    tty: true
+    depends_on:
+      - interfaceeae
+    volumes:
+      - "./interfaceEAE/lsf.cluster.openlava:/opt/openlava-3.3/etc/lsf.cluster.openlava"
+      - "./interfaceEAE/lsb.hosts:/opt/openlava-3.3/etc/lsb.hosts"
+      - "./interfaceEAE/lsb.queues:/opt/openlava-3.3/etc/lsb.queues"
+      - "./ssh/id_rsa:/home/eae/.ssh/id_rsa"
+      - "./ssh/id_rsa.pub:/home/eae/.ssh/id_rsa.pub"
+  worker87:
+    image: aoehmich/worker-eae:latest
+    container_name: worker87
+    hostname: worker87
+    stdin_open: true
+    tty: true
+    depends_on:
+      - interfaceeae
+    volumes:
+      - "./interfaceEAE/lsf.cluster.openlava:/opt/openlava-3.3/etc/lsf.cluster.openlava"
+      - "./interfaceEAE/lsb.hosts:/opt/openlava-3.3/etc/lsb.hosts"
+      - "./interfaceEAE/lsb.queues:/opt/openlava-3.3/etc/lsb.queues"
+      - "./ssh/id_rsa:/home/eae/.ssh/id_rsa"
+      - "./ssh/id_rsa.pub:/home/eae/.ssh/id_rsa.pub"
+  worker88:
+    image: aoehmich/worker-eae:latest
+    container_name: worker88
+    hostname: worker88
+    stdin_open: true
+    tty: true
+    depends_on:
+      - interfaceeae
+    volumes:
+      - "./interfaceEAE/lsf.cluster.openlava:/opt/openlava-3.3/etc/lsf.cluster.openlava"
+      - "./interfaceEAE/lsb.hosts:/opt/openlava-3.3/etc/lsb.hosts"
+      - "./interfaceEAE/lsb.queues:/opt/openlava-3.3/etc/lsb.queues"
+      - "./ssh/id_rsa:/home/eae/.ssh/id_rsa"
+      - "./ssh/id_rsa.pub:/home/eae/.ssh/id_rsa.pub"
+  worker89:
+    image: aoehmich/worker-eae:latest
+    container_name: worker89
+    hostname: worker89
+    stdin_open: true
+    tty: true
+    depends_on:
+      - interfaceeae
+    volumes:
+      - "./interfaceEAE/lsf.cluster.openlava:/opt/openlava-3.3/etc/lsf.cluster.openlava"
+      - "./interfaceEAE/lsb.hosts:/opt/openlava-3.3/etc/lsb.hosts"
+      - "./interfaceEAE/lsb.queues:/opt/openlava-3.3/etc/lsb.queues"
+      - "./ssh/id_rsa:/home/eae/.ssh/id_rsa"
+      - "./ssh/id_rsa.pub:/home/eae/.ssh/id_rsa.pub"
+  worker90:
+    image: aoehmich/worker-eae:latest
+    container_name: worker90
+    hostname: worker90
+    stdin_open: true
+    tty: true
+    depends_on:
+      - interfaceeae
+    volumes:
+      - "./interfaceEAE/lsf.cluster.openlava:/opt/openlava-3.3/etc/lsf.cluster.openlava"
+      - "./interfaceEAE/lsb.hosts:/opt/openlava-3.3/etc/lsb.hosts"
+      - "./interfaceEAE/lsb.queues:/opt/openlava-3.3/etc/lsb.queues"
+      - "./ssh/id_rsa:/home/eae/.ssh/id_rsa"
+      - "./ssh/id_rsa.pub:/home/eae/.ssh/id_rsa.pub"
+  worker91:
+    image: aoehmich/worker-eae:latest
+    container_name: worker91
+    hostname: worker91
+    stdin_open: true
+    tty: true
+    depends_on:
+      - interfaceeae
+    volumes:
+      - "./interfaceEAE/lsf.cluster.openlava:/opt/openlava-3.3/etc/lsf.cluster.openlava"
+      - "./interfaceEAE/lsb.hosts:/opt/openlava-3.3/etc/lsb.hosts"
+      - "./interfaceEAE/lsb.queues:/opt/openlava-3.3/etc/lsb.queues"
+      - "./ssh/id_rsa:/home/eae/.ssh/id_rsa"
+      - "./ssh/id_rsa.pub:/home/eae/.ssh/id_rsa.pub"
+  worker92:
+    image: aoehmich/worker-eae:latest
+    container_name: worker92
+    hostname: worker92
+    stdin_open: true
+    tty: true
+    depends_on:
+      - interfaceeae
+    volumes:
+      - "./interfaceEAE/lsf.cluster.openlava:/opt/openlava-3.3/etc/lsf.cluster.openlava"
+      - "./interfaceEAE/lsb.hosts:/opt/openlava-3.3/etc/lsb.hosts"
+      - "./interfaceEAE/lsb.queues:/opt/openlava-3.3/etc/lsb.queues"
+      - "./ssh/id_rsa:/home/eae/.ssh/id_rsa"
+      - "./ssh/id_rsa.pub:/home/eae/.ssh/id_rsa.pub"
+  worker93:
+    image: aoehmich/worker-eae:latest
+    container_name: worker93
+    hostname: worker93
+    stdin_open: true
+    tty: true
+    depends_on:
+      - interfaceeae
+    volumes:
+      - "./interfaceEAE/lsf.cluster.openlava:/opt/openlava-3.3/etc/lsf.cluster.openlava"
+      - "./interfaceEAE/lsb.hosts:/opt/openlava-3.3/etc/lsb.hosts"
+      - "./interfaceEAE/lsb.queues:/opt/openlava-3.3/etc/lsb.queues"
+      - "./ssh/id_rsa:/home/eae/.ssh/id_rsa"
+      - "./ssh/id_rsa.pub:/home/eae/.ssh/id_rsa.pub"
+  worker94:
+    image: aoehmich/worker-eae:latest
+    container_name: worker94
+    hostname: worker94
+    stdin_open: true
+    tty: true
+    depends_on:
+      - interfaceeae
+    volumes:
+      - "./interfaceEAE/lsf.cluster.openlava:/opt/openlava-3.3/etc/lsf.cluster.openlava"
+      - "./interfaceEAE/lsb.hosts:/opt/openlava-3.3/etc/lsb.hosts"
+      - "./interfaceEAE/lsb.queues:/opt/openlava-3.3/etc/lsb.queues"
+      - "./ssh/id_rsa:/home/eae/.ssh/id_rsa"
+      - "./ssh/id_rsa.pub:/home/eae/.ssh/id_rsa.pub"
+  worker95:
+    image: aoehmich/worker-eae:latest
+    container_name: worker95
+    hostname: worker95
+    stdin_open: true
+    tty: true
+    depends_on:
+      - interfaceeae
+    volumes:
+      - "./interfaceEAE/lsf.cluster.openlava:/opt/openlava-3.3/etc/lsf.cluster.openlava"
+      - "./interfaceEAE/lsb.hosts:/opt/openlava-3.3/etc/lsb.hosts"
+      - "./interfaceEAE/lsb.queues:/opt/openlava-3.3/etc/lsb.queues"
+      - "./ssh/id_rsa:/home/eae/.ssh/id_rsa"
+      - "./ssh/id_rsa.pub:/home/eae/.ssh/id_rsa.pub"
+  worker96:
+    image: aoehmich/worker-eae:latest
+    container_name: worker96
+    hostname: worker96
+    stdin_open: true
+    tty: true
+    depends_on:
+      - interfaceeae
+    volumes:
+      - "./interfaceEAE/lsf.cluster.openlava:/opt/openlava-3.3/etc/lsf.cluster.openlava"
+      - "./interfaceEAE/lsb.hosts:/opt/openlava-3.3/etc/lsb.hosts"
+      - "./interfaceEAE/lsb.queues:/opt/openlava-3.3/etc/lsb.queues"
+      - "./ssh/id_rsa:/home/eae/.ssh/id_rsa"
+      - "./ssh/id_rsa.pub:/home/eae/.ssh/id_rsa.pub"
+  worker97:
+    image: aoehmich/worker-eae:latest
+    container_name: worker97
+    hostname: worker97
+    stdin_open: true
+    tty: true
+    depends_on:
+      - interfaceeae
+    volumes:
+      - "./interfaceEAE/lsf.cluster.openlava:/opt/openlava-3.3/etc/lsf.cluster.openlava"
+      - "./interfaceEAE/lsb.hosts:/opt/openlava-3.3/etc/lsb.hosts"
+      - "./interfaceEAE/lsb.queues:/opt/openlava-3.3/etc/lsb.queues"
+      - "./ssh/id_rsa:/home/eae/.ssh/id_rsa"
+      - "./ssh/id_rsa.pub:/home/eae/.ssh/id_rsa.pub"
+  worker98:
+    image: aoehmich/worker-eae:latest
+    container_name: worker98
+    hostname: worker98
+    stdin_open: true
+    tty: true
+    depends_on:
+      - interfaceeae
+    volumes:
+      - "./interfaceEAE/lsf.cluster.openlava:/opt/openlava-3.3/etc/lsf.cluster.openlava"
+      - "./interfaceEAE/lsb.hosts:/opt/openlava-3.3/etc/lsb.hosts"
+      - "./interfaceEAE/lsb.queues:/opt/openlava-3.3/etc/lsb.queues"
+      - "./ssh/id_rsa:/home/eae/.ssh/id_rsa"
+      - "./ssh/id_rsa.pub:/home/eae/.ssh/id_rsa.pub"
+  worker99:
+    image: aoehmich/worker-eae:latest
+    container_name: worker99
+    hostname: worker99
+    stdin_open: true
+    tty: true
+    depends_on:
+      - interfaceeae
+    volumes:
+      - "./interfaceEAE/lsf.cluster.openlava:/opt/openlava-3.3/etc/lsf.cluster.openlava"
+      - "./interfaceEAE/lsb.hosts:/opt/openlava-3.3/etc/lsb.hosts"
+      - "./interfaceEAE/lsb.queues:/opt/openlava-3.3/etc/lsb.queues"
+      - "./ssh/id_rsa:/home/eae/.ssh/id_rsa"
+      - "./ssh/id_rsa.pub:/home/eae/.ssh/id_rsa.pub"
+  worker100:
+    image: aoehmich/worker-eae:latest
+    container_name: worker100
+    hostname: worker100
+    stdin_open: true
+    tty: true
+    depends_on:
+      - interfaceeae
+    volumes:
+      - "./interfaceEAE/lsf.cluster.openlava:/opt/openlava-3.3/etc/lsf.cluster.openlava"
+      - "./interfaceEAE/lsb.hosts:/opt/openlava-3.3/etc/lsb.hosts"
+      - "./interfaceEAE/lsb.queues:/opt/openlava-3.3/etc/lsb.queues"
+      - "./ssh/id_rsa:/home/eae/.ssh/id_rsa"
+      - "./ssh/id_rsa.pub:/home/eae/.ssh/id_rsa.pub"
+  mongo-initialize:
+    image: aoehmich/mongo-eae:latest
+    depends_on:
+      - mongo
+  mongo:
+    image: mongo:3.4.0
