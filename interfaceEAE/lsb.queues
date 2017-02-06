@@ -352,7 +352,7 @@ QUEUE_NAME    = R_small
 PRIORITY      = 30
 NICE          = 20
 QJOB_LIMIT    = 100
-HOSTS         = worker1 worker2
+HOSTS         = worker1 worker2 worker3 worker4 worker5 worker6 worker7 worker8 worker9 worker10 worker11 worker12 worker13 worker14 worker15 worker16 worker17 worker18 worker19 worker20 worker21 worker22 worker23 worker24 worker25 worker26 worker27 worker28 worker29 worker30 worker31 worker32 worker33 worker34 worker35 worker36 worker37 worker38 worker39 worker40 worker41 worker42 worker43 worker44 worker45 worker46 worker47 worker48 worker49 worker50 worker51 worker52 worker53 worker54 worker55 worker56 worker57 worker58 worker59 worker60 worker61 worker62 worker63 worker64 worker65 worker66 worker67 worker68 worker69 worker70 worker71 worker72 worker73 worker74 worker75 worker76 worker77 worker78 worker79 worker80 worker81 worker82 worker83 worker84 worker85 worker86 worker87 worker88 worker89 worker90 worker91 worker92 worker93 worker94 worker95 worker96 worker97 worker98 worker99 worker100
 DESCRIPTION   = For computations requiring R ressources.
 End Queue
 
@@ -361,7 +361,7 @@ QUEUE_NAME    = python_small
 PRIORITY      = 30
 NICE          = 20
 QJOB_LIMIT    = 100
-HOSTS         = worker1 worker2
+HOSTS         = worker1 worker2 worker3 worker4 worker5 worker6 worker7 worker8 worker9 worker10 worker11 worker12 worker13 worker14 worker15 worker16 worker17 worker18 worker19 worker20 worker21 worker22 worker23 worker24 worker25 worker26 worker27 worker28 worker29 worker30 worker31 worker32 worker33 worker34 worker35 worker36 worker37 worker38 worker39 worker40 worker41 worker42 worker43 worker44 worker45 worker46 worker47 worker48 worker49 worker50 worker51 worker52 worker53 worker54 worker55 worker56 worker57 worker58 worker59 worker60 worker61 worker62 worker63 worker64 worker65 worker66 worker67 worker68 worker69 worker70 worker71 worker72 worker73 worker74 worker75 worker76 worker77 worker78 worker79 worker80 worker81 worker82 worker83 worker84 worker85 worker86 worker87 worker88 worker89 worker90 worker91 worker92 worker93 worker94 worker95 worker96 worker97 worker98 worker99 worker100
 DESCRIPTION   = For computations requiring Python ressources.
 End Queue
 
