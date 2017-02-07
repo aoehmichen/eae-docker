@@ -8,7 +8,7 @@ services:
     privileged: true
     depends_on:
       - interfaceeae
-    command: [-deamon, "146.169.33.20", "8443", jupytereae, "22"]
+    command: [-deamon, "146.169.33.23", "8443", jupytereae, "22"]
     ports:
       - "7180:7180"
       - "7777:7777"
@@ -1186,7 +1186,7 @@ services:
   worker83:
     image: aoehmich/worker-eae:latest
     container_name: worker83
-    hostname: worke83
+    hostname: worker83
     stdin_open: true
     tty: true
     depends_on:
