@@ -366,6 +366,15 @@ DESCRIPTION   = For computations requiring Python ressources.
 End Queue
 
 Begin Queue
+QUEUE_NAME    = python_test
+PRIORITY      = 30
+NICE          = 20
+QJOB_LIMIT    = 100
+HOSTS         = worker1 worker2 worker3 worker4 worker5 worker6 worker7 worker8 worker9 worker10
+DESCRIPTION   = For computations requiring Python ressources.
+End Queue
+
+Begin Queue
 QUEUE_NAME    = spark
 PRIORITY      = 30
 NICE          = 20
