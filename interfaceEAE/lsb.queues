@@ -364,3 +364,12 @@ QJOB_LIMIT    = 100
 HOSTS         = worker1 worker2
 DESCRIPTION   = For computations requiring Python ressources.
 End Queue
+
+Begin Queue
+QUEUE_NAME    = spark
+PRIORITY      = 30
+NICE          = 20
+QJOB_LIMIT    = 100
+HOSTS         = workerSpark
+DESCRIPTION   = For computations requiring Spark ressources.
+End Queue
