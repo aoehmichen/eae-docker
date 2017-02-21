@@ -18,8 +18,6 @@ RUN wget https://mran.revolutionanalytics.com/install/mro/3.3.1/microsoft-r-open
     && cd microsoft-r-open \
     && ./install.sh
 
-## We install LSF
-RUN unzip
 
 # We set up the ssh keys for user eae
 RUN mkdir -p /home/eae/.ssh && chmod 700 /home/eae/.ssh \

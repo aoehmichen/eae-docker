@@ -11,21 +11,21 @@ RUN apt-get update -q && apt-get upgrade -y --no-install-recommends \
     && apt-get install -y tcl-dev
 
 ## We install LSF
-RUN curl -L https://github.com/aoehmichen/eae-files/raw/master/op.tar.gz -o /root/op.tar.gz  \
-    && tar zxvf /root/op.tar.gz openlava-3.3 \
-    && cd openlava-3.* \
-    && ./configure \
-    && make \
-    && make install \
-    && cd config \
-    && cp  lsb.params lsb.users lsf.conf lsf.shared lsf.task openlava.* /opt/openlava-3.3/etc/ \
-    && useradd -r openlava \
-    && chown -R openlava:openlava /opt/openlava-3.*/ \
-    && cp /opt/openlava-3.*/etc/openlava /etc/init.d \
-    && update-rc.d openlava defaults \
-    && cp /opt/openlava-3.3/etc/openlava.* /etc/profile.d \
-    && chown openlava:openlava /etc/profile.d/openlava.* \
-    && chmod 755 /etc/profile.d/openlava.sh
+RUN mkdir -p /usr/share/lsf/lsf_distrib/ \
+    && gunzip lsf.tar.gz \
+    && tar -xvf lsf.tar \
+    && cd lsfshpc10.1-x86_64/lsf/ \
+    && mv lsf10.1_linux2.6-glibc2.3-x86_64.tar.Z  /usr/share/lsf/lsf_distrib/ \
+    && gunzip lsf10.1_lsfinstall_linux_x86_64.tar.Z \
+    && tar -xvf lsf10.1_lsfinstall_linux_x86_64.tar --directory /usr/share/lsf/lsf_distrib/ \
+    && cd /usr/share/lsf/lsf_distrib/lsf10.1_lsfinstall \
+    && cp /root/install.config . \
+    && lsfinstall -f install.config \
+    && cd /root \
+    && cp lsf.cluster.clusterLSF /usr/share/lsf/conf/ \
+    && cp lsb.hosts lsb.queues /usr/share/lsf/conf/lsbatch/clusterLSF/configdir/ \
+    && cd /usr/share/lsf/10.1/install \
+    && ./hostsetup
 
 # We set the configuration files
 RUN curl -L https://github.com/aoehmichen/eae-files/raw/master/interfaceEAE.war -o /var/lib/tomcat7/webapps/interfaceEAE.war \
