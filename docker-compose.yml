@@ -45,6 +45,10 @@ services:
     depends_on:
       - interfaceeae
     volumes:
+      - "./LSF/install.config:/root/install.config"
+      - "./LSF/lsb.hosts:/root/lsb.hosts"
+      - "./LSF/lsb.queues:/root/lsb.queues"
+      - "./LSF/lsf.cluster.clusterLSF:/root/lsf.cluster.clusterLSF"
       - "./ssh/id_rsa:/home/eae/.ssh/id_rsa"
       - "./ssh/id_rsa.pub:/home/eae/.ssh/id_rsa.pub"
   worker2:
@@ -56,6 +60,10 @@ services:
     depends_on:
       - interfaceeae
     volumes:
+      - "./LSF/install.config:/root/install.config"
+      - "./LSF/lsb.hosts:/root/lsb.hosts"
+      - "./LSF/lsb.queues:/root/lsb.queues"
+      - "./LSF/lsf.cluster.clusterLSF:/root/lsf.cluster.clusterLSF"
       - "./ssh/id_rsa:/home/eae/.ssh/id_rsa"
       - "./ssh/id_rsa.pub:/home/eae/.ssh/id_rsa.pub"
   workerSpark:
@@ -70,6 +78,10 @@ services:
     depends_on:
       - interfaceeae
     volumes:
+      - "./LSF/install.config:/root/install.config"
+      - "./LSF/lsb.hosts:/root/lsb.hosts"
+      - "./LSF/lsb.queues:/root/lsb.queues"
+      - "./LSF/lsf.cluster.clusterLSF:/root/lsf.cluster.clusterLSF"
       - "./ssh/id_rsa:/home/eae/.ssh/id_rsa"
       - "./ssh/id_rsa.pub:/home/eae/.ssh/id_rsa.pub"
   mongo-initialize:

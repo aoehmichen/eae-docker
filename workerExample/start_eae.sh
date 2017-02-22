@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
-# We get the environment set to get access to the openlava's bhosts, bqueues etc...
-. /etc/profile.d/openlava.sh
+# We get the environment set to get access to the LSF's bhosts, bqueues etc...
+. /usr/share/lsf/conf/profile.lsf
 
 # We restart the ssh services
 service ssh restart
@@ -9,11 +9,13 @@ service ssh restart
 cat /home/eae/.ssh/id_rsa.pub > /home/eae/.ssh/authorized_keys
 chown -R eae:eae /home/eae/.ssh/
 chmod 600 /home/eae/.ssh/id_rsa
-chown openlava:openlava /opt/openlava-3.3/etc/*
 
-# We restart the openlava service after we wait for the interface node to startup
+# We restart the LSF service after we wait for the interface node to startup
 sleep 20
-service openlava restart
+badmin hstartup
+lsadmin resstartup
+lsadmin limstartup
+
 
 ## Hook on the container
 if [[ $1 == "-deamon" ]]; then

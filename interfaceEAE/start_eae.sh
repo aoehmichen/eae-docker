@@ -1,10 +1,12 @@
 #!/usr/bin/env bash
 
-# We get the environment set to get access to the openlava's bhosts, bqueues etc...
-. /etc/profile.d/openlava.sh
+# We get the environment set to get access to the LSF's bhosts, bqueues etc...
+. /usr/share/lsf/conf/profile.lsf
 
 # We restart the openlava services
-service openlava restart
+badmin hstartup
+lsadmin resstartup
+lsadmin limstartup
 service ssh restart
 
 # We restart tomcat
@@ -15,7 +17,6 @@ chown -R eae:eae /var/cache/tomcat7/Catalina
 cat /home/eae/.ssh/id_rsa.pub > /home/eae/.ssh/authorized_keys
 chmod 600 /home/eae/.ssh/id_rsa
 chown -R eae:eae /home/eae/.ssh/
-chown openlava:openlava /opt/openlava-3.3/etc/*
 chown -R eae:eae /home/eae/.grails/interfaceEAEConfig
 
 ## build a local mongo if a remote one is not provided
@@ -31,7 +32,8 @@ service tomcat7 restart
 ### Sometimes the openlava master and workers are out of sync so we restart the service to make sure that every worker
 ### is accounted for.
 sleep 60
-service openlava restart
+lsadmin reconfig
+badmin reconfig
 
 ## Hook on the container
 if [[ $1 == "-deamon" ]]; then
