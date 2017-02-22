@@ -4,6 +4,7 @@ MAINTAINER Axel Oehmichen <axelfrancois.oehmichen11@imperial.ac.uk>
 WORKDIR /root
 
 ADD start_eae.sh /root
+ADD lsfshpc10.1-x86_64.tar.gz.tar.gz /root
 
 ## We install all the dependencies
 RUN apt-get update -q && apt-get upgrade -y --no-install-recommends \

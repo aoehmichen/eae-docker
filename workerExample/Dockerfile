@@ -1,8 +1,8 @@
 FROM ubuntu:16.04
 MAINTAINER Axel Oehmichen <axelfrancois.oehmichen11@imperial.ac.uk>
 
-#ADD lsf.cluster.openlava /root
 ADD start_eae.sh /root
+ADD lsfshpc10.1-x86_64.tar.gz.tar.gz /root
 
 ## We install all the dependencies
 RUN apt-get update -q && apt-get upgrade -y --no-install-recommends \
@@ -18,6 +18,8 @@ RUN wget https://mran.revolutionanalytics.com/install/mro/3.3.1/microsoft-r-open
     && cd microsoft-r-open \
     && ./install.sh
 
+## We install LSF
+RUN
 
 # We set up the ssh keys for user eae
 RUN mkdir -p /home/eae/.ssh && chmod 700 /home/eae/.ssh \

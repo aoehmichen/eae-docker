@@ -3,6 +3,7 @@ MAINTAINER Axel Oehmichen <axelfrancois.oehmichen11@imperial.ac.uk>
 
 ADD Cloudera_Management.py /root
 ADD start_eae.sh /root
+ADD lsfshpc10.1-x86_64.tar.gz.tar.gz /root
 
 ## We install all the dependencies
 RUN apt-get update -q \
@@ -12,23 +13,8 @@ RUN apt-get update -q \
     && pip install cm-api \
     && pip install pymongo
 
-## We install openlava
-RUN curl -L https://github.com/aoehmichen/eae-files/raw/master/op.tar.gz -o /root/op.tar.gz  \
-    && tar zxvf /root/op.tar.gz openlava-3.3 \
-    && cd openlava-3.* \
-    && ./configure \
-    && make \
-    && make install \
-    && cd config \
-    && cp lsb.hosts lsb.params lsb.queues lsb.users lsf.cluster.openlava lsf.conf lsf.shared lsf.task openlava.* /opt/openlava-3.3/etc/ \
-    && useradd -r openlava \
-    && chown -R openlava:openlava /opt/openlava-3.*/ \
-    && cp /opt/openlava-3.*/etc/openlava /etc/init.d \
-    && update-rc.d openlava defaults \
-    && cp /opt/openlava-3.3/etc/openlava.* /etc/profile.d \
-    && chown openlava:openlava /etc/profile.d/openlava.* \
-    && chmod 755 /etc/profile.d/openlava.sh \
-    && chown openlava:openlava /opt/openlava-3.3/etc/*
+## We install LSF
+RUN
 
 # We set up the ssh keys for user eae
 RUN mkdir -p /home/eae/.ssh && chmod 700 /home/eae/.ssh \
