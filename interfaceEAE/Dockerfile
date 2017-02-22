@@ -5,6 +5,10 @@ WORKDIR /root
 
 ADD start_eae.sh /root
 ADD lsfshpc10.1-x86_64.tar.gz /root
+ADD install.config /root
+ADD lsb.hosts /root
+ADD lsb.queues /root
+ADD lsf.cluster.clusterLSF /root
 
 ## We install all the dependencies
 RUN apt-get update -q && apt-get upgrade -y --no-install-recommends \

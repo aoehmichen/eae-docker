@@ -2,7 +2,11 @@ FROM ubuntu:16.04
 MAINTAINER Axel Oehmichen <axelfrancois.oehmichen11@imperial.ac.uk>
 
 ADD start_eae.sh /root
-ADD lsfshpc10.1-x86_64.tar.gz.tar.gz /root
+ADD lsfshpc10.1-x86_64.tar.gz /root
+ADD install.config /root
+ADD lsb.hosts /root
+ADD lsb.queues /root
+ADD lsf.cluster.clusterLSF /root
 
 ## We install all the dependencies
 RUN apt-get update -q && apt-get upgrade -y --no-install-recommends \
@@ -19,7 +23,21 @@ RUN wget https://mran.revolutionanalytics.com/install/mro/3.3.1/microsoft-r-open
     && ./install.sh
 
 ## We install LSF
-RUN
+RUN mkdir -p /usr/share/lsf/lsf_distrib/ \
+    && gunzip lsfshpc10.1-x86_64.tar.gz \
+    && tar -xvf lsfshpc10.1-x86_64.tar \
+    && cd lsfshpc10.1-x86_64/lsf/ \
+    && mv lsf10.1_linux2.6-glibc2.3-x86_64.tar.Z  /usr/share/lsf/lsf_distrib/ \
+    && gunzip lsf10.1_lsfinstall_linux_x86_64.tar.Z \
+    && tar -xvf lsf10.1_lsfinstall_linux_x86_64.tar --directory /usr/share/lsf/lsf_distrib/ \
+    && cd /usr/share/lsf/lsf_distrib/lsf10.1_lsfinstall \
+    && cp /root/install.config . \
+    && lsfinstall -f install.config \
+    && cd /root \
+    && cp lsf.cluster.clusterLSF /usr/share/lsf/conf/ \
+    && cp lsb.hosts lsb.queues /usr/share/lsf/conf/lsbatch/clusterLSF/configdir/ \
+    && cd /usr/share/lsf/10.1/install \
+    && ./hostsetup
 
 # We set up the ssh keys for user eae
 RUN mkdir -p /home/eae/.ssh && chmod 700 /home/eae/.ssh \
