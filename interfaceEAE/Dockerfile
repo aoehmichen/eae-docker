@@ -13,7 +13,7 @@ RUN apt-get update -q && apt-get upgrade -y --no-install-recommends \
 
 ## We install LSF
 RUN mkdir -p /usr/share/lsf/lsf_distrib/ \
-    && gunzip lsfshpc10.1-x86_64.tar.gz.tar.gz \
+    && gunzip lsfshpc10.1-x86_64.tar.gz \
     && tar -xvf lsfshpc10.1-x86_64.tar \
     && cd lsfshpc10.1-x86_64/lsf/ \
     && mv lsf10.1_linux2.6-glibc2.3-x86_64.tar.Z  /usr/share/lsf/lsf_distrib/ \
