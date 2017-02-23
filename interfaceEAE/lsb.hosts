@@ -36,10 +36,10 @@ HOST_NAME MXJ   r1m     pg    ls    tmp  DISPATCH_WINDOW  AFFINITY  # Keywords
 #hostC     1    3.5/5   18    15     ()     ()		  (Y)   # Example
 #hostD     !    ()      ()    ()     ()     ()		  (Y)   # Example
 #hostE     4    ()      ()    ()     ()     ()		  (Y)   # Example
-interfaceeae        1   ()     ()    ()    ()     ()     (Y)         # Example eAE
-worker1        1   ()     ()    ()    ()     ()     (Y)         # Example eAE
-worker2        1   ()     ()    ()    ()     ()     (Y)         # Example eAE
-workerSpark        1   ()     ()    ()    ()     ()     (Y)         # Example eAE
+interfaceeae     !   ()     ()    ()    ()     ()     (Y)   # Example eAE
+worker1        1   ()     ()    ()    ()     ()     (Y)     # Example eAE
+worker2        1   ()     ()    ()    ()     ()     (Y)     # Example eAE
+workerSpark        1   ()     ()    ()    ()     ()     (Y) # Example eAE
 default    !    ()      ()    ()     ()     ()		  (Y)   # Example
 End Host
 
@@ -73,6 +73,6 @@ End HostGroup
 # Host group for all master candidate hosts
 Begin HostGroup
 GROUP_NAME    GROUP_MEMBER      #GROUP_ADMIN # Key words
-master_hosts      (eti-lsf-dev )
+master_hosts      (interfaceeae )
 End HostGroup
 
