@@ -14,7 +14,7 @@
 #
 
 Begin   ClusterAdmins
-Administrators = lsfadmin ubuntu
+Administrators = eae
 End    ClusterAdmins 
 
 Begin	Host
