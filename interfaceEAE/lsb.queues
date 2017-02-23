@@ -422,6 +422,6 @@ QUEUE_NAME    = spark
 PRIORITY      = 30
 NICE          = 20
 QJOB_LIMIT    = 100
-HOSTS         = workerSpark
+HOSTS         = workerspark
 DESCRIPTION   = For computations requiring Spark ressources.
 End Queue
