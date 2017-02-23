@@ -13,13 +13,12 @@ ADD lsf.cluster.clusterLSF /root
 ## We install all the dependencies
 RUN apt-get update -q && apt-get upgrade -y --no-install-recommends \
     && apt-get install -y wget curl git unzip zip tomcat7 libncurses-dev psmisc default-jdk vim htop openssh-server \
-    && apt-get install -y tcl-dev ed
+    && apt-get install -y tcl-dev ed \
+    && useradd -ms /bin/bash eae
 
 ## We install LSF
 RUN mkdir -p /usr/share/lsf/ \
     && mkdir -p /usr/share/lsf_distrib/ \
-    && gunzip lsfshpc10.1-x86_64.tar.gz \
-    && tar -xvf lsfshpc10.1-x86_64.tar \
     && cd lsfshpc10.1-x86_64/lsf/ \
     && mv lsf10.1_linux2.6-glibc2.3-x86_64.tar.Z  /usr/share/lsf_distrib/ \
     && gunzip lsf10.1_lsfinstall_linux_x86_64.tar.Z \
@@ -37,8 +36,7 @@ RUN mkdir -p /usr/share/lsf/ \
 RUN curl -L https://github.com/aoehmichen/eae-files/raw/master/interfaceEAE.war -o /var/lib/tomcat7/webapps/interfaceEAE.war
 
 # We create the eae user and set the tomcat to run as the newly created eae user
-RUN useradd -ms /bin/bash eae \
-    && mkdir -p /home/eae/.grails/interfaceEAEConfig \
+RUN mkdir -p /home/eae/.grails/interfaceEAEConfig \
     && chown -R eae:eae /home/eae/.grails/ \
     && sed -i "s/TOMCAT7_USER=tomcat7/TOMCAT7_USER=eae/g" /etc/default/tomcat7 \
     && sed -i "s/TOMCAT7_GROUP=tomcat7/TOMCAT7_GROUP=eae/g" /etc/default/tomcat7 \
