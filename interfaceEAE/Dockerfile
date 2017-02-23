@@ -29,9 +29,7 @@ RUN cd /usr/share/lsf_distrib/lsf10.1_lsfinstall \
     && ./lsfinstall -f install.config \
     && cd /root \
     && cp lsf.cluster.clusterLSF /usr/share/lsf/conf/ \
-    && cp lsb.hosts lsb.queues /usr/share/lsf/conf/lsbatch/clusterLSF/configdir/ \
-    && cd /usr/share/lsf/10.1/install \
-    && ./hostsetup --top="/usr/share/lsf" --quiet
+    && cp lsb.hosts lsb.queues /usr/share/lsf/conf/lsbatch/clusterLSF/configdir/
 
 # We set the configuration files
 RUN curl -L https://github.com/aoehmichen/eae-files/raw/master/interfaceEAE.war -o /var/lib/tomcat7/webapps/interfaceEAE.war

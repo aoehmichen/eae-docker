@@ -3,6 +3,9 @@
 # We get the environment set to get access to the LSF's bhosts, bqueues etc...
 . /usr/share/lsf/conf/profile.lsf
 
+cd /usr/share/lsf/10.1/install
+./hostsetup --top="/usr/share/lsf" --quiet
+
 # We restart the openlava services
 badmin hstartup
 lsadmin resstartup

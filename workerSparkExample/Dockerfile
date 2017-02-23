@@ -30,9 +30,7 @@ RUN cd /usr/share/lsf_distrib/lsf10.1_lsfinstall \
     && ./lsfinstall -f install.config \
     && cd /root \
     && cp lsf.cluster.clusterLSF /usr/share/lsf/conf/ \
-    && cp lsb.hosts lsb.queues /usr/share/lsf/conf/lsbatch/clusterLSF/configdir/ \
-    && cd /usr/share/lsf/10.1/install \
-    && ./hostsetup --top="/usr/share/lsf" --quiet
+    && cp lsb.hosts lsb.queues /usr/share/lsf/conf/lsbatch/clusterLSF/configdir/
 
 # We set up the ssh keys for user eae
 RUN mkdir -p /home/eae/.ssh && chmod 700 /home/eae/.ssh \

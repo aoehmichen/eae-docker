@@ -21,6 +21,8 @@ cp interfaceEAE/lsb.* workerExample
 cp interfaceEAE/lsb.* workerSparkExample
 cp interfaceEAE/lsf.cluster.* workerExample
 cp interfaceEAE/lsf.cluster.* workerSparkExample
+cp interfaceEAE/install.config workerExample
+cp interfaceEAE/install.config workerSparkExample
 cp interfaceEAE/lsfshpc* workerExample
 cp interfaceEAE/lsfshpc* workerSparkExample
 
