@@ -23,15 +23,16 @@ RUN mkdir -p /usr/share/lsf/ \
     && cd lsfshpc10.1-x86_64/lsf/ \
     && mv lsf10.1_linux2.6-glibc2.3-x86_64.tar.Z  /usr/share/lsf_distrib/ \
     && gunzip lsf10.1_lsfinstall_linux_x86_64.tar.Z \
-    && tar -xvf lsf10.1_lsfinstall_linux_x86_64.tar --directory /usr/share/lsf_distrib/ \
-    && cd /usr/share/lsf_distrib/lsf10.1_lsfinstall \
+    && tar -xvf lsf10.1_lsfinstall_linux_x86_64.tar --directory /usr/share/lsf_distrib/
+
+RUN cd /usr/share/lsf_distrib/lsf10.1_lsfinstall \
     && cp /root/install.config . \
     && ./lsfinstall -f install.config \
     && cd /root \
     && cp lsf.cluster.clusterLSF /usr/share/lsf/conf/ \
     && cp lsb.hosts lsb.queues /usr/share/lsf/conf/lsbatch/clusterLSF/configdir/ \
     && cd /usr/share/lsf/10.1/install \
-    && ./hostsetup
+    && ./hostsetup --top="/usr/share/lsf" --quiet
 
 # We set up the ssh keys for user eae
 RUN mkdir -p /home/eae/.ssh && chmod 700 /home/eae/.ssh \
