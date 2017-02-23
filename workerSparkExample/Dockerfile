@@ -14,7 +14,7 @@ WORKDIR /root
 ## We install all the dependencies
 RUN apt-get update -q \
     && apt-get install -y vim git wget curl zip python-numpy python-scipy python-matplotlib python-pip python-scikits-learn libcurl4-openssl-dev libncurses-dev libxml2-dev \
-    && apt-get install -y libcurl4-gnutls-dev tcl-dev psmisc openssh-server \
+    && apt-get install -y libcurl4-gnutls-dev tcl-dev psmisc openssh-server ed \
     && pip install scimath \
     && pip install cm-api \
     && pip install pymongo
