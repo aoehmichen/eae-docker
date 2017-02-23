@@ -13,19 +13,20 @@ ADD lsf.cluster.clusterLSF /root
 ## We install all the dependencies
 RUN apt-get update -q && apt-get upgrade -y --no-install-recommends \
     && apt-get install -y wget curl git unzip zip tomcat7 libncurses-dev psmisc default-jdk vim htop openssh-server \
-    && apt-get install -y tcl-dev
+    && apt-get install -y tcl-dev ed
 
 ## We install LSF
-RUN mkdir -p /usr/share/lsf/lsf_distrib/ \
+RUN mkdir -p /usr/share/lsf/ \
+    && mkdir -p /usr/share/lsf_distrib/ \
     && gunzip lsfshpc10.1-x86_64.tar.gz \
     && tar -xvf lsfshpc10.1-x86_64.tar \
     && cd lsfshpc10.1-x86_64/lsf/ \
-    && mv lsf10.1_linux2.6-glibc2.3-x86_64.tar.Z  /usr/share/lsf/lsf_distrib/ \
+    && mv lsf10.1_linux2.6-glibc2.3-x86_64.tar.Z  /usr/share/lsf_distrib/ \
     && gunzip lsf10.1_lsfinstall_linux_x86_64.tar.Z \
-    && tar -xvf lsf10.1_lsfinstall_linux_x86_64.tar --directory /usr/share/lsf/lsf_distrib/ \
-    && cd /usr/share/lsf/lsf_distrib/lsf10.1_lsfinstall \
+    && tar -xvf lsf10.1_lsfinstall_linux_x86_64.tar --directory /usr/share/lsf_distrib/ \
+    && cd /usr/share/lsf_distrib/lsf10.1_lsfinstall \
     && cp /root/install.config . \
-    && lsfinstall -f install.config \
+    && ./lsfinstall -f install.config \
     && cd /root \
     && cp lsf.cluster.clusterLSF /usr/share/lsf/conf/ \
     && cp lsb.hosts lsb.queues /usr/share/lsf/conf/lsbatch/clusterLSF/configdir/ \
@@ -33,8 +34,7 @@ RUN mkdir -p /usr/share/lsf/lsf_distrib/ \
     && ./hostsetup
 
 # We set the configuration files
-RUN curl -L https://github.com/aoehmichen/eae-files/raw/master/interfaceEAE.war -o /var/lib/tomcat7/webapps/interfaceEAE.war \
-    && chown openlava:openlava /opt/openlava-3.3/etc/*
+RUN curl -L https://github.com/aoehmichen/eae-files/raw/master/interfaceEAE.war -o /var/lib/tomcat7/webapps/interfaceEAE.war
 
 # We create the eae user and set the tomcat to run as the newly created eae user
 RUN useradd -ms /bin/bash eae \
