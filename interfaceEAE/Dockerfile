@@ -72,4 +72,4 @@ EXPOSE 16322/udp
 
 ENTRYPOINT ["bash", "/root/start_eae.sh"]
 
-CMD ["-bash", "Unsecure"]
+CMD ["-bash", "LSF"]

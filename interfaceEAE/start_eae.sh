@@ -30,6 +30,14 @@ if [[ $2 == "Unsecure" ]]; then
     curl -L https://github.com/aoehmichen/eae-files/raw/master/interfaceEAE_unsecure.war -o /var/lib/tomcat7/webapps/interfaceEAE.war
 fi
 
+## build a local mongo if a remote one is not provided
+if [[ $2 == "LSF" ]]; then
+    ## We need to download and deploy an interfaceEAE version without user authentication
+    rm -rf /var/lib/tomcat/webapps/interfaceEAE*
+    rm -rf /var/lib/tomcat/logs/*
+    curl -L https://github.com/aoehmichen/eae-files/raw/master/interfaceEAE_lsf.war -o /var/lib/tomcat7/webapps/interfaceEAE.war
+fi
+
 service tomcat7 restart
 
 ### Sometimes the openlava master and workers are out of sync so we restart the service to make sure that every worker
