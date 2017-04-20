@@ -586,3 +586,9 @@ c.NotebookApp.eae_host_ip = 'jupytereae'
 
 ## Port on the host machine where ssh port is mapped
 c.NotebookApp.eae_host_ssh_port = 22
+
+## max_body_size is the largest response body that the client will accept.
+c.NotebookApp.tornado_max_body_size = 26843545600  # 26GB
+
+## max_buffer_size is the number of bytes that can be read into memory at once.
+c.NotebookApp.tornado_max_buffer_size = 26843545600  # 26GB
