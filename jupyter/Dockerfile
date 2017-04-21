@@ -26,9 +26,13 @@ RUN export TF_BINARY_URL=https://storage.googleapis.com/tensorflow/linux/cpu/ten
 
 ## Setting up Jupyter notebook and we create the folder where the jupyter notebooks will run
 RUN pip install setuptools pip --upgrade --user \
+    && pip install ipython==5.2.1 \
     && pip install jupyter \
     && git clone https://github.com/aoehmichen/notebook.git \
     && cd notebook \
+    && npm cache clean -f \
+    && npm install -g n \
+    && n stable \
     && pip install -e . --user \
     && cd /root \
     && jupyter-nbextension enable --py widgetsnbextension \

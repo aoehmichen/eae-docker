@@ -21,9 +21,13 @@ RUN pip install scimath \
 
 ## Setting up Jupyter notebook and we create the folder where the jupyter notebooks will run
 RUN pip install setuptools pip --upgrade --user \
+    && pip install ipython==5.2.1 \
     && pip install jupyter \
     && git clone https://github.com/aoehmichen/notebook.git \
     && cd notebook \
+    && npm cache clean -f \
+    && npm install -g n \
+    && n stable \
     && pip install -e . --user \
     && cd /root \
     && jupyter-nbextension enable --py widgetsnbextension \
@@ -40,7 +44,7 @@ RUN wget https://mran.revolutionanalytics.com/install/mro/3.3.1/microsoft-r-open
     && cd /root \
     && Rscript irkernel_install.r
 
-EXPOSE 22 7180 7777 8433 8888 18088
+EXPOSE 22 7777
 
 VOLUME ["/root/jupyter/"]
 
