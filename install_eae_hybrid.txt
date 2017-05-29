@@ -1,0 +1,45 @@
+Th eAE has several components, each one being under a different folder. Each dockerfile is in fact an installation script with the associated files that can be edited to customize the installation thus you can do the installation just by extracting any run command from it.
+
+Each part can be installed on different machines. The archive installation_eae.zip contains the installation scripts for some of the components. The supported version for the servers is Ubuntu 14.04. 
+
+1 - For the workers, the scripts will install the openlava slaves, R and Python.(no DL or spark) However, you can have spark or DL on those workers too but you will need to install them yourself afterward.
+2 - For mongo, you will need to install it yourself in a secure fashion e.g. any connection to the DB requires a user/pwd authentication. You need to create a DB called eae with a user with write right at least. I provide a bash script which in turn call a python script which will insert the first user required by the eae interface. To run the bash script you will need to provide few parameters:
+    MongoIP:Port
+    AdminPwd for the interface (I set eae in the docker-compose example)
+    Name of the user for the eae DB
+    Password for the user for the eae DB
+3 – For the interface you will need to edit the Config.groovy file to set the mongo IP(com.eae.mongoURL = 'mongo:27017'), the mongo user(com.eae.mongoUser = 'eae'), the database(com.eae.mongoUserdatabse = 'eae') and the mongo user password (com.eae.mongoPassword = 'eae'). 
+The other three files enable the configuration of openlava and once modified you need to place them under /opt/openlava-*/etc/.
+lsf.cluster.openlava: This file contains a list of all your machines in all the clusters. Example: gdo01               !              !     1       -       -
+Lsb.hosts : you will need to add all the hosts in your cluster to limit the number of jobs at a time to one per machine. Example: gdo01        1   ()     ()    ()    ()     ()     () 
+If you don’t the number of jobs will be equal to the number of CPUs on the host machine and It cause concurrency issues.
+Lsb.queues: you create the different clusters. Example: 
+Begin Queue
+QUEUE_NAME    = spark
+PRIORITY      = 30
+NICE          = 20
+QJOB_LIMIT    = 100
+HOSTS         = RH-09
+DESCRIPTION   = For computations requiring Spark ressources.
+End Queue
+In the case I create a cluster with only one machine and it belongs to a spark type cluster.
+
+Begin Queue
+QUEUE_NAME    = gpu_test
+PRIORITY      = 30
+NICE          = 20
+QJOB_LIMIT    = 100
+HOSTS         = gdo29 gdo30 gdo31 gdo32
+DESCRIPTION   = For computations requiring GPU ressources.
+This one contains 4 different machines which belong to a GPU type cluster.
+
+I currently support 4 different types of clusters: Python, R, GPU and Spark. To specify the type you need to put it in the first part of the name. eg spark_example_1 or python_example_2. NO SPACE!
+
+To test if the installation went well so far, you can try to login in https://HOST_MACHINE_IP:8443/interfaceEAE 
+
+4- In this configuration the only docker part is the jupyter.  You can either build it locally of directly pull from docker hub.
+              Docker pull aoehmich/jupyter-eae
+To run the container please run:
+docker run -it -h eae-jupyter -p 7777:7777 -p 22222:22 -v /root/eae-docker/jupyter/jupyter_notebook_config.py:/root/jupyter_notebook_config.py -v /root/eae-docker/ssh/id_rsa.pub:/root/id_rsa.pub -v /root/eae-docker/ssh/id_rsa:/root/id_rsa aoehmich/jupyter-sparkless-eae -bash INTERFACEEAE_IP 8433 HOST_MACHINE_IP 22222
+
+You will need to modify this command line to adjust for the path where the eae-docker project is, the INTERFACEEAE_IP and HOST_MACHINE_IP.
